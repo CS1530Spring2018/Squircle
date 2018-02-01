@@ -1,0 +1,4 @@
+virtualenv
+flask
+flask-socketio
+flask-sqlalchemy
