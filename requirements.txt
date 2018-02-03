@@ -2,3 +2,4 @@ virtualenv
 flask
 flask-socketio
 flask-sqlalchemy
+eventlet
