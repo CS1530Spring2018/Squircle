@@ -4,6 +4,7 @@ from werkzeug.useragents import UserAgent
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.exc import IntegrityError
 from database import User, Lobby
+import string, random
 
 @app.route('/')
 def default():
@@ -76,6 +77,19 @@ def profile(username=None):
 @app.route("/lobby/")
 def lobby():
 	return render_template("lobby.html")
+
+@app.route("/lobbycode/")
+def getlobbycode():
+	repeat = True
+	while repeat:
+		codes = Lobby.query.all()
+		code = ''.join([random.choice(string.ascii_uppercase) for n in range(5)])
+		if code not in codes:
+			repeat = False
+	newcode = Lobby(code=code)
+	db.session.add(newcode)
+	db.session.commit()
+	return "Lobby code: " + code
 #Helper functions#
 
 def create_account(new_username, new_password):

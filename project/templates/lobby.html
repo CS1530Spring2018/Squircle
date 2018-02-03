@@ -1,7 +1,15 @@
 {%extends "layout.html"%}
-{%block head%}<title>Squircle Lobby</title>{%endblock%}
+{%block head%}
+	<title>Squircle Lobby</title>
+	<script type="text/javascript" src="{{url_for("static", filename="bower_components/jquery/dist/jquery.min.js")}}"></script>
+	<script type="text/javascript" src="{{url_for("static", filename="scripts/js/lobby.js")}}"></script>
+{%endblock%}
 {%block body%}
+
 	<div id="container">
 		<h1 class="text-center">Lobby</h1>
+		<button id="genLobbyCode" type="button">Create a Lobby</button>
+		<h2 class="text-center" id="lobbycode"></h2>
 	</div>
+	
 {%endblock%}
