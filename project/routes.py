@@ -3,7 +3,7 @@ from flask import redirect, render_template, url_for, session, request, flash
 from werkzeug.useragents import UserAgent
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.exc import IntegrityError
-from database import User, Lobby
+from database import UserProfile, UserStats, UserLogin, Lobby, Chatlog
 
 @app.route('/')
 def default():
@@ -21,7 +21,7 @@ def logger():
 		return redirect(url_for("profile", username=session["username"]))
 	elif request.method == "POST":
 		#query db
-		user = User.query.filter_by(username=request.form["user"]).first()
+		user = UserLogin.query.filter_by(username=request.form["user"]).first()
 		
 		if user is not None:
 			password = user.password
@@ -79,7 +79,7 @@ def lobby():
 #Helper functions#
 
 def create_account(new_username, new_password):
-	new_user = User(username=new_username, password=generate_password_hash(new_password))
+	new_user = UserLogin(username=new_username, password=generate_password_hash(new_password))
 	db.session.add(new_user)
 	try:
 		db.session.commit()
