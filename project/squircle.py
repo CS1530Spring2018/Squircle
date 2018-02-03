@@ -13,4 +13,4 @@ import database
 import routes
 
 if __name__ == '__main__':
-    app.run()
+    socketio.run(app)

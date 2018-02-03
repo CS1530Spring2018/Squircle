@@ -1,5 +1,5 @@
 from squircle import app, db
-from flask import redirect, render_template, url_for, session, request, flash
+from flask import redirect, render_template, url_for, session, request, flash, abort
 from werkzeug.useragents import UserAgent
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.exc import IntegrityError
@@ -71,12 +71,24 @@ def profile(username=None):
 	logged_in = "username" in session and session["username"] == username
 	if logged_in and request.method == "GET":
 		return render_template("profilePage.html", user=username)	
+	elif request.method == "POST" and "join" in request.form:
+		code = request.form['join']
+		lobbies = Lobby.query.filter_by(code=code).first()
+		if lobbies:
+			return redirect(url_for('lobby', code=code))
+		else:
+			flash("That lobby is not valid!")
+			return redirect(url_for("profile", username=username))
 	else:
-		abort(401)
+		abort(404)
 		
 @app.route("/lobby/")
-def lobby():
-	return render_template("lobby.html")
+@app.route("/lobby/<code>")
+def lobby(code=None):
+	if not code:
+		return render_template("lobby.html")
+	else:
+		return render_template("lobby.html", code=code)
 
 @app.route("/lobbycode/")
 def getlobbycode():
@@ -89,7 +101,9 @@ def getlobbycode():
 	newcode = Lobby(code=code)
 	db.session.add(newcode)
 	db.session.commit()
-	return "Lobby code: " + code
+	#return "Lobby code: " + code
+	return url_for("lobby", code=code)
+
 #Helper functions#
 
 def create_account(new_username, new_password):
