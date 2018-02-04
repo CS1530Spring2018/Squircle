@@ -6,36 +6,38 @@ from sqlalchemy.exc import IntegrityError
 import string, random
 from database import UserProfile, UserStats, UserLogin, Lobby, Chatlog
 
+
 @app.route('/')
 def default():
-	ua = request.headers.get('User-Agent')
-	useragent = UserAgent(ua)
-	if useragent.platform in ['android', 'iphone', 'ipad']:
-		#mobile
+    ua = request.headers.get('User-Agent')
+    useragent = UserAgent(ua)
+    if useragent.platform in ['android', 'iphone', 'ipad']:
+        #mobile
 		return redirect(url_for("logger"))
-	else:
-		return redirect(url_for("lobby"))
+    else:
+        return redirect(url_for("lobby"))
 	
 @app.route('/login/', methods=["GET", "POST"])
 def logger():
-	if "username" in session:
-		return redirect(url_for("profile", username=session["username"]))
-	elif request.method == "POST":
-		#query db
+    if "username" in session:
+        return redirect(url_for("profile", username=session["username"]))
+    elif request.method == "POST":
+        #query db
 		user = UserLogin.query.filter_by(username=request.form["user"]).first()
 		
-		if user is not None:
-			password = user.password
-			if check_password_hash(password, request.form["pass"]):
-				#login successful
-				session["username"] = request.form["user"]
-				return redirect(url_for("profile", username=user.username))
-		# bad password or bad username, just login again
-		flash("Invalid login. Try again")
-		return redirect(url_for("logger"))
-	else:
-		return render_template("loginPage.html")
-		
+        if user is not None:
+            password = user.password
+            if check_password_hash(password, request.form["pass"]):
+                #login successful
+			    session["username"] = request.form["user"]
+                return redirect(url_for("profile", username=user.username))
+        # bad password or bad username, just login again
+        flash("Invalid login. Try again")
+        return redirect(url_for("logger"))
+    else:
+        return render_template("loginPage.html")
+
+
 @app.route("/logout/")
 def unlogger():
 	# if logged in, log out, otherwise offer to log in
@@ -44,6 +46,7 @@ def unlogger():
 		return render_template("logoutPage.html")
 	else:
 		return redirect(url_for("logger"))
+
 
 @app.route("/create_profile/", methods=["GET", "POST"])
 def create_profile():
@@ -62,6 +65,7 @@ def create_profile():
 	else:
 		return render_template("createProfilePage.html", title="Sign Up For an Account")
 
+
 @app.route("/profile/")
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username=None):
@@ -73,10 +77,12 @@ def profile(username=None):
 		return render_template("profilePage.html", user=username)	
 	else:
 		abort(401)
-		
+
+
 @app.route("/lobby/")
 def lobby():
 	return render_template("lobby.html")
+
 
 @app.route("/lobbycode/")
 def getlobbycode():
@@ -90,8 +96,9 @@ def getlobbycode():
 	db.session.add(newcode)
 	db.session.commit()
 	return "Lobby code: " + code
-#Helper functions#
 
+
+#Helper functions
 def create_account(new_username, new_password):
 	new_user = UserLogin(username=new_username, password=generate_password_hash(new_password))
 	db.session.add(new_user)
