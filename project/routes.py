@@ -16,6 +16,10 @@ def default():
 		return redirect(url_for("logger"))
     else:
         return redirect(url_for("lobby"))
+
+@app.route('/controller')
+def mobile_controller:
+	pass
 	
 @app.route('/login/', methods=["GET", "POST"])
 def logger():
