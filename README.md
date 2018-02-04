@@ -32,6 +32,10 @@ If on Windows, run `venv\Scripts\activate`
 
 `set FLASK_APP=squircle.py`
 
+or if that doesn't work run:
+
+`export FLASK_APP=squircle.py`
+
 `flask initdb`
 
 `flask run`
