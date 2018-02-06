@@ -11,6 +11,7 @@ db = SQLAlchemy(app)
 
 import database
 import routes
+import socks
 
 if __name__ == '__main__':
     socketio.run(app)
