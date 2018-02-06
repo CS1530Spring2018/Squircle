@@ -16,6 +16,10 @@ def default():
 		return redirect(url_for("logger"))
 	else:
 		return redirect(url_for("lobby"))
+
+@app.route('/controller/', methods=['GET'])
+def mobile_controller():
+	return render_template('index_controller.html')
 	
 @app.route('/login/', methods=["GET", "POST"])
 def logger():
@@ -36,7 +40,6 @@ def logger():
 		return redirect(url_for("logger"))
 	else:
 		return render_template("loginPage.html")
-
 
 @app.route("/logout/")
 def unlogger():
