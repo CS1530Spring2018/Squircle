@@ -1,6 +1,6 @@
 *.db
 *.pyc
-/venv
+project/venv
 /project/static/bower_components
 /node_modules
 .bowercc
