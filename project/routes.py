@@ -6,6 +6,7 @@ from sqlalchemy.exc import IntegrityError
 import string, random
 from database import UserProfile, UserStats, UserLogin, Lobby, Chatlog
 
+
 @app.route('/')
 def default():
 	ua = request.headers.get('User-Agent')
@@ -35,7 +36,8 @@ def logger():
 		return redirect(url_for("logger"))
 	else:
 		return render_template("loginPage.html")
-		
+
+
 @app.route("/logout/")
 def unlogger():
 	# if logged in, log out, otherwise offer to log in
@@ -44,6 +46,7 @@ def unlogger():
 		return render_template("logoutPage.html")
 	else:
 		return redirect(url_for("logger"))
+
 
 @app.route("/create_profile/", methods=["GET", "POST"])
 def create_profile():
@@ -61,6 +64,7 @@ def create_profile():
 		return redirect(url_for("profile", username=request.form["user"]))
 	else:
 		return render_template("createProfilePage.html", title="Sign Up For an Account")
+
 
 @app.route("/profile/")
 @app.route("/profile/<username>", methods=["GET", "POST"])
@@ -81,7 +85,7 @@ def profile(username=None):
 			return redirect(url_for("profile", username=username))
 	else:
 		abort(404)
-		
+
 @app.route("/lobby/")
 @app.route("/lobby/<code>")
 def lobby(code=None):
@@ -89,6 +93,7 @@ def lobby(code=None):
 		return render_template("lobby.html")
 	else:
 		return render_template("lobby.html", code=code)
+
 
 @app.route("/lobbycode/")
 def getlobbycode():
@@ -106,6 +111,8 @@ def getlobbycode():
 
 #Helper functions#
 
+
+#Helper functions
 def create_account(new_username, new_password):
 	new_user = UserLogin(username=new_username, password=generate_password_hash(new_password))
 	db.session.add(new_user)

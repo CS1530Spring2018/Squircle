@@ -32,6 +32,10 @@ If on Windows, run `venv\Scripts\activate`
 
 `set FLASK_APP=squircle.py`
 
+or if that doesn't work run:
+
+`export FLASK_APP=squircle.py`
+
 `flask initdb`
 
 `flask run`
@@ -43,3 +47,19 @@ To run the server over the local network (so phones can connect), first check yo
 Windows: `ipconfig /all`
 
 Then run `flask run --host=<ipaddress>`
+
+## JavaScript Testing
+
+### Installing Jasmine
+
+After installing npm like above, run:
+
+`npm install --save-dev jasmine`
+
+for local install or
+
+`npm install -g jasmine`
+
+for global install
+
+These must be run with sudo or as admin
