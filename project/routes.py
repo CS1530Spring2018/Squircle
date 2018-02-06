@@ -41,8 +41,6 @@ def logger():
 	else:
 		return render_template("loginPage.html")
 
-
-
 @app.route("/logout/")
 def unlogger():
 	# if logged in, log out, otherwise offer to log in
