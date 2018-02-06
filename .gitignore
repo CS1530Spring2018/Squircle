@@ -1,5 +1,6 @@
 *.db
 *.pyc
+/project/.idea
 /venv
 /project/static/bower_components
 /node_modules
