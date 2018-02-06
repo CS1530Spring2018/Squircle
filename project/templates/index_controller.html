@@ -4,14 +4,45 @@
         <meta charset="utf-8">
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
         <title>Controller</title>
-        <link rel="stylesheet" href="main_controller.css?v={random number/string}"><!--need to take out this href and replace with the actual css file for final product-->
+        <style> 
+            canvas{
+                width: 100%;
+                height: 100%;
+                display:block;
+            }
+
+            body{
+                position: relative;
+                display: flex;
+                padding: 0;
+                margin: 0;
+            }
+            .containerL{
+                padding: 0;
+                width:auto;
+                text-align:center;
+                left: 0;
+                background-color:  rgb(235, 199, 0);
+                border-left: 1px solid rgb(235, 199, 0);
+                border-right: 1px solid rgb(235, 199, 0);
+            }
+
+            .containerR{
+                padding: 0;
+                text-align:center;
+                right: 0;
+                background-color: black;
+                border-right: 1px solid rgb(0, 0, 0);
+                border-left: 1px solid rgb(0, 0, 0);
+            }
+        </style>
     </head>
     <body>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script type ="text/javascript" src="https://cdn.scaledrone.com/scaledrone.min.js"></script>
         <script type="text/javascript" src="http://hammerjs.github.io/dist/hammer.min.js"></script>
-        <script type="text/javascript" src="myjoystick.js?v={random number/string}"></script>
-        <script type="text/javascript" src="main.js?v={random number/string}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/js/myjoystick.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/js/main_controller.js') }}"></script>
         <script>
           $(document).ready(function() {
             $('body').css('background-size', 'cover');
