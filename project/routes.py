@@ -9,13 +9,13 @@ from database import UserProfile, UserStats, UserLogin, Lobby, Chatlog
 
 @app.route('/')
 def default():
-    ua = request.headers.get('User-Agent')
-    useragent = UserAgent(ua)
-    if useragent.platform in ['android', 'iphone', 'ipad']:
-        #mobile
+	ua = request.headers.get('User-Agent')
+	useragent = UserAgent(ua)
+	if useragent.platform in ['android', 'iphone', 'ipad']:
+		#mobile
 		return redirect(url_for("logger"))
-    else:
-        return redirect(url_for("lobby"))
+	else:
+		return redirect(url_for("lobby"))
 
 @app.route('/controller/', methods=['GET'])
 def mobile_controller():
@@ -26,16 +26,16 @@ def logger():
 	if "username" in session:
 		return redirect(url_for("profile", username=session["username"]))
 	elif request.method == "POST":
-        #query db
+		#query db
 		user = UserLogin.query.filter_by(username=request.form["user"]).first()
 		
 		if user is not None:
 			password = user.password
 			if check_password_hash(password, request.form["pass"]):
-                #login successful
+				#login successful
 				session["username"] = request.form["user"]
 				return redirect(url_for("profile", username=user.username))
-        # bad password or bad username, just login again
+		# bad password or bad username, just login again
 		flash("Invalid login. Try again")
 		return redirect(url_for("logger"))
 	else:

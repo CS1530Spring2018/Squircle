@@ -114,5 +114,7 @@ function doStuff(){
 
           });
 }//doStuff
-
-var controller = myjoystick (tapFunction, doubleTapFunction, swipeRFunction, swipeLFunction, swipeUFunction, swipeDFunction, touchStart, touchMove, touchStart);
+function setup() {
+	var controller = myjoystick (tapFunction, doubleTapFunction, swipeRFunction, swipeLFunction, swipeUFunction, swipeDFunction, touchStart, touchMove, touchStart);
+}
+window.addEventListener("load", setup, true);
