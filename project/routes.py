@@ -9,9 +9,7 @@ from database import UserProfile, UserStats, UserLogin, Lobby, Chatlog
 
 @app.route('/')
 def default():
-	ua = request.headers.get('User-Agent')
-	useragent = UserAgent(ua)
-	if useragent.platform in ['android', 'iphone', 'ipad']:
+	if is_mobile():
 		#mobile
 		return redirect(url_for("logger"))
 	else:
@@ -95,7 +93,10 @@ def lobby(code=None):
 	if not code:
 		return render_template("lobby.html")
 	else:
-		return render_template("lobby.html", code=code)
+		if is_mobile():
+			return render_template("lobbym.html", code=code)
+		else:
+			return render_template("lobby.html", code=code)
 
 
 @app.route("/lobbycode/")
@@ -114,8 +115,12 @@ def getlobbycode():
 
 #Helper functions#
 
+def is_mobile():
+	ua = request.headers.get('User-Agent')
+	useragent = UserAgent(ua)
+	return useragent.platform in ['android', 'iphone', 'ipad']
+	
 
-#Helper functions
 def create_account(new_username, new_password):
 	new_user = UserLogin(username=new_username, password=generate_password_hash(new_password))
 	db.session.add(new_user)
