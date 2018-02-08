@@ -3,15 +3,13 @@
 	<title>Squircle Lobby</title>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/jquery/dist/jquery.min.js")}}"></script>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/socket.io-client/dist/socket.io.slim.js")}}"></script>
-	<script type="text/javascript" src="{{url_for("static", filename="scripts/js/lobby.js")}}"></script>
+	<script type="text/javascript" src="{{url_for("static", filename="scripts/js/lobbym.js")}}"></script>
 {%endblock%}
 {%block body%}
 
 	<div id="container">
-		<h1 class="text-center" id="lobbycode">Lobby{% if code %} {{code}} {% endif %}</h1>
-		{% if not code %}
-			<button id="genLobbyCode" type="button">Create a Lobby</button>
-		{% endif %}
+		<h1 class="text-center">Lobby {% if code %} {{code}} {% endif %}</h1>
+		<h2 class="text-center" id="lobbycode"></h2>
 	</div>
 	
 {%endblock%}

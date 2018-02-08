@@ -1,5 +1,5 @@
 from squircle import app, db
-from flask import redirect, render_template, url_for, session, request, flash
+from flask import redirect, render_template, url_for, session, request, flash, abort
 from werkzeug.useragents import UserAgent
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.exc import IntegrityError
@@ -9,9 +9,7 @@ from database import UserProfile, UserStats, UserLogin, Lobby, Chatlog
 
 @app.route('/')
 def default():
-	ua = request.headers.get('User-Agent')
-	useragent = UserAgent(ua)
-	if useragent.platform in ['android', 'iphone', 'ipad']:
+	if is_mobile():
 		#mobile
 		return redirect(url_for("logger"))
 	else:
@@ -78,13 +76,27 @@ def profile(username=None):
 	logged_in = "username" in session and session["username"] == username
 	if logged_in and request.method == "GET":
 		return render_template("profilePage.html", user=username)	
+	elif request.method == "POST" and "join" in request.form:
+		code = request.form['join']
+		lobbies = Lobby.query.filter_by(code=code).first()
+		if lobbies:
+			return redirect(url_for('lobby', code=code))
+		else:
+			flash("That lobby is not valid!")
+			return redirect(url_for("profile", username=username))
 	else:
-		abort(401)
-
+		abort(404)
 
 @app.route("/lobby/")
-def lobby():
-	return render_template("lobby.html")
+@app.route("/lobby/<code>")
+def lobby(code=None):
+	if not code:
+		return render_template("lobby.html")
+	else:
+		if is_mobile():
+			return render_template("lobbym.html", code=code)
+		else:
+			return render_template("lobby.html", code=code)
 
 
 @app.route("/lobbycode/")
@@ -98,10 +110,17 @@ def getlobbycode():
 	newcode = Lobby(code=code)
 	db.session.add(newcode)
 	db.session.commit()
-	return "Lobby code: " + code
+	#return "Lobby Code: " + code
+	return url_for("lobby", code=code)
 
+#Helper functions#
 
-#Helper functions
+def is_mobile():
+	ua = request.headers.get('User-Agent')
+	useragent = UserAgent(ua)
+	return useragent.platform in ['android', 'iphone', 'ipad']
+	
+
 def create_account(new_username, new_password):
 	new_user = UserLogin(username=new_username, password=generate_password_hash(new_password))
 	db.session.add(new_user)
