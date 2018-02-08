@@ -110,7 +110,7 @@ def getlobbycode():
 	newcode = Lobby(code=code)
 	db.session.add(newcode)
 	db.session.commit()
-	#return "Lobby code: " + code
+	#return "Lobby Code: " + code
 	return url_for("lobby", code=code)
 
 #Helper functions#
