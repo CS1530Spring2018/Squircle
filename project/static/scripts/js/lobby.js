@@ -5,11 +5,13 @@ function setup() {
 		lobbycode = lobby.substring(5).trim();
 		var socket = io.connect('http://' + document.domain + ':' + location.port);
 		socket.on('connect', function() {
-			socket.emit('my event', {'code': lobbycode});
+			socket.emit('create', {'code': lobbycode});
+		});
+		socket.on("new user", function(username) {
+			$("#users").append($("<li>").text(username));
 		});
 	}
 	$("#genLobbyCode").on("click", function() {
-		//$("#lobbycode").load("/lobbycode/");
 		var req = new XMLHttpRequest(); 
 		req.open("GET", "/lobbycode/");
 		req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -24,9 +26,7 @@ function setup() {
 				}
 			}
 		}
-		
 		req.send();
-		console.log("created lobby");
 	});
 }
 window.addEventListener("load", setup, true);

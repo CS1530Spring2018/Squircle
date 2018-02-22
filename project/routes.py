@@ -94,7 +94,7 @@ def lobby(code=None):
 		return render_template("lobby.html")
 	else:
 		if is_mobile():
-			return render_template("lobbym.html", code=code)
+			return render_template("lobbym.html", code=code, username=session["username"])
 		else:
 			return render_template("lobby.html", code=code)
 
