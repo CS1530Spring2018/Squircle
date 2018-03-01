@@ -11,6 +11,7 @@
 		var users = data["users"];
 		var players = users["players"];
 		var spectators = users["spectators"];
+		var numPlayers = data["num_players"];
 		console.log(data);
 		console.log(users);
 	</script>
@@ -28,4 +29,5 @@
 		<div id="spectators">
 		</div>
 	</div>
+	<button id="ready" type="button" disabled>I'm Ready</button>
 {%endblock%}

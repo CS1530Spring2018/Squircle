@@ -6,7 +6,8 @@ from sqlalchemy.exc import IntegrityError
 import string, random, json
 from database import UserProfile, UserStats, UserLogin, Lobby, Chatlog
 
-from socks import room_occupants
+from socks import room_occupants, num_players
+
 @app.route('/')
 def default():
 	if is_mobile():
@@ -15,10 +16,22 @@ def default():
 	else:
 		return redirect(url_for("lobby"))
 
+@app.route('/getcontroller/')
+def redirect_controller():
+	return url_for('mobile_controller')
+
 @app.route('/controller/', methods=['GET'])
 def mobile_controller():
 	return render_template('index_controller.html')
-	
+
+@app.route('/getgame/')
+def redirect_game():
+	return url_for('game_page')
+
+@app.route('/game/')
+def game_page():
+	return render_template('game.html')
+
 @app.route('/login/', methods=["GET", "POST"])
 def logger():
 	if "username" in session:
@@ -95,9 +108,9 @@ def lobby(code=None):
 		return render_template("lobby.html")
 	else:
 		if is_mobile():
-			return render_template("lobbym.html", code=code, data = json.dumps({'username':session['username'], 'users':room_occupants[code]}))
+			return render_template("lobbym.html", code=code, data=json.dumps({'username':session['username'], 'users':room_occupants[code], 'num_players':num_players}))
 		else:
-			return render_template("lobby.html", code=code)
+			return render_template("lobby.html", code=code, num_players=num_players)
 
 
 @app.route("/lobbycode/")
@@ -119,7 +132,7 @@ def getlobbycode():
 def is_mobile():
 	ua = request.headers.get('User-Agent')
 	useragent = UserAgent(ua)
-	return useragent.platform in ['android', 'iphone', 'ipad']
+	return useragent.platform not in ['android', 'iphone', 'ipad']
 	
 
 def create_account(new_username, new_password):
