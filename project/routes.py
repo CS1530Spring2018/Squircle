@@ -132,7 +132,7 @@ def getlobbycode():
 def is_mobile():
 	ua = request.headers.get('User-Agent')
 	useragent = UserAgent(ua)
-	return useragent.platform not in ['android', 'iphone', 'ipad']
+	return useragent.platform in ['android', 'iphone', 'ipad']
 	
 
 def create_account(new_username, new_password):
