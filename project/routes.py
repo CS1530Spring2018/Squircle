@@ -84,7 +84,7 @@ def profile(username=None):
 			return redirect(url_for('lobby', code=code))
 		else:
 			flash("That lobby is not valid!")
-			return url_for("profile", username=username)
+			return redirect(url_for("profile", username=username))
 	else:
 		abort(404)
 
@@ -95,7 +95,7 @@ def lobby(code=None):
 		return render_template("lobby.html")
 	else:
 		if is_mobile():
-			return render_template("lobbym.html", code=code), data = json.dumps({'username':session['username'], 'users':room_occupants[code]}))
+			return render_template("lobbym.html", code=code, data = json.dumps({'username':session['username'], 'users':room_occupants[code]}))
 		else:
 			return render_template("lobby.html", code=code)
 

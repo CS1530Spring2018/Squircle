@@ -1,8 +1,11 @@
 
 function setup() {
 	console.log(users);
-	for (user in users) {
-		$("#users").append($("<li>").text(users[user]));
+	for (p in players) {
+		$("#players").append($("<li>").text(players[p]));
+	}
+	for (s in spectators) {
+		$("#spectators").append($("<li>").text(spectators[s]));
 	}
 	var socket = io.connect('http://' + document.domain + ':' + location.port);
 	socket.on('connect', function() {
@@ -11,7 +14,11 @@ function setup() {
 	
 	socket.on('new user', function(username) {
 		console.log("new user joined");
-		$("#users").append($("<li>").text(username));
+		if ($("#players").length == 4) {
+			$("#spectators").append($("<li>").text(username));
+		} else {
+			$("#players").append($("<li>").text(username));
+		}
 	});
 }
 window.addEventListener("load", setup, true);

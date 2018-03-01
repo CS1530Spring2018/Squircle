@@ -6,7 +6,11 @@ function setup() {
 		});
 		socket.on('new user', function(username) {
 			console.log("new user joined");
-			$("#users").append($("<li>").text(username));
+			if ($("#players").length == 4) {
+				$("#spectators").append($("<li>").text(username));
+			} else {
+				$("#players").append($("<li>").text(username));
+			}
 		});
 	}
 	$("#genLobbyCode").on("click", function() {
