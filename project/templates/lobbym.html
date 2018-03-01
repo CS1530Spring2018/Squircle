@@ -9,6 +9,9 @@
 		var username = data["username"];
 		var lobbycode = "{{code}}";
 		var users = data["users"];
+		var players = users["players"];
+		var spectators = users["spectators"];
+		var numPlayers = data["num_players"];
 		console.log(data);
 		console.log(users);
 	</script>
@@ -20,6 +23,11 @@
 		<h1 class="text-center" id="lobbycode">Lobby {% if code %} {{code}} {% endif %}</h1>
 		
 	</div>
-	<div id="users">
+	<div >
+		<div id="players">
+		</div>
+		<div id="spectators">
+		</div>
 	</div>
+	<button id="ready" type="button" disabled>I'm Ready</button>
 {%endblock%}

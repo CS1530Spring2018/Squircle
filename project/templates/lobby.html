@@ -9,7 +9,7 @@
 		{% else %}
 			var lobbycode = null;
 		{% endif %}
-		
+		var numPlayers = {{num_players|safe}};
 	</script>
 	<script type="text/javascript" src="{{url_for("static", filename="scripts/js/lobby.js")}}"></script>
 {%endblock%}
@@ -20,7 +20,11 @@
 		{% if not code %}
 			<button id="genLobbyCode" type="button">Create a Lobby</button>
 		{% endif %}
-		<div id="users">
+		<div>
+			<div id="players">
+			</div>
+			<div id="spectators">
+			</div>
 		</div>
 	</div>
 	
