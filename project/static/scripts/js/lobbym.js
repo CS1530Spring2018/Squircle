@@ -4,7 +4,7 @@ function setup() {
 	socket.on('connect', function() {
 		var lobbycode = $("#lobbycode").text().substring(5).trim();
 		console.log(lobbycode);
-		socket.emit('join', {'code': lobbycode, 'username': {{username}} });
+		socket.emit('join', {'code':lobbycode, 'username':username});
 	});
 }
 window.addEventListener("load", setup, true);

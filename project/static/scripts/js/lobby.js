@@ -1,13 +1,11 @@
 function setup() {
-	var lobby = $("#lobbycode").text();
-	if (lobby.length > 6) {
-		//there is a lobby code
-		lobbycode = lobby.substring(5).trim();
+	if (lobbycode != null) {
 		var socket = io.connect('http://' + document.domain + ':' + location.port);
 		socket.on('connect', function() {
 			socket.emit('create', {'code': lobbycode});
 		});
-		socket.on("new user", function(username) {
+		socket.on('new user', function(username) {
+			console.log("new user joined");
 			$("#users").append($("<li>").text(username));
 		});
 	}

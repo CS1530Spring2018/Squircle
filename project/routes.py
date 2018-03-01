@@ -3,7 +3,7 @@ from flask import redirect, render_template, url_for, session, request, flash, a
 from werkzeug.useragents import UserAgent
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.exc import IntegrityError
-import string, random
+import string, random, json
 from database import UserProfile, UserStats, UserLogin, Lobby, Chatlog
 
 
@@ -94,7 +94,7 @@ def lobby(code=None):
 		return render_template("lobby.html")
 	else:
 		if is_mobile():
-			return render_template("lobbym.html", code=code, username=session["username"])
+			return render_template("lobbym.html", code=code, data = json.dumps({'username':session['username']}))
 		else:
 			return render_template("lobby.html", code=code)
 

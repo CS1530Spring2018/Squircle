@@ -3,6 +3,14 @@
 	<title>Squircle Lobby</title>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/jquery/dist/jquery.min.js")}}"></script>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/socket.io-client/dist/socket.io.slim.js")}}"></script>
+	<script type="text/javascript">
+		{% if code %}
+			var lobbycode = "{{code|safe}}";
+		{% else %}
+			var lobbycode = null;
+		{% endif %}
+		
+	</script>
 	<script type="text/javascript" src="{{url_for("static", filename="scripts/js/lobby.js")}}"></script>
 {%endblock%}
 {%block body%}
