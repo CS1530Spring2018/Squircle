@@ -6,7 +6,7 @@ from sqlalchemy.exc import IntegrityError
 import string, random, json
 from database import UserProfile, UserStats, UserLogin, Lobby, Chatlog
 
-
+from socks import room_occupants
 @app.route('/')
 def default():
 	if is_mobile():
@@ -76,12 +76,12 @@ def profile(username=None):
 	logged_in = "username" in session and session["username"] == username
 	if logged_in and request.method == "GET":
 		return render_template("profilePage.html", user=username)	
-	elif request.method == "POST":# and "join" in request.form:
+	elif request.method == "POST" and "code" in request.form:
 		code = request.form['code']
 		print(code)
 		lobbies = Lobby.query.filter_by(code=code).first()
 		if lobbies:
-			return url_for('lobby', code=code)
+			return redirect(url_for('lobby', code=code))
 		else:
 			flash("That lobby is not valid!")
 			return url_for("profile", username=username)
@@ -95,7 +95,7 @@ def lobby(code=None):
 		return render_template("lobby.html")
 	else:
 		if is_mobile():
-			return render_template("lobbym.html", code=code, data = json.dumps({'username':session['username']}))
+			return render_template("lobbym.html", code=code), data = json.dumps({'username':session['username'], 'users':room_occupants[code]}))
 		else:
 			return render_template("lobby.html", code=code)
 

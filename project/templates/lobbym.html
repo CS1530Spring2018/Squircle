@@ -1,12 +1,16 @@
 {%extends "layout.html"%}
 {%block head%}
 	<title>Squircle Lobby</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/jquery/dist/jquery.min.js")}}"></script>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/socket.io-client/dist/socket.io.slim.js")}}"></script>
 	<script tpye="text/javascript">
 		var data = {{data|safe}};
 		var username = data["username"];
 		var lobbycode = "{{code}}";
+		var users = data["users"];
+		console.log(data);
+		console.log(users);
 	</script>
 	<script type="text/javascript" src="{{url_for("static", filename="scripts/js/lobbym.js")}}"></script>
 {%endblock%}
@@ -16,5 +20,6 @@
 		<h1 class="text-center" id="lobbycode">Lobby {% if code %} {{code}} {% endif %}</h1>
 		
 	</div>
-	
+	<div id="users">
+	</div>
 {%endblock%}
