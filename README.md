@@ -71,3 +71,7 @@ During development, you can have the server auto-restart when there are changes 
 After running `set FLASK_APP=squircle.py` (or `export FLASK_APP=squircle.py` if on macos/linux), run `set FLASK_DEBUG=1` (or `export FLASK_DEBUG=1` if on macos/linux)
 
 For ease of testing mobile pages, you can modify the `is_mobile()` function to return true. Just don't commit that.
+
+You can use profiles in Chrome to sign into multiple squircle accounts at the same time for testing. [Profiles](https://www.pcworld.com/article/2089364/how-to-create-and-manage-multiple-user-profiles-in-chrome.html)
+
+Use incognito tabs to force cache reload evertime the page is reloaded. 
