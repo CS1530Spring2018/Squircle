@@ -76,14 +76,15 @@ def profile(username=None):
 	logged_in = "username" in session and session["username"] == username
 	if logged_in and request.method == "GET":
 		return render_template("profilePage.html", user=username)	
-	elif request.method == "POST" and "join" in request.form:
-		code = request.form['join']
+	elif request.method == "POST":# and "join" in request.form:
+		code = request.form['code']
+		print(code)
 		lobbies = Lobby.query.filter_by(code=code).first()
 		if lobbies:
-			return redirect(url_for('lobby', code=code))
+			return url_for('lobby', code=code)
 		else:
 			flash("That lobby is not valid!")
-			return redirect(url_for("profile", username=username))
+			return url_for("profile", username=username)
 	else:
 		abort(404)
 

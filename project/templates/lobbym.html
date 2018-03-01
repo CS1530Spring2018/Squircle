@@ -6,6 +6,7 @@
 	<script tpye="text/javascript">
 		var data = {{data|safe}};
 		var username = data["username"];
+		var lobbycode = "{{code}}";
 	</script>
 	<script type="text/javascript" src="{{url_for("static", filename="scripts/js/lobbym.js")}}"></script>
 {%endblock%}
