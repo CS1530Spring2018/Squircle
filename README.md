@@ -63,3 +63,11 @@ for local install or
 for global install
 
 These must be run with sudo or as admin
+
+## Development
+
+During development, you can have the server auto-restart when there are changes made to the Python code.
+
+After running `set FLASK_APP=squircle.py` (or `export FLASK_APP=squircle.py` if on macos/linux), run `set FLASK_DEBUG=1` (or `export FLASK_DEBUG=1` if on macos/linux)
+
+For ease of testing mobile pages, you can modify the `is_mobile()` function to return true. Just don't commit that.
