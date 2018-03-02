@@ -1,0 +1,8 @@
+{%extends "layout.html"%}
+{%block head%}
+	<title>Test Game</title>
+	<script type="text/javascript" src="{{url_for("static", filename="bower_components/phaser-ce/build/phaser.min.js")}}"></script>
+{%endblock%}
+{%block body%}
+<script type="text/javascript" src="{{url_for("static", filename="scripts/js/testGame.js")}}"></script>
+{%endblock%}

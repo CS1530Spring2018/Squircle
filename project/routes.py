@@ -38,6 +38,10 @@ def logger():
         return render_template("loginPage.html")
 
 
+@app.route("/testgame/")
+def test_game():
+	return render_template("testGame.html")
+
 @app.route("/logout/")
 def unlogger():
 	# if logged in, log out, otherwise offer to log in
