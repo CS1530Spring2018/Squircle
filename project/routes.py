@@ -16,26 +16,26 @@ def default():
 		return redirect(url_for("logger"))
     else:
         return redirect(url_for("lobby"))
-	
+
 @app.route('/login/', methods=["GET", "POST"])
 def logger():
-    if "username" in session:
-        return redirect(url_for("profile", username=session["username"]))
-    elif request.method == "POST":
-        #query db
+	if "username" in session:
+		return redirect(url_for("profile", username=session["username"]))
+	elif request.method == "POST":
+		#query db
 		user = UserLogin.query.filter_by(username=request.form["user"]).first()
-		
-        if user is not None:
-            password = user.password
-            if check_password_hash(password, request.form["pass"]):
-                #login successful
-			    session["username"] = request.form["user"]
-                return redirect(url_for("profile", username=user.username))
-        # bad password or bad username, just login again
-        flash("Invalid login. Try again")
-        return redirect(url_for("logger"))
-    else:
-        return render_template("loginPage.html")
+
+		if user is not None:
+			password = user.password
+			if check_password_hash(password, request.form["pass"]):
+				#login successful
+				session["username"] = request.form["user"]
+				return redirect(url_for("profile", username=user.username))
+		# bad password or bad username, just login again
+		flash("Invalid login. Try again")
+		return redirect(url_for("logger"))
+	else:
+		return render_template("loginPage.html")
 
 
 @app.route("/testgame/")
