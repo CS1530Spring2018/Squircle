@@ -2,6 +2,14 @@
 
 var canvasWidth;
 
+/**
+ * the type is how the game trys to load
+ * by default, it tries to load a webGL
+ * application
+ * 
+ * if the wweb page doesn't support that, then it loads 
+ * a canvas
+*/
 var config = {
 	type: Phaser.AUTO, 
 	width: 800,
@@ -16,12 +24,13 @@ var config = {
 var game = new Phaser.Game(config);
 
 function preload() {
-
+	this.load.image('sky', 
+	"/static/images/gameAssets/test/sky.png");
 }
 
 function create() {
-
-} 
+	this.add.image(400, 300, 'sky');
+}
 
 function update() {
 

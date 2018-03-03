@@ -2,7 +2,8 @@
 {%block head%}
 	<title>Test Game</title>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/phaser-ce/build/phaser.min.js")}}"></script>
+	<img src="{{ url_for('static', filename='images/gameAssets/test/sky.png') }}">
 {%endblock%}
 {%block body%}
-<script type="text/javascript" src="{{url_for("static", filename="scripts/js/testGame.js")}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='scripts/js/testGame.js')}}"></script>
 {%endblock%}
