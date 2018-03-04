@@ -1,36 +1,22 @@
 from squircle import app, db
-from flask import redirect, render_template, url_for, session, request, flash, abort
+from flask import redirect, render_template, url_for, session, request, flash
 from werkzeug.useragents import UserAgent
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.exc import IntegrityError
-import string, random, json
+import string, random
 from database import UserProfile, UserStats, UserLogin, Lobby, Chatlog
 
-from socks import room_occupants, num_players
 
 @app.route('/')
 def default():
-	if is_mobile():
-		#mobile
+    ua = request.headers.get('User-Agent')
+    useragent = UserAgent(ua)
+    if useragent.platform in ['android', 'iphone', 'ipad']:
+        #mobile
 		return redirect(url_for("logger"))
-	else:
-		return redirect(url_for("lobby"))
+    else:
+        return redirect(url_for("lobby"))
 
-@app.route('/getcontroller/')
-def redirect_controller():
-	return url_for('mobile_controller')
-
-@app.route('/controller/', methods=['GET'])
-def mobile_controller():
-	return render_template('index_controller.html')
-
-@app.route('/getgame/')
-def redirect_game():
-	return url_for('game_page')
-
-@app.route('/game/')
-def game_page():
-	return render_template('game.html')
 
 @app.route('/login/', methods=["GET", "POST"])
 def logger():
@@ -39,7 +25,7 @@ def logger():
 	elif request.method == "POST":
 		#query db
 		user = UserLogin.query.filter_by(username=request.form["user"]).first()
-		
+
 		if user is not None:
 			password = user.password
 			if check_password_hash(password, request.form["pass"]):
@@ -51,6 +37,11 @@ def logger():
 		return redirect(url_for("logger"))
 	else:
 		return render_template("loginPage.html")
+
+
+@app.route("/testgame/")
+def test_game():
+	return render_template("testGame.html")
 
 @app.route("/logout/")
 def unlogger():
@@ -89,28 +80,13 @@ def profile(username=None):
 	logged_in = "username" in session and session["username"] == username
 	if logged_in and request.method == "GET":
 		return render_template("profilePage.html", user=username)	
-	elif request.method == "POST" and "code" in request.form:
-		code = request.form['code']
-		print(code)
-		lobbies = Lobby.query.filter_by(code=code).first()
-		if lobbies:
-			return redirect(url_for('lobby', code=code))
-		else:
-			flash("That lobby is not valid!")
-			return redirect(url_for("profile", username=username))
 	else:
-		abort(404)
+		abort(401)
+
 
 @app.route("/lobby/")
-@app.route("/lobby/<code>")
-def lobby(code=None):
-	if not code:
-		return render_template("lobby.html")
-	else:
-		if is_mobile():
-			return render_template("lobbym.html", code=code, data=json.dumps({'username':session['username'], 'users':room_occupants[code], 'num_players':num_players}))
-		else:
-			return render_template("lobby.html", code=code, num_players=num_players)
+def lobby():
+	return render_template("lobby.html")
 
 
 @app.route("/lobbycode/")
@@ -124,17 +100,10 @@ def getlobbycode():
 	newcode = Lobby(code=code)
 	db.session.add(newcode)
 	db.session.commit()
-	#return "Lobby Code: " + code
-	return url_for("lobby", code=code)
+	return "Lobby code: " + code
 
-#Helper functions#
 
-def is_mobile():
-	ua = request.headers.get('User-Agent')
-	useragent = UserAgent(ua)
-	return useragent.platform in ['android', 'iphone', 'ipad']
-	
-
+#Helper functions
 def create_account(new_username, new_password):
 	new_user = UserLogin(username=new_username, password=generate_password_hash(new_password))
 	db.session.add(new_user)
