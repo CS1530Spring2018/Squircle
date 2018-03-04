@@ -17,6 +17,7 @@ def default():
     else:
         return redirect(url_for("lobby"))
 
+
 @app.route('/login/', methods=["GET", "POST"])
 def logger():
 	if "username" in session:
