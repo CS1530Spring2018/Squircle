@@ -8,6 +8,7 @@ var assets = {
 }
 var platforms;
 var player;
+var cursors;
 
 function url_for(type, name) {
 	return baseUrl + assets[type] + name;
@@ -94,8 +95,37 @@ function create() {
 	player.body.setGravity(300);
 
 	this.physics.add.collider(player, platforms);
+
+	cursors = this.input.keyboard.createCursorKeys();
 }
 
 function update() {
 
+	if(cursors.left.isDown && cursors.right.isDown) {
+		player.setVelocityX(0);
+
+		player.anims.play('turn');
+	}
+
+	if (cursors.right.isDown && !cursors.left.isDown){
+		player.setVelocityX(160);
+
+		player.anims.play('right', true);
+	}
+
+	if (cursors.left.isDown && !cursors.right.isDown){
+		player.setVelocityX(-160);
+
+		player.anims.play('left', true);
+	}
+	
+	if(!cursors.left.isDown && !cursors.right.isDown) {
+		player.setVelocityX(0);
+
+		player.anims.play('turn');
+	}
+
+	if (cursors.up.isDown && player.body.touching.down){
+		player.setVelocityY(-330);
+	}
 }
