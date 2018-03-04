@@ -82,7 +82,7 @@ function create() {
 	this.anims.create({
 		key: 'turn',
 		frames: [ { key: 'dude', frame: 4 } ],
-		frameRate: 20
+		frameRate: 5
 	});
 	
 	this.anims.create({
@@ -103,7 +103,6 @@ function update() {
 
 	if(cursors.left.isDown && cursors.right.isDown) {
 		player.setVelocityX(0);
-
 		player.anims.play('turn');
 	}
 
@@ -121,11 +120,11 @@ function update() {
 	
 	if(!cursors.left.isDown && !cursors.right.isDown) {
 		player.setVelocityX(0);
-
 		player.anims.play('turn');
 	}
 
 	if (cursors.up.isDown && player.body.touching.down){
-		player.setVelocityY(-330);
+		player.setVelocityY(-500);
 	}
+	
 }
