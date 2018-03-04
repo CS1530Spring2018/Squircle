@@ -24,8 +24,6 @@ var config = {
 var game = new Phaser.Game(config);
 
 function preload() {
-	
-	console.log("asdfasdfasdfasdfadsf");
 	this.load.image('sky', 'http://127.0.0.1:5000/static/images/gameAssets/test/sky.png');
 }
 
