@@ -92,6 +92,8 @@ function create() {
 	});
 
 	player.body.setGravity(300);
+
+	this.physics.add.collider(player, platforms);
 }
 
 function update() {
