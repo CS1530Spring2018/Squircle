@@ -1,6 +1,15 @@
 //test game code
 
-var canvasWidth;
+// dynamically load url?
+var baseUrl = "http://127.0.0.1:5000/static/";
+
+var assets = {
+	'image': '/images/gameAssets/test/',
+}
+
+function url_for(type, name) {
+	return baseUrl + assets[type] + name;
+}
 
 /**
  * the type is how the game trys to load
@@ -24,7 +33,7 @@ var config = {
 var game = new Phaser.Game(config);
 
 function preload() {
-	this.load.image('sky', 'http://127.0.0.1:5000/static/images/gameAssets/test/sky.png');
+	this.load.image('sky', url_for('image', 'sky.png'));
 }
 
 function create() {
