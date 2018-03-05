@@ -99,7 +99,15 @@ function create() {
 
 	cursors = this.input.keyboard.createCursorKeys();
 
-	
+	drone = new ScaleDrone('yG0sVcaLcpbHQKJK');
+
+	drone.on('open', function(error) {
+
+		//checking for errors
+		if(error){
+			return console.error(error);
+		}
+	});
 }
 
 function update() {
