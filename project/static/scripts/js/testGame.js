@@ -10,6 +10,9 @@ var platforms;
 var player;
 var cursors;
 var drone;
+var xDig;
+var yDig;
+var log;
 
 function url_for(type, name) {
 	return baseUrl + assets[type] + name;
@@ -107,6 +110,31 @@ function create() {
 		if(error){
 			return console.error(error);
 		}
+
+		var room = drone.subscribe('my_game');
+
+		room.on('open', function (error) {
+			if (error) {
+				console.error(error);
+			} else {
+				console.log('Connected to room');
+			}
+		});
+
+		room.on('data', function (data) {
+			inputTimer = 0;
+			receiving = true;
+			console.log(data);
+			// Record controller state
+			xDig = data.xdig;
+			yDig = data.ydig;
+			log = data.log;
+		});
+
+	});
+
+	drone.on('error', function(error){
+		console.log(error);
 	});
 }
 
