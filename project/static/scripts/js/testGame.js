@@ -9,6 +9,7 @@ var assets = {
 var platforms;
 var player;
 var cursors;
+var drone;
 
 function url_for(type, name) {
 	return baseUrl + assets[type] + name;
@@ -97,6 +98,8 @@ function create() {
 	this.physics.add.collider(player, platforms);
 
 	cursors = this.input.keyboard.createCursorKeys();
+
+	
 }
 
 function update() {
