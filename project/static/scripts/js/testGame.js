@@ -138,32 +138,56 @@ function create() {
 	});
 }
 
+
+/**
+ * this will be what controls the player and interprets
+ * data from the incoming socket signal
+*/
+function playerController() {
+
+}
+
+function moveRight(velocity) {
+	player.setVelocityX(velocity);
+	player.anims.play('right', true);
+}
+
+function moveLeft(velocity) {
+	player.setVelocityX(-velocity);
+	player.anims.play('left', true);
+}
+
+function jump(velocity) {
+	player.setVelocityY(-velocity);
+}
+
+function idle() {
+	player.setVelocityX(0);
+	player.anims.play('turn');
+}
+
 function update() {
 
 	if(cursors.left.isDown && cursors.right.isDown) {
-		player.setVelocityX(0);
-		player.anims.play('turn');
+		idle();
 	}
 
 	if (cursors.right.isDown && !cursors.left.isDown){
-		player.setVelocityX(160);
-
-		player.anims.play('right', true);
+		moveRight(160);
 	}
 
 	if (cursors.left.isDown && !cursors.right.isDown){
-		player.setVelocityX(-160);
-
-		player.anims.play('left', true);
+		moveLeft(160);
 	}
 	
 	if(!cursors.left.isDown && !cursors.right.isDown) {
-		player.setVelocityX(0);
-		player.anims.play('turn');
+		idle();
 	}
 
 	if (cursors.up.isDown && player.body.touching.down){
-		player.setVelocityY(-500);
+		jump(500);
 	}
+
+	playerController();
 	
 }
