@@ -17,7 +17,7 @@ function setup() {
 	}
 	socket.on('new user', function(username) {
 		console.log("new user joined");
-		if ($("#players").length == numPlayers) {
+		if ($("#players li").length == numPlayers) {
 			$("#spectators").append($("<li>").text(username));
 		} else {
 			$("#players").append($("<li>").text(username));

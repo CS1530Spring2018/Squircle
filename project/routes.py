@@ -108,7 +108,7 @@ def profile(username=None):
 @app.route("/lobby/<code>")
 def lobby(code=None):
 	if not code:
-		return render_template("lobby.html")
+		return render_template("lobby.html", num_players=num_players)
 	else:
 		if is_mobile():
 			return render_template("lobbym.html", code=code, data=json.dumps({'username':session['username'], 'users':room_occupants[code], 'num_players':num_players}))
