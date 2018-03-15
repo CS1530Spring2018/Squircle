@@ -23,25 +23,24 @@
 		<h1 class="text-center" id="lobbycode">Lobby {% if code %} {{code}} {% endif %}</h1>
 		
 	</div>
-	<div id="wrapper">
-		<div id="players">
+	
+	<div id="userslist">
+		<div id="wrapper">
+			<div id="players">
+			</div>
+			<div id="spectators">
+			</div>
 		</div>
-		<div id="spectators">
-		</div>
+		<button id="ready" type="button" disabled>I'm Ready</button>
 	</div>
-	<button id="ready" type="button" disabled>I'm Ready</button>
 	
 	<div id="main_chatbox"hidden>
 		<div id="chatbox">
 			<div id="history">
 			</div>
-			<textarea placeholder="Type here..." id="typing" onKeyup="sendMessage(event);"></textarea>
+			<textarea placeholder="Type here..." id="typing"></textarea>
 		</div>
-		<form action="" method = "post" class="text-center">
-			<input type="hidden" name="leave" value="">
-				<input type="submit" value="Leave Chatroom">
-			<br/>
-		</form>
+		<button id="sendMessage" type="button">Send</button>
 	</div>
 	
 {%endblock%}

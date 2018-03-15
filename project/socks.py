@@ -2,7 +2,7 @@ from flask_socketio import SocketIO, emit, join_room, leave_room, rooms
 from squircle import socketio, db
 from datetime import datetime
 import database
-num_players = 1
+num_players = 4
 room_occupants = {}
 room_ready = {}
 

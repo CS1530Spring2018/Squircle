@@ -1,7 +1,7 @@
 var socket;
-function sendMessage(e) {
-	var key = e.keyCode || e.which;
-	if (key == 13) {
+function sendMessage() {
+	//var key = e.keyCode || e.which;
+	//if (key == 13) {
 		textArea = $("#typing");
 		message = textArea.value;
 		textArea.value = "";
@@ -9,7 +9,7 @@ function sendMessage(e) {
 		textArea.focus();
 		console.log(message);
 		socket.emit('new message', {"username":username, "room":lobbycode, "message":message});
-	}
+	//}
 }
 
 function setup() {
@@ -71,12 +71,20 @@ function setup() {
 				}
 			}
 		}
+		for (player of $("#players li")) {
+			if (username == player.innerText) {
+				//$("#ready").removeAttr("disabled");
+				req.send();
+			}
+		}
 		//req.send();
 		$("#main_chatbox").removeAttr("hidden");
-		socket.on('new message', function(m) {
-			$("#history").append($("<p>").text(m));
-			document.getElementById("history").scrollTop = history.scrollHeight;
-		});
+		$("#userslist").attr("hidden", "hidden");
+		$("#sendMessage").on("click", sendMessage);
+	});
+	socket.on('new message', function(m) {
+		$("#history").append($("<p>").text(m));
+		document.getElementById("history").scrollTop = history.scrollHeight;
 	});
 }
 window.addEventListener("load", setup, true);
