@@ -17,7 +17,7 @@ def default():
 		return redirect(url_for("lobby"))
 @app.route("/testgame/")
 def test_game():
-	return render_template("testGame.html")
+	return render_template("game.html")
 
 @app.route('/getcontroller/')
 def redirect_controller():
