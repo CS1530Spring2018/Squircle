@@ -1,12 +1,14 @@
 //test game code
 
 // dynamically load url?
-var baseUrl = "http://127.0.0.1:5000/static/";
+var baseUrl = "http://192.168.1.161:5000/static/";
 
 var assets = {
 	'image': 'images/gameAssets/test/',
 }
 var platforms;
+var inputTimer;
+var receiving;
 var player;
 var cursors;
 var drone;
@@ -102,7 +104,7 @@ function create() {
 
 	cursors = this.input.keyboard.createCursorKeys();
 
-	drone = new ScaleDrone('yG0sVcaLcpbHQKJK');
+	drone = new ScaleDrone('JX2gIREeJoi7FDzN');
 
 	drone.on('open', function(error) {
 
@@ -124,7 +126,7 @@ function create() {
 		room.on('data', function (data) {
 			inputTimer = 0;
 			receiving = true;
-			console.log(data);
+			console.log("data");
 			// Record controller state
 			xDig = data.xdig;
 			yDig = data.ydig;
@@ -143,8 +145,28 @@ function create() {
  * this will be what controls the player and interprets
  * data from the incoming socket signal
 */
-function playerController() {
 
+function playerController() {
+	inputTimer ++;
+	
+	if(inputTimer > 7) {
+		receiving = false;
+		xDig = 0;
+		yDig = 0;
+		log = null;
+	}
+
+	if(xDig > 0) {
+		moveRight(160);
+	} else if (xDig < 0) {
+		moveLeft(160);
+	} else {
+		idle();
+	}
+
+	if(log === 'tapFunction') {
+		jump(500);
+	}
 }
 
 function moveRight(velocity) {
@@ -168,25 +190,25 @@ function idle() {
 
 function update() {
 
-	if(cursors.left.isDown && cursors.right.isDown) {
-		idle();
-	}
+	// if(cursors.left.isDown && cursors.right.isDown) {
+	// 	idle();
+	// }
 
-	if (cursors.right.isDown && !cursors.left.isDown){
-		moveRight(160);
-	}
+	// if (cursors.right.isDown && !cursors.left.isDown){
+	// 	moveRight(160);
+	// }
 
-	if (cursors.left.isDown && !cursors.right.isDown){
-		moveLeft(160);
-	}
+	// if (cursors.left.isDown && !cursors.right.isDown){
+	// 	moveLeft(160);
+	// }
 	
-	if(!cursors.left.isDown && !cursors.right.isDown) {
-		idle();
-	}
+	// if(!cursors.left.isDown && !cursors.right.isDown) {
+	// 	idle();
+	// }
 
-	if (cursors.up.isDown && player.body.touching.down){
-		jump(500);
-	}
+	// if (cursors.up.isDown && player.body.touching.down){
+	// 	jump(500);
+	// }
 
 	playerController();
 	

@@ -18,6 +18,10 @@ def default():
         return redirect(url_for("lobby"))
 
 
+@app.route('/controller/', methods=['GET'])
+def mobile_controller():
+	return render_template('index_controller.html')
+
 @app.route('/login/', methods=["GET", "POST"])
 def logger():
 	if "username" in session:
