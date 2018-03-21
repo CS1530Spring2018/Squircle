@@ -21,7 +21,20 @@ def test_game():
 
 @app.route('/getcontroller/')
 def redirect_controller():
-	return url_for('mobile_controller')
+	print("no good")
+	username = session["username"]
+	print("code bad")
+	code = request.args.get('room')
+	print("code:", code)
+	if username in room_occupants[code]["players"]:
+		return url_for('mobile_controller')
+	elif username in room_occupants[code]["spectators"]:
+		return url_for('chat_app',room=code)
+	print("something went wrong")
+
+@app.route('/chat/')
+def chat_app(room=None):
+	return render_template('chat.html', lobbycode=room, username=session['username'])
 
 @app.route('/controller/', methods=['GET'])
 def mobile_controller():
@@ -108,7 +121,7 @@ def profile(username=None):
 @app.route("/lobby/<code>")
 def lobby(code=None):
 	if not code:
-		return render_template("lobby.html")
+		return render_template("lobby.html", num_players=num_players)
 	else:
 		if is_mobile():
 			return render_template("lobbym.html", code=code, data=json.dumps({'username':session['username'], 'users':room_occupants[code], 'num_players':num_players}))
