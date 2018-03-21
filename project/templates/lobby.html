@@ -12,13 +12,13 @@
 		var numPlayers = {{num_players|safe}};
 	</script>
 	<script type="text/javascript" src="{{url_for("static", filename="scripts/js/lobby.js")}}"></script>
+	
 {%endblock%}
 {%block body%}
-
 	<div id="container">
 		<h1 class="text-center" id="lobbycode">Lobby{% if code %} {{code}} {% endif %}</h1>
 		{% if not code %}
-			<button id="genLobbyCode" type="button">Create a Lobby</button>
+			<button id="genLobbyCode" type="button" class="button">Create a Lobby</button>
 		{% endif %}
 		<div>
 			<div id="players">
