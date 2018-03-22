@@ -2,7 +2,7 @@
 
 // dynamically load url?
 // pitt ip: 10.215.97.21:5000
-var baseUrl = "http://10.215.100.78:5000/static/";
+var baseUrl = "http://10.215.100.192:5000/static/";
 
 var assets = {
 	'image': 'images/gameAssets/test/',
