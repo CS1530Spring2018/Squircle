@@ -1,3 +1,16 @@
+var socket;
+function sendMessage() {
+	//var key = e.keyCode || e.which;
+	//if (key == 13) {
+		textArea = $("#typing");
+		message = textArea.value;
+		textArea.value = "";
+		e.preventDefault();
+		textArea.focus();
+		console.log(message);
+		socket.emit('new message', {"username":username, "room":lobbycode, "message":message});
+	//}
+}
 
 function setup() {
 	
@@ -8,16 +21,20 @@ function setup() {
 	for (s in spectators) {
 		$("#spectators").append($("<li>").text(spectators[s]));
 	}
-	var socket = io.connect('http://' + document.domain + ':' + location.port);
+	socket = io.connect('http://' + document.domain + ':' + location.port);
 	socket.on('connect', function() {
 		socket.emit('join', {'code': lobbycode, 'username':username});
 	});
 	if (players.length == numPlayers) {
-		$("#ready").removeAttr("disabled");
+		for (player of $("#players li")) {
+			if (username == player.innerText) {
+				$("#ready").removeAttr("disabled");
+			}
+		}
 	}
 	socket.on('new user', function(username) {
 		console.log("new user joined");
-		if ($("#players").length == numPlayers) {
+		if ($("#players li").length == numPlayers) {
 			$("#spectators").append($("<li>").text(username));
 		} else {
 			$("#players").append($("<li>").text(username));
@@ -25,7 +42,11 @@ function setup() {
 	});
 	
 	socket.on('players reached', function() {
-		$("#ready").removeAttr("disabled");
+		for (player of $("#players li")) {
+			if (username == player.innerText) {
+				$("#ready").removeAttr("disabled");
+			}
+		}
 	});
 	
 	$("#ready").on("click", function() {
@@ -35,8 +56,9 @@ function setup() {
 	
 	socket.on('all ready', function() {
 		//make request to /controller
-		var req = new XMLHttpRequest(); 
-		req.open("GET", "/getcontroller/");
+		var req = new XMLHttpRequest();
+		var data = "?room="+lobbycode;
+		req.open("GET", "/getcontroller"+data);
 		req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		req.onreadystatechange = function() {
 			if (req.readyState == 4) 
@@ -49,7 +71,20 @@ function setup() {
 				}
 			}
 		}
-		req.send();
+		for (player of $("#players li")) {
+			if (username == player.innerText) {
+				//$("#ready").removeAttr("disabled");
+				req.send();
+			}
+		}
+		//req.send();
+		$("#main_chatbox").removeAttr("hidden");
+		$("#userslist").attr("hidden", "hidden");
+		$("#sendMessage").on("click", sendMessage);
+	});
+	socket.on('new message', function(m) {
+		$("#history").append($("<p>").text(m));
+		document.getElementById("history").scrollTop = history.scrollHeight;
 	});
 }
 window.addEventListener("load", setup, true);

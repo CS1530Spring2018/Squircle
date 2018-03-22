@@ -1,8 +1,11 @@
 from flask_socketio import SocketIO, emit, join_room, leave_room, rooms
-from squircle import socketio
-num_players = 2
+from squircle import socketio, db
+from datetime import datetime
+import database
+num_players = 4
 room_occupants = {}
 room_ready = {}
+
 @socketio.on('create')
 def handle_create(json):
 	print('received json: ' + str(json))
@@ -37,3 +40,13 @@ def handle_join(json):
 		room_ready[room] = room_ready[room] + 1
 	if room_ready[room] == num_players:
 		socketio.emit('all ready', room=room)
+
+@socketio.on('new message')
+def handle_new_message(json):
+	username = json['username']
+	room = json['room']
+	message = json['message']
+	new_message = Chatlog(sender=username, message=message, timestamp=datetime.now(), lobby_code=room)
+	db.session.add(new_message)
+	db.session.commit()
+	socketio.emit('new message', message, room=room)
