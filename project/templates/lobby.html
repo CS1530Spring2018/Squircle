@@ -1,6 +1,7 @@
 {%extends "layout.html"%}
 {%block head%}
 	<title>Squircle Lobby</title>
+	<link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/jquery/dist/jquery.min.js")}}"></script>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/socket.io-client/dist/socket.io.slim.js")}}"></script>
 	<script type="text/javascript">
@@ -12,13 +13,20 @@
 		var numPlayers = {{num_players|safe}};
 	</script>
 	<script type="text/javascript" src="{{url_for("static", filename="scripts/js/lobby.js")}}"></script>
+	
 {%endblock%}
 {%block body%}
-
-	<div id="container">
-		<h1 class="text-center" id="lobbycode">Lobby{% if code %} {{code}} {% endif %}</h1>
+	<ul>
+		<li><a class="active" href="{{ url_for("lobby") }}">Lobby</a></li>
+		<li><a href="{{ url_for("logger") }}">Login/Profile</a></li>
+		<li><a href="{{ url_for("unlogger") }}">Logout</a></li>
+	</ul>	
+	<div style="padding:20px;margin-top:30px;"></div>
+	<div id="container" class="center">
+		<img src="../static/images/logos/logo_black_squircle.png" class="scale-logo" alt="Squircle">
+		<h1 class="text-center" id="lobbycode">{% if code %}join lobby: {{code}} {% endif %}</h1>
 		{% if not code %}
-			<button id="genLobbyCode" type="button">Create a Lobby</button>
+			<button id="genLobbyCode" type="button" class="yellow-button">Create a Lobby</button>
 		{% endif %}
 		<div id="wrapper">
 			<div id="players">

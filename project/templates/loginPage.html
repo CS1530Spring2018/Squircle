@@ -1,17 +1,18 @@
 {%extends "layout.html"%}
 {%block head%}
-	<title>Login</title>
+	<title>Squircle Login</title>
+	<link rel="stylesheet", href="{{url_for("static", filename="css/login.css")}}", type="text/css"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 {%endblock%}
 {%block body%}
-	<div id="container">
+	<div id="container" class="container">
 		<h1 class="text-center">Please login</h1>
 		<form action="" method="post" class="text-center">
 			Username:  <input type="text" name="user" />
 			<br />
 			Password:  <input type="password" name="pass" />
 			<br />
-			<input type="submit" value="Login" />
+			<input type="submit" class="login-button" value="Login" />
 		</form>
 		<div class="text-center">
 			<a href="{{ url_for("create_profile") }}">Create a new account</a>
