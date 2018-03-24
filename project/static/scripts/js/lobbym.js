@@ -2,10 +2,10 @@ var socket;
 function sendMessage() {
 	//var key = e.keyCode || e.which;
 	//if (key == 13) {
-		textArea = $("#typing");
+		textArea = $("#typing")[0];
 		message = textArea.value;
 		textArea.value = "";
-		e.preventDefault();
+		//e.preventDefault();
 		textArea.focus();
 		console.log(message);
 		socket.emit('new message', {"username":username, "room":lobbycode, "message":message});
