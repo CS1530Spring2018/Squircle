@@ -1,18 +1,26 @@
 {%extends "layout.html"%}
 {%block head%}
 	<title>{{user}}</title>
+	<link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/socket.io-client/dist/socket.io.slim.js")}}"></script>
 	
 {%endblock%}
 {%block body%}
-	<div id="container">
-		<h1 class="text-center">Welcome, {{user}}</h1>
+	<ul>
+		<li><a  href="{{ url_for("lobby") }}">Lobby</a></li>
+		<li><a class="active" href="{{ url_for("logger") }}">Login/Profile</a></li>
+		<li><a href="{{ url_for("unlogger") }}">Logout</a></li>
+	</ul>	
+	<div style="padding:20px;margin-top:30px;"></div>
+	<div id="container" class="text-center">
+			<img src="../static/images/logos/logo_black_squircle.png" class="scale-logo-small" alt="Squircle">
+		<h2 class="text-center">Welcome, {{user}}</h2>
 		<form action="" method="post" class="text-center">
 			<div>
-				Join Lobby:  <input type="text" name="code" id="join" required>
-				
-				<input type="submit" value="Join Lobby">
+				<h3>Join Lobby</h3> 
+				<input type="text" name="code" id="join" required>
+				<input type="submit" value="Join Lobby" class="yellow-button">
 			</div>
 		</form>
 		<div class="text-center">

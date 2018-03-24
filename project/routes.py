@@ -50,9 +50,11 @@ def game_page():
 
 @app.route('/login/', methods=["GET", "POST"])
 def logger():
+	
+
 	if "username" in session:
 		return redirect(url_for("profile", username=session["username"]))
-	elif request.method == "POST":
+	elif request.method == "POST" and request.form["type"]=="Login":
 		#query db
 		user = UserLogin.query.filter_by(username=request.form["user"]).first()
 		
@@ -65,6 +67,16 @@ def logger():
 		# bad password or bad username, just login again
 		flash("Invalid login. Try again")
 		return redirect(url_for("logger"))
+	elif request.method == "POST" and request.form["type"]=="Create Account":
+		failure = create_account(request.form["user"], request.form["pass"])
+		if "Duplicate" == failure:
+			flash("Username already exists. Try something different")
+			return redirect(url_for("create_profile"))
+		#once new account is registered first set session
+		session["username"] = request.form["user"]
+		#then redirect to profile
+		flash("Your account has been created successfully")
+		return redirect(url_for("profile", username=request.form["user"]))
 	else:
 		return render_template("loginPage.html")
 
@@ -77,23 +89,6 @@ def unlogger():
 	else:
 		return redirect(url_for("logger"))
 
-
-@app.route("/create_profile/", methods=["GET", "POST"])
-def create_profile():
-	
-	if request.method == "POST":
-		
-		failure = create_account(request.form["user"], request.form["pass"])
-		if "Duplicate" == failure:
-			flash("Username already exists. Try something different")
-			return redirect(url_for("create_profile"))
-		#once new account is registered first set session
-		session["username"] = request.form["user"]
-		#then redirect to profile
-		flash("Your account has been created successfully")
-		return redirect(url_for("profile", username=request.form["user"]))
-	else:
-		return render_template("createProfilePage.html", title="Sign Up For an Account")
 
 
 @app.route("/profile/")

@@ -1,21 +1,93 @@
 {%extends "layout.html"%}
 {%block head%}
 	<title>Squircle Login</title>
+	<link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
 	<link rel="stylesheet", href="{{url_for("static", filename="css/login.css")}}", type="text/css"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 {%endblock%}
 {%block body%}
-	<div id="container" class="container">
-		<h1 class="text-center">Please login</h1>
-		<form action="" method="post" class="text-center">
-			Username:  <input type="text" name="user" />
-			<br />
-			Password:  <input type="password" name="pass" />
-			<br />
-			<input type="submit" class="login-button" value="Login" />
-		</form>
-		<div class="text-center">
-			<a href="{{ url_for("create_profile") }}">Create a new account</a>
-		</div>
+	<ul>
+		<li><a href="{{ url_for("lobby") }}">Lobby</a></li>
+		<li><a class="active"  href="{{ url_for("logger") }}">Login/Profile</a></li>
+		<li><a href="{{ url_for("unlogger") }}">Logout</a></li>
+	</ul>	
+	<div style="padding:20px;margin-top:30px;"></div>
+	<h2 class="text-center">Welcome! Please</h2>
+	<div class="text-center">
+			<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="yellow-button">login</button>
 	</div>
+	<h2 class="text-center">or</h2>
+	<div class="text-center">
+			<button onclick="document.getElementById('id02').style.display='block'" style="width:auto;" class="yellow-button">create a new account</button>
+		</div>
+	
+
+	<div id="id01" class="modal">
+	
+	<form class="modal-content animate" action="" method="post">
+		<div class="imgcontainer">
+			<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+			<img src="../static/images/logos/logo_black.png" class="scale-logo-small">
+			</div>
+			
+			<div class="container">
+			<label for="uname"><b>Username</b></label>
+			<input type="text" placeholder="Enter Username" name="user" required>
+
+			<label for="psw"><b>Password</b></label>
+			<input type="password" placeholder="Enter Password" name="pass" required>
+			<input type="submit" class="login-button" value="Login" name="type"/>
+			</div>
+
+			<div class="container" style="background-color:#f1f1f1">
+			<button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+		</div>
+	</form>
+	</div>
+
+	<div id="id02" class="modal">
+	
+			<form class="modal-content animate" action="" method="post">
+				<div class="imgcontainer">
+					<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+					<img src="../static/images/logos/logo_black.png" class="scale-logo-small">
+					</div>
+					
+					<div class="container">
+					<label for="uname"><b>Username</b></label>
+					<input type="text" placeholder="Enter Username" name="user" required>
+		
+					<label for="psw"><b>Password</b></label>
+					<input type="password" placeholder="Enter Password" name="pass" required>
+					
+					<label for="country"><b>Country</b><a> (optional)</a></label>
+					<input type="text" placeholder="Country (optional)" name="country">
+		
+					<label for="age"><b>Age</b><a> (optional)</a></label>
+					<br>
+					<input type="number" min="1" max="130" placeholder="Age" name="age" style="margin-top:10px">
+					<br>
+					<div style="margin-top:10px"></div>
+					<label for="about"><b>About Me</b><a> (optional)</a></label>
+					<input type="text" placeholder="About Me (optional)" name="about">
+					<input type="submit" class="login-button" value="Create Account" name="type"/>
+					</div>
+		
+					<div class="container" style="background-color:#f1f1f1">
+					<button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+				</div>
+			</form>
+			</div>
+
+	<script>
+			// Get the modal
+			var modal = document.getElementById('id01');
+			
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			}
+			</script>
 {%endblock%}
