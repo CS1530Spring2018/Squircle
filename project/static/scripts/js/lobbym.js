@@ -82,8 +82,8 @@ function setup() {
 		$("#userslist").attr("hidden", "hidden");
 		$("#sendMessage").on("click", sendMessage);
 	});
-	socket.on('new message', function(m) {
-		$("#history").append($("<p>").text(m));
+	socket.on('new message', function(m, sender) {
+		$("#history").append($("<p>").text(sender+":"+m));
 		document.getElementById("history").scrollTop = history.scrollHeight;
 	});
 }

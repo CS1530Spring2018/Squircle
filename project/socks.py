@@ -46,7 +46,8 @@ def handle_new_message(json):
 	username = json['username']
 	room = json['room']
 	message = json['message']
+	print(message)
 	new_message = Chatlog(sender=username, message=message, timestamp=datetime.now(), lobby_code=room)
 	db.session.add(new_message)
 	db.session.commit()
-	socketio.emit('new message', message, room=room)
+	socketio.emit('new message', (message, username), room=room)
