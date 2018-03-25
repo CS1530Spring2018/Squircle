@@ -42,6 +42,7 @@ function myjoystick(tapFunction, doubleTapFunction, swipeRFunction, swipeLFuncti
       setInterval(drawR, 1000/35);
       if(touchable) {     //checks if the screen is a touch screem
           // Joystick canvas
+          console.log("moveTouch");
           canvasL.addEventListener( 'touchstart', function(e){
               joystickTouch = e.targetTouches[0];
               baseX = joystickTouch.clientX;
@@ -77,7 +78,7 @@ function myjoystick(tapFunction, doubleTapFunction, swipeRFunction, swipeLFuncti
                   }
                 }
               }
-
+                  console.log("moveTouch");
                   moveTouch();
           }, false );
           canvasL.addEventListener( 'touchend', function(e){

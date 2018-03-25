@@ -1,6 +1,6 @@
 
 
-var drone = new ScaleDrone('yG0sVcaLcpbHQKJK');
+var drone = new ScaleDrone('JX2gIREeJoi7FDzN');
 
 drone.on('open', function (error) {
   if (error) {
@@ -86,9 +86,17 @@ function touchStart(){
     timer --;
   }
 
-
-
 }//touchStart
+
+function touchEnd(){
+    console.log("here");
+    var sendDig =  {'xdig': 0, 'ydig': 0};
+    drone.publish({
+      room: "my_game",
+      message: sendDig
+    });
+}
+
 var tier2=0;
 function touchMove(){
 if (tier2 == 0){
@@ -99,10 +107,10 @@ if (tier2 == 0){
 
       });
       tier2 = 5;
+      
     } else {
         tier2 --;
       }
-
 }//touchMove
 //setInterval(doStuff, 100);
 
@@ -115,6 +123,6 @@ function doStuff(){
           });
 }//doStuff
 function setup() {
-	var controller = myjoystick (tapFunction, doubleTapFunction, swipeRFunction, swipeLFunction, swipeUFunction, swipeDFunction, touchStart, touchMove, touchStart);
+	var controller = myjoystick (tapFunction, doubleTapFunction, swipeRFunction, swipeLFunction, swipeUFunction, swipeDFunction, touchStart, touchMove, touchEnd);
 }
 window.addEventListener("load", setup, true);

@@ -2,10 +2,10 @@ var socket;
 function sendMessage() {
 	//var key = e.keyCode || e.which;
 	//if (key == 13) {
-		textArea = $("#typing");
+		textArea = $("#typing")[0];
 		message = textArea.value;
 		textArea.value = "";
-		e.preventDefault();
+		//e.preventDefault();
 		textArea.focus();
 		console.log(message);
 		socket.emit('new message', {"username":username, "room":lobbycode, "message":message});
@@ -82,8 +82,8 @@ function setup() {
 		$("#userslist").attr("hidden", "hidden");
 		$("#sendMessage").on("click", sendMessage);
 	});
-	socket.on('new message', function(m) {
-		$("#history").append($("<p>").text(m));
+	socket.on('new message', function(m, sender) {
+		$("#history").append($("<p>").text(sender+":"+m));
 		document.getElementById("history").scrollTop = history.scrollHeight;
 	});
 }
