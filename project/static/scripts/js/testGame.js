@@ -2,7 +2,7 @@
 
 // dynamically load url?
 // pitt ip: 10.215.97.21:5000
-var baseUrl = "http://10.215.100.192:5000/static/";
+var baseUrl = "http://localhost:5000/static/";
 
 var assets = {
 	'image': 'images/gameAssets/test/',
@@ -12,6 +12,7 @@ var inputTimer = 0;
 var receiving = false;
 var player;
 var cursors;
+var enemy;
 var drone;
 var xDig;
 var yDig;
@@ -56,6 +57,7 @@ function preload() {
 	this.load.image('ground', url_for('image', 'platform.png'));
 	this.load.image('star', url_for('image', 'star.png'));
 	this.load.image('bomb', url_for('image', 'bomb.png'));
+	this.load.image('cannon', url_for('image', 'cannon.png'));
 	/**
 	 * this loads a sprite sheet
 	 * each sprite frame is 32x48 pixels
@@ -72,7 +74,7 @@ function create() {
 	platforms = this.physics.add.staticGroup();
 
 	//this line makes multiple lines spanning the bottom
-    platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(400, 550, 'ground').setScale(3).refreshBody();
     platforms.create(600, 400, 'ground');
     platforms.create(50, 250, 'ground');
 	platforms.create(750, 220, 'ground');
@@ -82,6 +84,8 @@ function create() {
 	player.setBounce(0.2);
 	player.setCollideWorldBounds(true);
 
+	enemy = this.physics.add.sprite(650, 450, 'cannon');
+	enemy.setCollideWorldBounds(true);
 	//setting up animation for the character
 	this.anims.create({
 		key: 'left',
@@ -106,6 +110,7 @@ function create() {
 	player.body.setGravity(300);
 
 	this.physics.add.collider(player, platforms);
+	this.physics.add.collider(enemy, player);
 
 	cursors = this.input.keyboard.createCursorKeys();
 
@@ -160,8 +165,6 @@ function playerController() {
 		// yDig = 0;
 		// log = null;
 	}
-
-	console.log("xdig: " + xDig);
 	if(xDig > 0 && receiving) {
 		moveRight(160);
 		//console.log("TEST");
@@ -195,6 +198,28 @@ function idle() {
 	player.anims.play('turn');
 }
 
+function enemyController() {
+	if(cursors.left.isDown && cursors.right.isDown) {
+		enemy.setVelocityX(0);
+	}
+
+	if (cursors.right.isDown && !cursors.left.isDown){
+		enemy.setVelocityX(160);
+	}
+
+	if (cursors.left.isDown && !cursors.right.isDown){
+		enemy.setVelocityX(-160);
+	}
+	
+	if(!cursors.left.isDown && !cursors.right.isDown) {
+		enemy.setVelocityX(0);
+	}
+
+	if (cursors.up.isDown && player.body.touching.down){
+		
+	}
+}
+
 function update() {
 
 	// if(cursors.left.isDown && cursors.right.isDown) {
@@ -216,7 +241,7 @@ function update() {
 	// if (cursors.up.isDown && player.body.touching.down){
 	// 	jump(500);
 	// }
-
+	enemyController();
 	playerController();
 	
 }
