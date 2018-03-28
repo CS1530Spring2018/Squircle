@@ -13,6 +13,7 @@ var receiving = false;
 var player;
 var player2;
 var cursors;
+var bombs;
 var enemy;
 var drone;
 var xDig;
@@ -188,7 +189,7 @@ function create() {
 
 	createPlayer1(this);
 	createPlayer2(this);
-	
+
 	enemy = this.physics.add.sprite(550, 800, 'cannon');
 	enemy.setCollideWorldBounds(true);
 
@@ -198,6 +199,7 @@ function create() {
 
 	createSockets();
 
+	bombs = this.add.weapon(10, 'bombs');
 }
 
 
