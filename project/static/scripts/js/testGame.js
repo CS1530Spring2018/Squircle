@@ -11,6 +11,7 @@ var platforms;
 var inputTimer = 0;
 var receiving = false;
 var player;
+var player2;
 var cursors;
 var enemy;
 var drone;
@@ -65,6 +66,9 @@ function preload() {
 	this.load.spritesheet('dude', url_for('image', 'dude.png',),
 	{frameWidth: 32, frameHeight: 48});
 
+	this.load.spritesheet('dude2', url_for('image', 'dude2.png',),
+	{frameWidth: 32, frameHeight: 48});
+
 	drone = new ScaleDrone('JX2gIREeJoi7FDzN')
 }
 
@@ -84,7 +88,12 @@ function create() {
 	player.setBounce(0.2);
 	player.setCollideWorldBounds(true);
 
-	enemy = this.physics.add.sprite(650, 450, 'cannon');
+	player2 = this.physics.add.sprite(200, 450, 'dude2');
+
+	player2.setBounce(0.2);
+	player2.setCollideWorldBounds(true);
+
+	enemy = this.physics.add.sprite(550, 450, 'cannon');
 	enemy.setCollideWorldBounds(true);
 	//setting up animation for the character
 	this.anims.create({
@@ -107,10 +116,35 @@ function create() {
 		repeat: -1
 	});
 
+	this.anims.create({
+		key: 'left2',
+		frames: this.anims.generateFrameNumbers('dude2', { start: 0, end: 3 }),
+		frameRate: 10,
+		repeat: -1
+	});
+	
+	this.anims.create({
+		key: 'turn2',
+		frames: [ { key: 'dude2', frame: 4 } ],
+		frameRate: 5
+	});
+	
+	this.anims.create({
+		key: 'right2',
+		frames: this.anims.generateFrameNumbers('dude2', { start: 5, end: 8 }),
+		frameRate: 10,
+		repeat: -1
+	});
+
+
 	player.body.setGravity(300);
+	player2.body.setGravity(300);
 
 	this.physics.add.collider(player, platforms);
+	this.physics.add.collider(player2, platforms);
 	this.physics.add.collider(enemy, player);
+	this.physics.add.collider(enemy, player2);
+	this.physics.add.collider(player, player);
 
 	cursors = this.input.keyboard.createCursorKeys();
 
@@ -220,6 +254,11 @@ function enemyController() {
 	}
 }
 
+function player2Controller() {
+	player2.setVelocityX(0);
+	player2.anims.play('turn2');
+}
+
 function update() {
 
 	// if(cursors.left.isDown && cursors.right.isDown) {
@@ -243,5 +282,5 @@ function update() {
 	// }
 	enemyController();
 	playerController();
-	
+	player2Controller();
 }
