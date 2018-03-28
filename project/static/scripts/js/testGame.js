@@ -93,7 +93,7 @@ function create() {
 	player2.setBounce(0.2);
 	player2.setCollideWorldBounds(true);
 
-	enemy = this.physics.add.sprite(550, 450, 'cannon');
+	enemy = this.physics.add.sprite(550, 800, 'cannon');
 	enemy.setCollideWorldBounds(true);
 	//setting up animation for the character
 	this.anims.create({
@@ -144,7 +144,7 @@ function create() {
 	this.physics.add.collider(player2, platforms);
 	this.physics.add.collider(enemy, player);
 	this.physics.add.collider(enemy, player2);
-	this.physics.add.collider(player, player);
+	this.physics.add.collider(player, player2);
 
 	cursors = this.input.keyboard.createCursorKeys();
 
