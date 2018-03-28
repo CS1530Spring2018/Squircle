@@ -199,7 +199,7 @@ function create() {
 
 	createSockets();
 
-	bombs = this.add.weapon(10, 'bombs');
+	bombs = this.add.group();
 }
 
 
