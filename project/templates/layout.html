@@ -2,17 +2,29 @@
 <html>
 	<head>
 		<link rel="stylesheet", href="{{url_for("static", filename="css/style.css")}}", type="text/css"/>
+		<link rel="stylesheet", href="{{url_for("static", filename="css/login.css")}}", type="text/css"/>
 		{% block head %}{% endblock %}
 	</head>
 	
-	{% with messages = get_flashed_messages() %}
-		{% if messages %}
-			{% for message in messages %}
-				<p>{{ message }}</p>
-			{% endfor %}
-		{% endif %}
-	{% endwith %}
 	<body>
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<div id="flash" class="modal" style="display:block;">
+					
+					<div class="modal-content animate">
+						<div class="imgcontainer">
+							<span onclick="document.getElementById('flash').style.display='none'" class="close" title="Close Modal">&times;</span>
+							<img src="../static/images/logos/logo_black.png" class="scale-logo-small">
+						</div>
+						<div class="container">
+							{% for message in messages %}
+								<p class="warning">{{ message }}</p>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			{% endif %}
+		{% endwith %}
 		{%block body%}{%endblock%}
 	</body>
 </html>

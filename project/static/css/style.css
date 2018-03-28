@@ -4,6 +4,10 @@
 	width :50%;
 }
 
+.warning {
+	font-size: large;
+}
+
 .text-center {
 	text-align: center;
 }
@@ -24,6 +28,7 @@ h1{
 }
 
 .yellow-button{
+	width: auto;
 	background-color: rgb(235, 199, 0);
     border: none;
     color: white;
