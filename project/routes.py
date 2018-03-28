@@ -65,17 +65,18 @@ def logger():
 				session["username"] = request.form["user"]
 				return redirect(url_for("profile", username=user.username))
 		# bad password or bad username, just login again
-		flash("Invalid login. Try again")
+		flash("Invalid login. Try again.")
 		return redirect(url_for("logger"))
 	elif request.method == "POST" and request.form["type"]=="Create Account":
-		failure = create_account(request.form["user"], request.form["pass"])
+		failure = create_account(request.form["user"], request.form["pass"], 
+			about_me=request.form['about'], age=request.form['age'], country=request.form['country'])
 		if "Duplicate" == failure:
-			flash("Username already exists. Try something different")
-			return redirect(url_for("create_profile"))
+			flash("Username already exists. Try something different.")
+			return redirect(url_for("logger"))
 		#once new account is registered first set session
 		session["username"] = request.form["user"]
 		#then redirect to profile
-		flash("Your account has been created successfully")
+		flash("Your account has been created successfully.")
 		return redirect(url_for("profile", username=request.form["user"]))
 	else:
 		return render_template("loginPage.html")
@@ -146,9 +147,11 @@ def is_mobile():
 	return useragent.platform in ['android', 'iphone', 'ipad']
 	
 
-def create_account(new_username, new_password):
+def create_account(new_username, new_password, about_me=None, age=None, country=None):
 	new_user = UserLogin(username=new_username, password=generate_password_hash(new_password))
 	db.session.add(new_user)
+	new_profile = UserProfile(username=new_username, about_me=about_me, age=age, country=country)
+	db.session.add(new_profile)
 	try:
 		db.session.commit()
 	except IntegrityError as ie:
