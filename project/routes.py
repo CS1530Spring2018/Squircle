@@ -32,6 +32,10 @@ def redirect_controller():
 def mobile_controller():
 	return render_template('index_controller.html')
 
+@app.route('/controller2/', methods=['GET'])
+def mobile_controller2():
+	return render_template('index_controller2.html')
+
 @app.route('/getgame/')
 def redirect_game():
 	return url_for('game_page')

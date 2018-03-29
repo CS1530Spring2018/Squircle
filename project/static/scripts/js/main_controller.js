@@ -2,11 +2,13 @@
 
 var drone = new ScaleDrone('JX2gIREeJoi7FDzN');
 
+var curr_room = document.currentScript.getAttribute('room');
+
 drone.on('open', function (error) {
   if (error) {
     return console.error(error);
   }
-  var room = drone.subscribe('my_game');
+  var room = drone.subscribe(curr_room);
   room.on('open', function (error) {
     if (error) {
       console.error(error);
@@ -20,7 +22,7 @@ function tapFunction(){
     //alert("Doing something for a tap");
 
     drone.publish({
-    room: "my_game",
+    room: curr_room,
     message: { "log" : "tapFunction"
     }
 
@@ -30,7 +32,7 @@ function tapFunction(){
 function doubleTapFunction(){
 
   drone.publish({
-  room: "my_game",
+  room: curr_room,
   message: { "log" : "doubleTapFunction"
   }
 
@@ -39,7 +41,7 @@ function doubleTapFunction(){
 
 function swipeRFunction(){
   drone.publish({
-  room: "my_game",
+  room: curr_room,
   message: { "log" : "swipeRFunction"
   }
 
@@ -48,7 +50,7 @@ function swipeRFunction(){
 
 function swipeLFunction(){
   drone.publish({
-  room: "my_game",
+  room: curr_room,
   message: { "log" : "swipeLFunction"
   }
 
@@ -57,7 +59,7 @@ function swipeLFunction(){
 
 function swipeDFunction(){
   drone.publish({
-  room: "my_game",
+  room: curr_room,
   message: { "log" : "swipeDFunction"
   }
 
@@ -66,7 +68,7 @@ function swipeDFunction(){
 
 function swipeUFunction(){
   drone.publish({
-  room: "my_game",
+  room: curr_room,
   message: { "log" : "swipeUFunction"
   }
 
@@ -78,7 +80,7 @@ function touchStart(){
     console.log("here");
     var sendDig = getDigDirection();
     drone.publish({
-    room: "my_game",
+    room: curr_room,
     message: sendDig
     });
     timer = 5;
@@ -92,7 +94,7 @@ function touchEnd(){
     console.log("here");
     var sendDig =  {'xdig': 0, 'ydig': 0};
     drone.publish({
-      room: "my_game",
+      room: curr_room,
       message: sendDig
     });
 }
@@ -102,7 +104,7 @@ function touchMove(){
 if (tier2 == 0){
         var sendAnal = getDigDirection();
         drone.publish({
-        room: "my_game",
+        room: curr_room,
         message: sendAnal
 
       });
@@ -117,7 +119,7 @@ if (tier2 == 0){
 function doStuff(){
     var sendAnal = {'xdig': 0, 'ydig': 0};
     drone.publish({
-        room: "my_game",
+        room: curr_room,
           message: sendAnal
 
           });
