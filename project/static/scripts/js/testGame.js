@@ -145,6 +145,9 @@ function createCollisions(ctx) {
 	ctx.physics.add.collider(enemy, player);
 	ctx.physics.add.collider(enemy, player2);
 	ctx.physics.add.collider(player, player2);
+	ctx.physics.add.collider(stars, platforms);
+
+	ctx.physics.add.overlap(player, stars, collectStar, null, this);
 }
 
 function createSockets() {
@@ -181,11 +184,26 @@ function createSockets() {
 	});
 }
 
+function collectStar (player, star)
+{
+    star.disableBody(true, true);
+}
+
 function create() {
 	this.add.image(400, 300, 'sky');
 	player = this.physics.add.sprite(100, 450, 'dude');
 	player2 = this.physics.add.sprite(200, 450, 'dude2');
 	platforms = this.physics.add.staticGroup();
+
+	stars = this.physics.add.group({
+		key: 'star',
+		repeat: 11,
+		setXY: {x: 12, y: 0, stepX: 70}
+	});
+
+	stars.children.iterate(function (child){
+		child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+	});
 
 	//this line makes multiple lines spanning the bottom
 	createWorld();
