@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block head %}
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet", href="{{url_for("static", filename="css/main_controller2.css")}}", type="text/css"/>
+	<script type="text/javascript" src="{{url_for("static", filename="bower_components/jquery/dist/jquery.min.js")}}"></script>
+	<script type ="text/javascript" src="https://cdn.scaledrone.com/scaledrone.min.js"></script>
+	<script type="text/javascript" src="{{url_for("static", filename="bower_components/hammerjs/hammer.min.js")}}"></script>
+	<script type="text/javascript" src="{{ url_for("static", filename="scripts/js/myjoystick.js") }}"></script>
+	<script type="text/javascript" src="{{ url_for("static", filename="scripts/js/main_controller.js") }}" room="player_two"></script>
+	<title>Controller</title>
+{% endblock %}
+{% block body %}
+	<script>
+		function startInternal() {
+			window.location = window.location;
+			$('body').css('background-size', 'cover');
+		}
+		$(document).ready(function() {
+			if (!screen.orientation.type.startsWith('landscape')) {
+				screen.orientation.lock('landscape-primary').then(
+					startInternal,
+					function() {
+						alert('To start, rotate your screen to landscape.');
+
+						var orientationChangeHandler = function() {
+							if (!screen.orientation.type.startsWith('landscape')) {
+								return;
+							}
+							screen.orientation.removeEventListener('change', orientationChangeHandler);
+							startInternal();
+						}
+
+					screen.orientation.addEventListener('change', orientationChangeHandler);
+				});
+			}
+		});
+	</script>
+{% endblock %}
+</html>
