@@ -104,5 +104,12 @@ class RoutesTestCase(unittest.TestCase):
 		self.create_account('admin', 'root', '20', 'usa', 'some about me text')
 		rv = self.app.post('/profile/admin', data={'code':'BADCODE'}, follow_redirects=True)
 		assert b'That lobby is not valid!' in rv.data
+		
+	def test_join_valid_lobby(self):
+		rv = self.app.get('/lobbycode/')
+		code = rv.data.decode('ascii').split('/')[2]
+		self.create_account('admin', 'root', '20', 'usa', 'some about me text')
+		rv = self.app.post('/profile/admin', data={'code':code}, follow_redirects=True)
+		assert code in rv.data.decode('ascii')
 if __name__ == '__main__':
     unittest.main()
