@@ -1,7 +1,7 @@
 from flask_socketio import SocketIO, emit, join_room, leave_room, rooms
 from squircle import socketio, db
 from datetime import datetime
-import database
+from database import Chatlog
 num_players = 4
 room_occupants = {}
 room_ready = {}
@@ -46,7 +46,8 @@ def handle_new_message(json):
 	username = json['username']
 	room = json['room']
 	message = json['message']
+	print(message)
 	new_message = Chatlog(sender=username, message=message, timestamp=datetime.now(), lobby_code=room)
 	db.session.add(new_message)
 	db.session.commit()
-	socketio.emit('new message', message, room=room)
+	socketio.emit('new message', (message, username), room=room)

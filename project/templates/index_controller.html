@@ -12,9 +12,29 @@
 {% endblock %}
 {% block body %}
 	<script>
-	  $(document).ready(function() {
-		$('body').css('background-size', 'cover');
-	  });
+		function startInternal() {
+			window.location = window.location;
+			$('body').css('background-size', 'cover');
+		}
+		$(document).ready(function() {
+			if (!screen.orientation.type.startsWith('landscape')) {
+				screen.orientation.lock('landscape-primary').then(
+					startInternal,
+					function() {
+						alert('To start, rotate your screen to landscape.');
+
+						var orientationChangeHandler = function() {
+							if (!screen.orientation.type.startsWith('landscape')) {
+								return;
+							}
+							screen.orientation.removeEventListener('change', orientationChangeHandler);
+							startInternal();
+						}
+
+					screen.orientation.addEventListener('change', orientationChangeHandler);
+				});
+			}
+		});
 	</script>
 {% endblock %}
 </html>
