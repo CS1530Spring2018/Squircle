@@ -4,7 +4,6 @@ var drone = new ScaleDrone('JX2gIREeJoi7FDzN');
 
 var curr_room = document.currentScript.getAttribute('room');
 
-alert(curr_room);
 drone.on('open', function (error) {
   if (error) {
     return console.error(error);
