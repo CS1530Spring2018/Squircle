@@ -51,7 +51,8 @@ function url_for(type, name) {
  * a canvas
 */
 var config = {
-	type: Phaser.AUTO, 
+	type: Phaser.AUTO,
+	parent: "game",
 	width: 800,
 	height: 600,
 	physics: {
