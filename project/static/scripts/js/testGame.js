@@ -12,7 +12,8 @@ var inputTimer = 0;
 var receiving = false;
 var player1;
 var fire;
-var stars;
+var stars1;
+var stars2;
 var player2;
 var cursors;
 var bombs;
@@ -150,10 +151,17 @@ function createCollisions(ctx) {
 	ctx.physics.add.collider(enemy, player1);
 	ctx.physics.add.collider(enemy, player2);
 	ctx.physics.add.collider(player1, player2);
-	ctx.physics.add.collider(stars, platforms);
+	ctx.physics.add.collider(stars1, platforms);
+	ctx.physics.add.collider(stars2, platforms);
+	ctx.physics.add.collider(stars1, stars2);
+	ctx.physics.add.collider(stars2, stars2);
+	ctx.physics.add.collider(stars1, stars1);
 
-	ctx.physics.add.overlap(player1, stars, collectStar, null, this);
-	ctx.physics.add.overlap(player2, stars, collectStar, null, this);
+	ctx.physics.add.overlap(player1, stars1, collectStar, null, this);
+	ctx.physics.add.overlap(player2, stars1, collectStar, null, this);
+
+	ctx.physics.add.overlap(player1, stars2, collectStar, null, this);
+	ctx.physics.add.overlap(player2, stars2, collectStar, null, this);
 }
 
 function createSockets() {
@@ -193,11 +201,22 @@ function createSockets() {
 function collectStar (player, star)
 {
 	star.disableBody(true, true);
+	//star.destroy();
 	
 	if (player.name === 'player1') {
 		player1Score++;
 	} else if (player.name === 'player2') {
 		player2Score++;
+	}
+
+	if (stars1.countActive(true) === 0 && stars2.countActive(true) === 0)
+    {
+        stars1.children.iterate(function (child) {
+            child.enableBody(true, child.x, 0, true, true);
+		});
+		stars2.children.iterate(function (child) {
+            child.enableBody(true, child.x, 0, true, true);
+		});
 	}
 
 	console.log("player 1: "+player1Score
@@ -210,14 +229,30 @@ function create() {
 	player2 = this.physics.add.sprite(200, 450, 'dude2');
 	platforms = this.physics.add.staticGroup();
 
-	stars = this.physics.add.group({
+	stars1 = this.physics.add.group({
 		key: 'star',
-		repeat: 11,
-		setXY: {x: 12, y: 0, stepX: 70}
+		repeat: 6,
+		setXY: {x: 150, y: 0, stepX: Phaser.Math.Between(10, 120)}
 	});
 
-	stars.children.iterate(function (child){
+	stars1.children.iterate(function (child){
 		child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+		child.setBounceX(Phaser.Math.FloatBetween(0.4, 0.8));
+		child.setCollideWorldBounds(true);
+		child.setCollideWorldBounds(true);
+	});
+
+	stars2 = this.physics.add.group({
+		key: 'star',
+		repeat: 5,
+		setXY: {x: 150, y: 0, stepX: Phaser.Math.Between(10, 120)}
+	});
+
+	stars2.children.iterate(function (child){
+		child.setBounceY(Phaser.Math.FloatBetween(0.5, 0.8));
+		child.setBounceX(Phaser.Math.FloatBetween(0.5, 0.8));
+		child.setCollideWorldBounds(true);
+		child.setCollideWorldBounds(true);
 	});
 
 	//this line makes multiple lines spanning the bottom
@@ -284,6 +319,28 @@ function playerController() {
 	}
 
 	if(log === 'tapFunction') {
+		jump(500);
+	}
+}
+
+function testPlayerController(player) {
+	if(cursors.left.isDown && cursors.right.isDown) {
+		idle();
+	}
+
+	if (cursors.right.isDown && !cursors.left.isDown){
+		moveRight(160);
+	}
+
+	if (cursors.left.isDown && !cursors.right.isDown){
+		moveLeft(160);
+	}
+	
+	if(!cursors.left.isDown && !cursors.right.isDown) {
+		idle();
+	}
+
+	if (cursors.up.isDown && player.body.touching.down){
 		jump(500);
 	}
 }
@@ -367,6 +424,7 @@ function update() {
 	// }
 	
 	//enemyController();
-	playerController();
-	player2Controller();
+	testPlayerController(player1);
+	//playerController();
+	//player2Controller();
 }
