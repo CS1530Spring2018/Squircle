@@ -21,20 +21,12 @@ def test_game():
 
 @app.route('/getcontroller/')
 def redirect_controller():
-	print("no good")
 	username = session["username"]
-	print("code bad")
 	code = request.args.get('room')
-	print("code:", code)
 	if username in room_occupants[code]["players"]:
 		return url_for('mobile_controller')
 	elif username in room_occupants[code]["spectators"]:
 		return url_for('chat_app',room=code)
-	print("something went wrong")
-
-@app.route('/chat/')
-def chat_app(room=None):
-	return render_template('chat.html', lobbycode=room, username=session['username'])
 
 @app.route('/controller/', methods=['GET'])
 def mobile_controller():
@@ -50,7 +42,6 @@ def game_page():
 
 @app.route('/login/', methods=["GET", "POST"])
 def logger():
-	
 
 	if "username" in session:
 		return redirect(url_for("profile", username=session["username"]))
@@ -90,8 +81,6 @@ def unlogger():
 	else:
 		return redirect(url_for("logger"))
 
-
-
 @app.route("/profile/")
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username=None):
@@ -103,7 +92,6 @@ def profile(username=None):
 		return render_template("profilePage.html", user=username)	
 	elif request.method == "POST" and "code" in request.form:
 		code = request.form['code']
-		print(code)
 		lobbies = Lobby.query.filter_by(code=code).first()
 		if lobbies:
 			return redirect(url_for('lobby', code=code))
@@ -120,7 +108,12 @@ def lobby(code=None):
 		return render_template("lobby.html", num_players=num_players)
 	else:
 		if is_mobile():
-			return render_template("lobbym.html", code=code, data=json.dumps({'username':session['username'], 'users':room_occupants[code], 'num_players':num_players}))
+			try:
+				return render_template("lobbym.html", code=code, data=json.dumps({'username':session['username'],
+					'users':room_occupants[code], 'num_players':num_players}))
+			except KeyError as ke:
+				flash("That lobby is not valid!")
+				return redirect(url_for("profile", username=session['username']))
 		else:
 			return render_template("lobby.html", code=code, num_players=num_players)
 
@@ -136,7 +129,6 @@ def getlobbycode():
 	newcode = Lobby(code=code)
 	db.session.add(newcode)
 	db.session.commit()
-	#return "Lobby Code: " + code
 	return url_for("lobby", code=code)
 
 #Helper functions#
