@@ -11,6 +11,8 @@ var platforms;
 var inputTimer = 0;
 var receiving = false;
 var player;
+var fire;
+var stars;
 var player2;
 var cursors;
 var bombs;
@@ -60,6 +62,7 @@ function preload() {
 	this.load.image('star', url_for('image', 'star.png'));
 	this.load.image('bomb', url_for('image', 'bomb.png'));
 	this.load.image('cannon', url_for('image', 'cannon.png'));
+	this.load.image('start', url_for('image', 'star.png'));
 	/**
 	 * this loads a sprite sheet
 	 * each sprite frame is 32x48 pixels
@@ -192,6 +195,7 @@ function create() {
 
 	enemy = this.physics.add.sprite(550, 800, 'cannon');
 	enemy.setCollideWorldBounds(true);
+	enemy.visible = false;
 
 	createCollisions(this);
 
@@ -200,8 +204,25 @@ function create() {
 	createSockets();
 
 	bombs = this.add.group();
+	bombs.enableBody = true;
+	bombs.physicsBodyType = Phaser.Physics.ARCADE;
+
+	fire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+
+	for (var i = 0; i < 5; i++) {
+		var boomBoom = bombs.create(0, 0, 'bomb');
+		boomBoom.name = 'bomb'+i;
+		boomBoom.exists = false;
+		boomBoom.visible = false;
+		boomBoom.checkWorldBounds = true;
+		//boomBoom.events.onOutOfBounds.add(resetBomb, this);
+	}
+
 }
 
+function resetBomb(bomb) {
+	bomb.kill();
+}
 
 /**
  * this will be what controls the player and interprets
@@ -273,6 +294,16 @@ function enemyController() {
 	if (cursors.up.isDown && player.body.touching.down){
 		
 	}
+
+	if (fire.isDown){
+		fireBomb();
+	}
+}
+
+function fireBomb() {
+		
+	bombs.toggleVisible();
+	bombs.getChildren();
 }
 
 function player2Controller() {
@@ -301,7 +332,8 @@ function update() {
 	// if (cursors.up.isDown && player.body.touching.down){
 	// 	jump(500);
 	// }
-	enemyController();
+	
+	//enemyController();
 	playerController();
 	player2Controller();
 }
