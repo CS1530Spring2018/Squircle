@@ -40,7 +40,11 @@ class RoutesTestCase(unittest.TestCase):
 			'about':about_me,
 			'type':'Create Account'
 		}, follow_redirects=True)
-			
+	
+	def test_logout(self):
+		self.create_account('admin', 'root', '20', 'usa', 'some about me text')
+		rv = self.logout()
+		assert b'You have successfully been logged out!' in rv.data
 	def test_create_account(self):
 		rv = self.create_account('admin', 'root', '20', 'usa', 'some about me text')
 		assert b'Join Lobby' in rv.data
@@ -54,6 +58,7 @@ class RoutesTestCase(unittest.TestCase):
 	def test_create_account_no_optional_info(self):
 		rv = self.create_account('admin', 'root', '', '', '')
 		assert b'Join Lobby' in rv.data
+		
 	def test_login(self):
 		self.create_account('admin', 'root', '20', 'usa', 'some about me text')
 		self.logout()
@@ -66,5 +71,38 @@ class RoutesTestCase(unittest.TestCase):
 		rv = self.login('admin', 'bad_password')
 		assert b'Invalid login. Try again.' in rv.data
 
+	def test_login_bad_username(self):
+		rv = self.login('bad_username', 'root')
+		assert b'Invalid login. Try again.' in rv.data
+	
+	def test_unlogged_in_unauthorized(self):
+		rv = self.app.get('/profile/admin')
+		self.assertEqual(rv.status_code, 404)
+	
+	def test_view_other_profile(self):
+		self.create_account('admin', 'root', '20', 'usa', 'some about me text')
+		self.logout()
+		self.create_account('bob', 'bob', '', '', '')
+		rv = self.app.get('/profile/admin')
+		self.assertEqual(rv.status_code, 404)
+		
+	def test_getlobbycode(self):
+		rv = self.app.get('/lobbycode/')
+		assert b'lobby' in rv.data
+		
+	def test_lobbycode_uppercase(self):
+		rv = self.app.get('/lobbycode/')
+		code = rv.data.decode('ascii').split('/')[2]
+		self.assertTrue(code.isupper())
+		
+	def test_lobbycode_five_digits(self):
+		rv = self.app.get('/lobbycode/')
+		code = rv.data.decode('ascii').split('/')[2]
+		self.assertEqual(len(code), 5)
+		
+	def test_join_bad_lobby(self):
+		self.create_account('admin', 'root', '20', 'usa', 'some about me text')
+		rv = self.app.post('/profile/admin', data={'code':'BADCODE'}, follow_redirects=True)
+		assert b'That lobby is not valid!' in rv.data
 if __name__ == '__main__':
     unittest.main()
