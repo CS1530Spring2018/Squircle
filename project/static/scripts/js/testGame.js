@@ -2,7 +2,7 @@
 
 // dynamically load url?
 // pitt ip: 10.215.97.21:5000
-var baseUrl = "http://localhost:5000/static/";
+var baseUrl = "http://192.168.1.161:5000/static/";
 
 var assets = {
 	'image': 'images/gameAssets/test/',
@@ -178,7 +178,7 @@ function createSockets() {
 			return console.error(error);
 		}
 
-		var room = drone.subscribe('my_game');
+		var room = drone.subscribe('player_one');
 
 		room.on('open', function (error) {
 			if (error) {
@@ -328,7 +328,7 @@ function resetBomb(bomb) {
  * data from the incoming socket signal
 */
 
-function playerController() {
+function player1Controller() {
 	inputTimer ++;
 	
 	//console.log(log);
@@ -468,8 +468,8 @@ function update() {
 		}
 	}
 	//enemyController();
-	testPlayerController(player1);
-	//playerController();
-	//player2Controller();
+	//testPlayerController(player1);
+	player1Controller();
+	player2Controller();
 	redSwitch ++;
 }
