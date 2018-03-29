@@ -6,18 +6,16 @@ import routes, squircle
 class RoutesTestCase(unittest.TestCase):
 	
 	def setUp(self):
-		squircle.app.testing = True
+		squircle.app.config['TESTING'] = True
+		squircle.app.config['DEBUG'] = False
+		squircle.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+		squircle.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 		self.app = squircle.app.test_client()
-		SQLALCHEMY_TRACK_MODIFICATIONS = False
-		#squircle.db.init_app(self.app)
-		with squircle.app.app_context():
-			squircle.db.create_all()
+		squircle.db.drop_all()
+		squircle.db.create_all()
 			
 	def tearDown(self):
-		self.app = Flask(__name__)
-		squircle.db.init_app(self.app)
-		with self.app.app_context():
-			squircle.db.drop_all()
+		pass
 	
 	def test_index(self):
 		rv = self.app.get('/')
