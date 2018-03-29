@@ -23,8 +23,13 @@ var xDig;
 var yDig;
 var log;
 
+var redSwitch = 0;
+var bombHit = false;
 var player1Score = 0;
 var player2Score = 0;
+
+var player1ScoreText;
+var player2ScoreText;
 
 var drone;
 
@@ -92,6 +97,7 @@ function createPlayer2(ctx) {
 	player2.setBounce(0.2);
 	player2.setCollideWorldBounds(true);
 	player2.name = 'player2';
+	player2.data = {health: 3, justHit: false, hitAnim: 'turn2'};
 
 	ctx.anims.create({
 		key: 'left2',
@@ -117,10 +123,10 @@ function createPlayer2(ctx) {
 }
 
 function createPlayer1(ctx) {
-	
 	player1.setBounce(0.2);
 	player1.setCollideWorldBounds(true);
 	player1.name = 'player1';
+	player1.data = {health: 3, justHit: false, hitAnim: 'turn'};
 
 	ctx.anims.create({
 		key: 'left',
@@ -205,8 +211,10 @@ function collectStar (player, star)
 	
 	if (player.name === 'player1') {
 		player1Score++;
+		player1ScoreText.setText('Player 1 Score: '+player1Score);
 	} else if (player.name === 'player2') {
 		player2Score++;
+		player2ScoreText.setText('Player 2 Score: '+player2Score);
 	}
 
 	if (stars1.countActive(true) === 0 && stars2.countActive(true) === 0)
@@ -217,6 +225,14 @@ function collectStar (player, star)
 		stars2.children.iterate(function (child) {
             child.enableBody(true, child.x, 0, true, true);
 		});
+
+		var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+
+        var bomb = bombs.create(x, 16, 'bomb');
+        bomb.setBounce(1);
+        bomb.setCollideWorldBounds(true);
+        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+        bomb.allowGravity = false;
 	}
 
 	console.log("player 1: "+player1Score
@@ -271,21 +287,36 @@ function create() {
 
 	createSockets();
 
-	bombs = this.add.group();
-	bombs.enableBody = true;
-	bombs.physicsBodyType = Phaser.Physics.ARCADE;
+	bombs = this.physics.add.group();
+
+	this.physics.add.collider(bombs, platforms);
+
+	this.physics.add.collider(player1, bombs, hitBomb, null, this);
+	this.physics.add.collider(player2, bombs, hitBomb, null, this);
 
 	fire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
 
-	for (var i = 0; i < 5; i++) {
-		var boomBoom = bombs.create(0, 0, 'bomb');
-		boomBoom.name = 'bomb'+i;
-		boomBoom.exists = false;
-		boomBoom.visible = false;
-		boomBoom.checkWorldBounds = true;
-		//boomBoom.events.onOutOfBounds.add(resetBomb, this);
-	}
+	player1ScoreText = this.add.text(16, 16, 'Player 1 Score: 0', { fontSize: '16px', fill: '#000' });
+	player2ScoreText = this.add.text(16, 32, 'Player 2 Score: 0', { fontSize: '16px', fill: '#000' });
 
+}
+
+function hitBomb (player, bomb)
+{
+	if(!bombHit) {
+		this.physics.pause();
+		player.setTint(0xff0000);
+		player.anims.play(player.data.hitAnim);
+		player.data.health -= 1;
+		player.data.justHit = true;
+		if (player.data.health <= 0) {
+			gameOver = true;
+		} else {
+			this.physics.resume();
+		}
+	}
+	redSwitch = 0;
+	bombHit = true;
 }
 
 function resetBomb(bomb) {
@@ -423,8 +454,22 @@ function update() {
 	// 	jump(500);
 	// }
 	
+	if (redSwitch>=100) {
+		if (bombHit){
+			bombHit = false;
+			redSwitch = 0;
+			if(player1.data.justHit === true){
+				player1.data.justHit = false;
+				player1.setTint(0xffffff);
+			} else if (player2.data.justHit === true) {
+				player2.data.justHit = false;
+				player2.setTint(0xffffff);
+			}
+		}
+	}
 	//enemyController();
 	testPlayerController(player1);
 	//playerController();
 	//player2Controller();
+	redSwitch ++;
 }
