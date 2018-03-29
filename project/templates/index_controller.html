@@ -7,14 +7,27 @@
 	<script type ="text/javascript" src="https://cdn.scaledrone.com/scaledrone.min.js"></script>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/hammerjs/hammer.min.js")}}"></script>
 	<script type="text/javascript" src="{{ url_for("static", filename="scripts/js/myjoystick.js") }}"></script>
-	<script type="text/javascript" src="{{ url_for("static", filename="scripts/js/main_controller.js") }}"></script>
+	<script type="text/javascript" src="{{ url_for("static", filename="scripts/js/main_controller.js") }}" room="player_one"></script>
 	<title>Controller</title>
 {% endblock %}
 {% block body %}
 	<script>
-	  $(document).ready(function() {
-		$('body').css('background-size', 'cover');
-	  });
+		
+		function orientationChangeHandler() {
+			/*
+			 *Use a time out so the refresh actually happens.
+			 *Without refresh its basically by chance if the window actually refreshes or not.
+			 */
+			setTimeout(function(){
+				window.location = window.location;
+			},100); 
+		}
+		$(window).on("load", function() {
+			window.addEventListener('orientationchange', orientationChangeHandler);
+			if (!screen.orientation.type.startsWith('landscape')) {
+				alert('To start, rotate your screen to landscape.');
+			}
+		});
 	</script>
 {% endblock %}
 </html>

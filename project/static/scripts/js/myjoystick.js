@@ -177,13 +177,13 @@ function drawJoystick(){
     var anly = anlDirection.ydir;
 
     c.beginPath();
-    c.strokeStyle = "rgba(255, 0, 0, 0.5)";//red base
+    c.strokeStyle = "rgba(0, 0, 255, 0.5)";//red base
     c.lineWidth = "10";
     c.arc(baseX*2, baseY*2, 65, 0, Math.PI*2, true);
     c.stroke();
 
     c.beginPath();
-    c.strokeStyle = "rgba(0, 255, 0, 0.5)";//green stick
+    c.strokeStyle = "rgba(255, 255, 255, 0.5)";//green stick
     c.lineWidth = "10";
     c.arc(circX*2, circY*2, 65, 0, Math.PI*2, true);
     c.stroke();
