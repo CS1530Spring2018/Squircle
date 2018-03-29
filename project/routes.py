@@ -41,11 +41,12 @@ def mobile_controller2():
 
 @app.route('/getgame/')
 def redirect_game():
-	return url_for('game_page')
+	code = request.args.get("lobby")
+	return url_for('game_page', code=code)
 
 @app.route('/game/')
-def game_page():
-	return render_template('game.html')
+def game_page(code=None):
+	return render_template('game.html', code=code)
 
 @app.route('/login/', methods=["GET", "POST"])
 def logger():

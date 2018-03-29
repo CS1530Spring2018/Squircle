@@ -30,7 +30,8 @@ function setup() {
 		socket.on('all ready', function() {
 			//make request to /game
 			var req = new XMLHttpRequest(); 
-			req.open("GET", "/getgame/");
+			var data = "?lobby="+lobbycode;
+			req.open("GET", "/getgame/"+data);
 			req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			req.onreadystatechange = function() {
 				if (req.readyState == 4) 
