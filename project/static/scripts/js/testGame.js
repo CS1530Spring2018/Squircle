@@ -148,6 +148,7 @@ function createCollisions(ctx) {
 	ctx.physics.add.collider(stars, platforms);
 
 	ctx.physics.add.overlap(player, stars, collectStar, null, this);
+	ctx.physics.add.overlap(player2, stars, collectStar, null, this);
 }
 
 function createSockets() {
