@@ -1,8 +1,8 @@
 //test game code
 
-// dynamically load url?
-// pitt ip: 10.215.97.21:5000
-var baseUrl = "http://192.168.1.161:5000/static/";
+// dynamically load url
+var getUrl = window.location;
+var baseUrl = getUrl.protocol + "//" + getUrl.host + "/static/";
 
 var assets = {
 	'image': 'images/gameAssets/test/',

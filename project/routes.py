@@ -7,7 +7,7 @@ import string, random, json
 from database import UserProfile, UserStats, UserLogin, Lobby, Chatlog
 
 from socks import room_occupants, num_players
-
+connected = 0
 @app.route('/')
 def default():
 	if is_mobile():
@@ -21,12 +21,15 @@ def test_game():
 
 @app.route('/getcontroller/')
 def redirect_controller():
+	global connected
 	username = session["username"]
 	code = request.args.get('room')
 	if username in room_occupants[code]["players"]:
-		return url_for('mobile_controller')
-	elif username in room_occupants[code]["spectators"]:
-		return url_for('chat_app',room=code)
+		if connected == 0:
+			connected = connected + 1
+			return url_for('mobile_controller')
+		elif connected == 1:
+			return url_for('mobile_controller2')
 
 @app.route('/controller/', methods=['GET'])
 def mobile_controller():

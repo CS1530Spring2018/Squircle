@@ -2,6 +2,7 @@
 {%block head%}
 	<title>Squircle Lobby</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/jquery/dist/jquery.min.js")}}"></script>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/socket.io-client/dist/socket.io.slim.js")}}"></script>
 	<script tpye="text/javascript">
@@ -18,20 +19,24 @@
 	<script type="text/javascript" src="{{url_for("static", filename="scripts/js/lobbym.js")}}"></script>
 {%endblock%}
 {%block body%}
+	<ul class="nav-bar">
+		<li class="nav-bar"><a class="active" href="{{ url_for("lobby") }}">Lobby</a></li>
+		<li class="nav-bar"><a href="{{ url_for("logger") }}">Login/Profile</a></li>
+		<li class="nav-bar"><a href="{{ url_for("unlogger") }}">Logout</a></li>
+	</ul>	
 
-	<div id="container">
+	<div id="container" class="text-center">
 		<h1 class="text-center" id="lobbycode">Lobby {% if code %} {{code}} {% endif %}</h1>
-		
 	</div>
 	
 	<div id="userslist">
 		<div id="wrapper">
-			<div id="players">
+			<div id="players" style="font-size:32px;font-weight:bold">
 			</div>
 			<div id="spectators">
 			</div>
 		</div>
-		<button id="ready" type="button" disabled>I'm Ready</button>
+		<button id="ready" type="button" class="yellow-button" disabled>I'm Ready</button>
 	</div>
 	
 	<div id="main_chatbox"hidden>
