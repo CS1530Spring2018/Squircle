@@ -12,27 +12,20 @@
 {% endblock %}
 {% block body %}
 	<script>
-		function startInternal() {
-			window.location = window.location;
-			$('body').css('background-size', 'cover');
+		
+		function orientationChangeHandler() {
+			/*
+			 *Use a time out so the refresh actually happens.
+			 *Without refresh its basically by chance if the window actually refreshes or not.
+			 */
+			setTimeout(function(){
+				window.location = window.location;
+			},100); 
 		}
-		$(document).ready(function() {
+		$(window).on("load", function() {
+			window.addEventListener('orientationchange', orientationChangeHandler);
 			if (!screen.orientation.type.startsWith('landscape')) {
-				screen.orientation.lock('landscape-primary').then(
-					startInternal,
-					function() {
-						alert('To start, rotate your screen to landscape.');
-
-						var orientationChangeHandler = function() {
-							if (!screen.orientation.type.startsWith('landscape')) {
-								return;
-							}
-							screen.orientation.removeEventListener('change', orientationChangeHandler);
-							startInternal();
-						}
-
-					screen.orientation.addEventListener('change', orientationChangeHandler);
-				});
+				alert('To start, rotate your screen to landscape.');
 			}
 		});
 	</script>
