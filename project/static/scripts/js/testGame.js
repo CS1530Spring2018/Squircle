@@ -10,7 +10,7 @@ var assets = {
 var platforms;
 var inputTimer = 0;
 var receiving = false;
-var player;
+var player1;
 var fire;
 var stars;
 var player2;
@@ -21,6 +21,9 @@ var drone;
 var xDig;
 var yDig;
 var log;
+
+var player1Score = 0;
+var player2Score = 0;
 
 var drone;
 
@@ -87,6 +90,7 @@ function createPlayer2(ctx) {
 
 	player2.setBounce(0.2);
 	player2.setCollideWorldBounds(true);
+	player2.name = 'player2';
 
 	ctx.anims.create({
 		key: 'left2',
@@ -113,8 +117,9 @@ function createPlayer2(ctx) {
 
 function createPlayer1(ctx) {
 	
-	player.setBounce(0.2);
-	player.setCollideWorldBounds(true);
+	player1.setBounce(0.2);
+	player1.setCollideWorldBounds(true);
+	player1.name = 'player1';
 
 	ctx.anims.create({
 		key: 'left',
@@ -136,18 +141,18 @@ function createPlayer1(ctx) {
 		repeat: -1
 	});
 
-	player.body.setGravity(300);
+	player1.body.setGravity(300);
 }
 
 function createCollisions(ctx) {
-	ctx.physics.add.collider(player, platforms);
+	ctx.physics.add.collider(player1, platforms);
 	ctx.physics.add.collider(player2, platforms);
-	ctx.physics.add.collider(enemy, player);
+	ctx.physics.add.collider(enemy, player1);
 	ctx.physics.add.collider(enemy, player2);
-	ctx.physics.add.collider(player, player2);
+	ctx.physics.add.collider(player1, player2);
 	ctx.physics.add.collider(stars, platforms);
 
-	ctx.physics.add.overlap(player, stars, collectStar, null, this);
+	ctx.physics.add.overlap(player1, stars, collectStar, null, this);
 	ctx.physics.add.overlap(player2, stars, collectStar, null, this);
 }
 
@@ -187,12 +192,21 @@ function createSockets() {
 
 function collectStar (player, star)
 {
-    star.disableBody(true, true);
+	star.disableBody(true, true);
+	
+	if (player.name === 'player1') {
+		player1Score++;
+	} else if (player.name === 'player2') {
+		player2Score++;
+	}
+
+	console.log("player 1: "+player1Score
+				+" player 2: "+player2Score);
 }
 
 function create() {
 	this.add.image(400, 300, 'sky');
-	player = this.physics.add.sprite(100, 450, 'dude');
+	player1 = this.physics.add.sprite(100, 450, 'dude');
 	player2 = this.physics.add.sprite(200, 450, 'dude2');
 	platforms = this.physics.add.staticGroup();
 
@@ -275,22 +289,22 @@ function playerController() {
 }
 
 function moveRight(velocity) {
-	player.setVelocityX(velocity);
-	player.anims.play('right', true);
+	player1.setVelocityX(velocity);
+	player1.anims.play('right', true);
 }
 
 function moveLeft(velocity) {
-	player.setVelocityX(-velocity);
-	player.anims.play('left', true);
+	player1.setVelocityX(-velocity);
+	player1.anims.play('left', true);
 }
 
 function jump(velocity) {
-	player.setVelocityY(-velocity);
+	player1.setVelocityY(-velocity);
 }
 
 function idle() {
-	player.setVelocityX(0);
-	player.anims.play('turn');
+	player1.setVelocityX(0);
+	player1.anims.play('turn');
 }
 
 function enemyController() {
@@ -310,7 +324,7 @@ function enemyController() {
 		enemy.setVelocityX(0);
 	}
 
-	if (cursors.up.isDown && player.body.touching.down){
+	if (cursors.up.isDown && player1.body.touching.down){
 		
 	}
 
