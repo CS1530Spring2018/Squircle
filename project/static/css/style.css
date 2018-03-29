@@ -16,6 +16,8 @@ html {
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+	
+	background-color: rgb(198, 198, 198);
   }
 
 h1{
@@ -42,6 +44,11 @@ h1{
 	-webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
+
+.yellow-button:disabled{
+	background: gray;
+}
+
 .yellow-button:hover{
 	background-color:black; /* Green */
     color: rgb(235, 199, 0);
