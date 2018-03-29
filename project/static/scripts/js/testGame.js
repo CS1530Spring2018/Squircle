@@ -10,6 +10,7 @@ var assets = {
 var platforms;
 var inputTimer = 0;
 var receiving = false;
+var receiving2 = false;
 var player1;
 var fire;
 var stars1;
@@ -19,9 +20,13 @@ var cursors;
 var bombs;
 var enemy;
 var drone;
-var xDig;
-var yDig;
-var log;
+var xDig1;
+var yDig1;
+var log1;
+
+var xDig2;
+var yDig2;
+var log2;
 
 var redSwitch = 0;
 var bombHit = false;
@@ -97,7 +102,9 @@ function createPlayer2(ctx) {
 	player2.setBounce(0.2);
 	player2.setCollideWorldBounds(true);
 	player2.name = 'player2';
-	player2.data = {health: 3, justHit: false, hitAnim: 'turn2'};
+	player2.data = {health: 3, justHit: false, hitAnim: 'turn2',
+	rightAnim: 'right2',
+	leftAnim: 'left2'};
 
 	ctx.anims.create({
 		key: 'left2',
@@ -126,7 +133,10 @@ function createPlayer1(ctx) {
 	player1.setBounce(0.2);
 	player1.setCollideWorldBounds(true);
 	player1.name = 'player1';
-	player1.data = {health: 3, justHit: false, hitAnim: 'turn'};
+	player1.data = {health: 3, justHit: false, 
+		hitAnim: 'turn',
+		rightAnim: 'right',
+		leftAnim: 'left'};
 
 	ctx.anims.create({
 		key: 'left',
@@ -192,9 +202,41 @@ function createSockets() {
 			inputTimer = 0;
 			receiving = true;
 			// Record controller state
-			xDig = data.xdig;
-			yDig = data.ydig;
-			log = data.log;
+			xDig1 = data.xdig;
+			yDig1 = data.ydig;
+			log1 = data.log;
+		});
+
+	});
+
+	drone.on('error', function(error){
+		console.log(error);
+	});
+
+	drone.on('open', function(error) {
+
+		//checking for errors
+		if(error){
+			return console.error(error);
+		}
+
+		var room = drone.subscribe('player_two');
+
+		room.on('open', function (error) {
+			if (error) {
+				console.error(error);
+			} else {
+				console.log('Connected to room');
+			}
+		});
+
+		room.on('data', function (data) {
+			inputTimer = 0;
+			receiving2 = true;
+			// Record controller state
+			xDig2 = data.xdig;
+			yDig2 = data.ydig;
+			log2 = data.log;
 		});
 
 	});
@@ -329,28 +371,18 @@ function resetBomb(bomb) {
 */
 
 function player1Controller() {
-	inputTimer ++;
-	
-	//console.log(log);
-	if(inputTimer > 7) {
-			
-		// inputTimer = 0;
-		// receiving = false;
-		// xDig = 0;
-		// yDig = 0;
-		// log = null;
-	}
-	if(xDig > 0 && receiving) {
-		moveRight(160);
+
+	if(xDig1 > 0 && receiving) {
+		moveRight(160, player1);
 		//console.log("TEST");
-	} else if (xDig < 0 && receiving) {
-		moveLeft(160);
+	} else if (xDig1 < 0 && receiving) {
+		moveLeft(160, player1);
 	} else {
-		idle();
+		idle(player1);
 	}
 
-	if(log === 'tapFunction') {
-		jump(500);
+	if(log1 === 'tapFunction') {
+		jump(500, player1);
 	}
 }
 
@@ -376,23 +408,23 @@ function testPlayerController(player) {
 	}
 }
 
-function moveRight(velocity) {
-	player1.setVelocityX(velocity);
-	player1.anims.play('right', true);
+function moveRight(velocity, player) {
+	player.setVelocityX(velocity);
+	player.anims.play(player.data.rightAnim, true);
 }
 
-function moveLeft(velocity) {
-	player1.setVelocityX(-velocity);
-	player1.anims.play('left', true);
+function moveLeft(velocity, player) {
+	player.setVelocityX(-velocity);
+	player.anims.play(player.data.leftAnim, true);
 }
 
-function jump(velocity) {
-	player1.setVelocityY(-velocity);
+function jump(velocity, player) {
+	player.setVelocityY(-velocity);
 }
 
-function idle() {
-	player1.setVelocityX(0);
-	player1.anims.play('turn');
+function idle(player) {
+	player.setVelocityX(0);
+	player.anims.play(player.data.hitAnim);
 }
 
 function enemyController() {
@@ -428,8 +460,19 @@ function fireBomb() {
 }
 
 function player2Controller() {
-	player2.setVelocityX(0);
-	player2.anims.play('turn2');
+
+	if(xDig2 > 0 && receiving2) {
+		moveRight(160, player2);
+		//console.log("TEST");
+	} else if (xDig2 < 0 && receiving) {
+		moveLeft(160, player2);
+	} else {
+		idle(player2);
+	}
+
+	if(log2 === 'tapFunction') {
+		jump(500, player2);
+	}
 }
 
 function update() {
