@@ -8,13 +8,13 @@ from socks import room_occupants, room_ready, num_players
 class SocksTestCase(unittest.TestCase):
 	
 	def setUp(self):
-		self.app = squircle.app#Flask(__name__)
+		self.app = squircle.app
 		self.app.config['TESTING'] = True
 		self.app.config['DEBUG'] = False
 		self.app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 		self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 		self.client = squircle.socketio.test_client(self.app)
-	
+		self.client2 = squircle.socketio.test_client(self.app)
 	def tearDown(self):
 		room_occupants.clear()
 		room_ready.clear()
@@ -58,12 +58,22 @@ class SocksTestCase(unittest.TestCase):
 		occupants = room_occupants['AAAAA']
 		assert 'tester' in occupants['players']
 		
-	def make_room_ready(self, roomcode, offset=0):
-		self.client.emit('create', {'code':roomcode})
+	def make_room_ready(self, roomcode, offset=0, other=False):
+		if other:
+			self.client2.emit('create', {'code':roomcode})
+		else:
+			self.client.emit('create', {'code':roomcode})
 		for i in range(num_players-offset):
-			self.client.emit('join', {'code':roomcode, 'username':'player'+str(i)})
-			self.client.emit('ready', {'room':roomcode, 'username':'player'+str(i)})
-		return self.client.get_received()
+			if other:
+				self.client2.emit('join', {'code':roomcode, 'username':roomcode+'player'+str(i)})
+				self.client2.emit('ready', {'room':roomcode, 'username':roomcode+'player'+str(i)})
+			else:
+				self.client.emit('join', {'code':roomcode, 'username':roomcode+'player'+str(i)})
+				self.client.emit('ready', {'room':roomcode, 'username':roomcode+'player'+str(i)})
+		if other:
+			return self.client2.get_received()
+		else:
+			return self.client.get_received()
 		
 	def test_join_spectator(self):
 		self.make_room_ready('AAAAA')
@@ -72,8 +82,6 @@ class SocksTestCase(unittest.TestCase):
 		
 	def test_join_players_reached(self):
 		self.make_room_ready('AAAAA', offset=1)
-		# clear old socket.io notifications
-		self.client.get_received()
 		self.client.emit('join', {'code':'AAAAA', 'username':'final_player'})
 		rec = self.client.get_received()
 		assert rec[1]['name'] == 'players reached'
@@ -85,21 +93,17 @@ class SocksTestCase(unittest.TestCase):
 		
 	def test_room_is_ready_emits(self):
 		self.make_room_ready('AAAAA')
-		# clear old socket.io notifications
-		self.client.get_received()
 		self.client.emit('is room ready', {'code':'AAAAA'})
 		rec = self.client.get_received()
 		assert len(rec) == 1
 
 	def test_room_is_ready(self):
 		self.make_room_ready('AAAAA')
-		# clear old socket.io notifications
-		self.client.get_received()
 		self.client.emit('is room ready', {'code':'AAAAA'})
 		rec = self.client.get_received()
 		assert rec[0]['name'] == 'room is ready'
 		
-	def test_room_read_emits(self):
+	def test_room_ready_emits(self):
 		self.make_room_ready('AAAAA', offset=1)
 		self.client.emit('join', {'code':'AAAAA', 'username':'final_player'})
 		# clear old socket.io notifications
@@ -107,3 +111,41 @@ class SocksTestCase(unittest.TestCase):
 		self.client.emit('ready', {'room':'AAAAA', 'username':'final_player'})
 		rec = self.client.get_received()
 		assert rec[0]['name'] == 'all ready'
+		
+	def test_send_message(self):
+		self.make_room_ready('AAAAA')
+		self.client.emit('new message', {"username":"player0", "room":"AAAAA", "message":"test message"})
+		rec = self.client.get_received()
+		assert rec[0]['name'] == 'new message'
+		
+	def test_message_in_proper_room_emit_length(self):
+		room1 = 'AAAAA'
+		room2 = 'BBBBB'
+		self.make_room_ready(room1)
+		self.make_room_ready(room2,other=True)
+		self.client.emit('new message', {"username":room1+"player0", "room":room1, "message":"test message"})
+		self.client2.emit('new message', {"username":room2+"player0", "room":room2, "message":"test message 2"})
+		rec = self.client2.get_received()
+		assert len(rec) == 1
+		assert rec[0]['name'] == 'new message'
+		
+	def test_message_in_proper_room(self):
+		room1 = 'AAAAA'
+		room2 = 'BBBBB'
+		self.make_room_ready(room1)
+		self.make_room_ready(room2,other=True)
+		self.client.emit('new message', {"username":room1+"player0", "room":room1, "message":"test message"})
+		self.client2.emit('new message', {"username":room2+"player0", "room":room2, "message":"test message 2"})
+		rec = self.client.get_received()
+		assert len(rec) == 1
+		assert rec[0]['name'] == 'new message'
+		
+	def test_others_in_room_receive_message(self):
+		room = 'AAAAA'
+		self.make_room_ready(room)
+		self.client2.emit('join', {'code':room, 'username':'spectator'})
+		self.client2.get_received()
+		self.client.emit('new message', {"username":room+"player0", "room":room, "message":"test message"})
+		rec = self.client2.get_received()
+		assert rec[0]['name'] == 'new message'
+		
