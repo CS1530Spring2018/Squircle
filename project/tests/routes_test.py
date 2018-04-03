@@ -1,5 +1,5 @@
 from flask import Flask
-import os, unittest, tempfile, sys
+import os, unittest, sys
 sys.path.append('..')
 import routes, squircle
 
