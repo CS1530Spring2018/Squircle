@@ -44,7 +44,7 @@ def redirect_game():
 	code = request.args.get("lobby")
 	return url_for('game_page', code=code)
 
-@app.route('/game/')
+@app.route('/game/<code>')
 def game_page(code=None):
 	return render_template('game.html', code=code)
 

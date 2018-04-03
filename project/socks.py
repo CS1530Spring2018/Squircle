@@ -8,7 +8,6 @@ room_ready = {}
 
 @socketio.on('create')
 def handle_create(json):
-	print('received json: ' + str(json))
 	room = json['code']
 	join_room(room)
 	if room not in room_occupants:
@@ -16,7 +15,6 @@ def handle_create(json):
 
 @socketio.on('join')
 def handle_join(json):
-	print(str(json))
 	username = json['username']
 	room = json['code']
 	join_room(room)
@@ -30,6 +28,11 @@ def handle_join(json):
 		else:
 			room_occupants[room]['players'].append(username)
 
+@socketio.on('game join')
+def handle_game_join(json):
+	room = json['code']
+	join_room(room)
+	
 @socketio.on('ready')
 def handle_join(json):
 	username = json['username']
@@ -46,7 +49,6 @@ def handle_new_message(json):
 	username = json['username']
 	room = json['room']
 	message = json['message']
-	print(message)
 	new_message = Chatlog(sender=username, message=message, timestamp=datetime.now(), lobby_code=room)
 	db.session.add(new_message)
 	db.session.commit()

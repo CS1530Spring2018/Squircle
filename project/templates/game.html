@@ -52,14 +52,15 @@
 			if (lobbycode != null) {
 				var socket = io.connect('http://' + document.domain + ':' + location.port);
 				socket.on('connect', function() {
-					socket.emit('join', {'code': lobbycode});
+					socket.emit('game join', {'code': lobbycode});
+				});
+			
+				socket.on('new message', function(m, sender) {
+					$("#history").append($("<p>").text(sender+":"+m));
+					document.getElementById("history").scrollTop = history.scrollHeight;
 				});
 			}
-			socket.on('new message', function(m, sender) {
-			$("#history").append($("<p>").text(sender+":"+m));
-			document.getElementById("history").scrollTop = history.scrollHeight;
-	});
 		}
-		$(window).on("ready", setup);
+		$(document).ready( setup);
 	</script>
 {%endblock%}
