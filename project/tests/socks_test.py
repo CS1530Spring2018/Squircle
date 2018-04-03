@@ -18,6 +18,17 @@ class SocksTestCase(unittest.TestCase):
 	
 	def tearDown(self):
 		pass
+	
 	def test_create(self):
 		self.client.emit('create', {'code':'AAAAA'})
 		assert 'AAAAA' in squircle.socks.room_occupants
+	
+	def test_create_users_empty(self):
+		self.client.emit('create', {'code':'AAAAA'})
+		occupants = squircle.socks.room_occupants['AAAAA']
+		assert len(occupants['players']) == 0
+		
+	def test_create_spectators_empty(self):
+		self.client.emit('create', {'code':'AAAAA'})
+		occupants = squircle.socks.room_occupants['AAAAA']
+		assert len(occupants['spectators']) == 0
