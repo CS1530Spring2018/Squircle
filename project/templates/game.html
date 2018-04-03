@@ -52,7 +52,7 @@
 			if (lobbycode != null) {
 				var socket = io.connect('http://' + document.domain + ':' + location.port);
 				socket.on('connect', function() {
-					socket.emit('create', {'code': lobbycode});
+					socket.emit('join', {'code': lobbycode});
 				});
 			}
 			socket.on('new message', function(m, sender) {
