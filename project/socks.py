@@ -2,9 +2,7 @@ from flask_socketio import SocketIO, emit, join_room, leave_room, rooms
 from squircle import socketio, db
 from datetime import datetime
 from database import Chatlog
-num_players = 2
-room_occupants = {}
-room_ready = {}
+from vars import num_players, room_occupants, room_ready
 
 @socketio.on('create')
 def handle_create(json):

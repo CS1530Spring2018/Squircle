@@ -6,7 +6,7 @@ from sqlalchemy.exc import IntegrityError
 import string, random, json
 from database import UserProfile, UserStats, UserLogin, Lobby, Chatlog
 
-from socks import room_occupants, num_players
+from vars import num_players, room_occupants
 connected = 0
 @app.route('/')
 def default():
