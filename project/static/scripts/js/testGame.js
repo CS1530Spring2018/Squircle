@@ -37,6 +37,8 @@ var player1ScoreText;
 var player2ScoreText;
 
 var drone;
+drone = new ScaleDrone('JX2gIREeJoi7FDzN')
+createSockets();
 
 function url_for(type, name) {
 	return baseUrl + assets[type] + name;
@@ -88,7 +90,7 @@ function preload() {
 	this.load.spritesheet('dude2', url_for('image', 'dude2.png',),
 	{frameWidth: 32, frameHeight: 48});
 
-	drone = new ScaleDrone('JX2gIREeJoi7FDzN')
+	
 }
 
 function createWorld() {
@@ -328,7 +330,7 @@ function create() {
 
 	cursors = this.input.keyboard.createCursorKeys();
 
-	createSockets();
+	
 
 	bombs = this.physics.add.group();
 
