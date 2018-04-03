@@ -29,7 +29,7 @@ def handle_join(json):
 @socketio.on('is room ready')
 def handle_is_room_ready(json):
 	room = json['code']
-	if room_ready[room] == num_players:
+	if room in room_ready and room_ready[room] == num_players:
 		socketio.emit('room is ready', room=room)
 
 @socketio.on('game join')
