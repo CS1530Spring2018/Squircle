@@ -28,6 +28,12 @@ def handle_join(json):
 		else:
 			room_occupants[room]['players'].append(username)
 
+@socketio.on('is room ready')
+def handle_is_room_ready(json):
+	room = json['code']
+	if room_ready[room] == num_players:
+		socketio.emit('room is ready', room=room)
+
 @socketio.on('game join')
 def handle_game_join(json):
 	room = json['code']
