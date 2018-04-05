@@ -18,6 +18,7 @@ function listUsers() {
 }
 
 function setupChat() {
+	//$("#Chat").removeAttr("hidden");
 	$("#main_chatbox").removeAttr("hidden");
 	$("#userslist").attr("hidden", "hidden");
 	$("#sendMessage").on("click", sendMessage);
