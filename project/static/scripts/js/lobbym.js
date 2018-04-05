@@ -1,4 +1,3 @@
-var socket;
 function sendMessage() {
 	textArea = $("#typing")[0];
 	message = textArea.value;
@@ -8,40 +7,48 @@ function sendMessage() {
 	socket.emit('new message', {"username":username, "room":lobbycode, "message":message});
 }
 
+
+
 function listUsers() {
-	for (p in players) {
+	document.getElementById("players").style.borderColor = "rgb(235, 199, 0)";
+	document.getElementById("players").style.borderStyle = "solid"; 
+	document.getElementById("players").style.borderRadius = "16px";
+	document.getElementById("players").style.backgroundColor = "rgb(198, 198, 198)";
+	$("#players").append($("<h3>").text("Players"));
+
+    if(spectators.length>0){
+		document.getElementById("spectators").style.borderColor = "cyan";
+		document.getElementById("spectators").style.borderStyle = "solid"; 
+		document.getElementById("spectators").style.borderRadius = "16px";
+		document.getElementById("spectators").style.backgroundColor = "rgb(198, 198, 198)";
+		$("#spectators").append($("<h3>").text("Spectators"));
+	}	
+
+	for (p in players) {		
 		$("#players").append($("<li>").text(players[p]));
 	}
 	for (s in spectators) {
-		$("#spectators").append($("<li>").text(spectators[s]));
+		$("#spectators").append($("<h3>").text("Spectators"));
 	}
 }
 
 function setupChat() {
-	$("#main_chatbox").removeAttr("hidden");
+	$("#Chat").removeAttr("hidden");
+	// $("#main_chatbox").removeAttr("hidden");
 	$("#userslist").attr("hidden", "hidden");
-	$("#sendMessage").on("click", sendMessage);
+	// $("#sendMessage").on("click", sendMessage);
 }
 
 function setup() {
-	
-	socket = io.connect('http://' + document.domain + ':' + location.port);
-	
-	socket.on('connect', function() {
-		socket.emit('join', {'code': lobbycode, 'username':username});
-	});
 	
 	socket.emit('is room ready', {'code': lobbycode});
 	socket.on('room is ready', function() {
 		setupChat();
 	});
-	listUsers();
-	if (players.length == numPlayers) {
-		for (player of $("#players li")) {
-			if (username == player.innerText) {
-				$("#ready").removeAttr("disabled");
-			}
-		}
+	
+
+	if(players.length>0){
+		listUsers();
 	}
 	
 	$("#ready").on("click", function() {
@@ -51,8 +58,22 @@ function setup() {
 	
 	socket.on('new user', function(username) {
 		if ($("#players li").length == numPlayers) {
+			if ($("#spectators li").length == 0) {
+				document.getElementById("spectators").style.borderColor = "cyan";
+				document.getElementById("spectators").style.borderStyle = "solid"; 
+				document.getElementById("spectators").style.borderRadius = "16px";
+				document.getElementById("spectators").style.backgroundColor = "rgb(198, 198, 198)";
+				$("#spectators").append($("<h3>").text("Spectators"));
+			}
 			$("#spectators").append($("<li>").text(username));
 		} else {
+			if ($("#players li").length == 0) {
+				document.getElementById("players").style.borderColor = "rgb(235, 199, 0)";
+				document.getElementById("players").style.borderStyle = "solid"; 
+				document.getElementById("players").style.borderRadius = "16px";
+				document.getElementById("players").style.backgroundColor = "rgb(198, 198, 198)";
+				$("#players").append($("<h3>").text("Players"));
+			}
 			$("#players").append($("<li>").text(username));
 		}
 	});
@@ -91,9 +112,8 @@ function setup() {
 	});
 	
 	socket.on('new message', function(m, sender) {
-		$("#history").append($("<p>").text(sender+":"+m));
-		document.getElementById("history").scrollTop = history.scrollHeight;
+		// $("#history").append($("<p>").text(sender+":"+m));
+		// document.getElementById("history").scrollTop = history.scrollHeight;
 	});
 }
 window.addEventListener("load", setup, true);
-

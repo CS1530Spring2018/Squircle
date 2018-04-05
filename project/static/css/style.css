@@ -22,6 +22,7 @@ html {
 	background-size: cover;
 	
 	background-color: rgb(198, 198, 198);
+	
   }
 
 h1{
@@ -54,7 +55,7 @@ h1{
 	background: gray;
 }
 
-.yellow-button:hover{
+.yellow-button:hover:enabled{
 	background-color:black; /* Green */
     color: rgb(235, 199, 0);
 }

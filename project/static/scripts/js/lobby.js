@@ -1,13 +1,32 @@
-function test_spectators(){
-	document.getElementById("spectators").style.borderColor = "cyan";
-					document.getElementById("spectators").style.borderStyle = "solid"; 
-					document.getElementById("spectators").style.borderRadius = "16px";
-					document.getElementById("spectators").style.backgroundColor = "rgb(198, 198, 198)";
-					$("#spectators").append($("<h3>").text("Spectators"));
-					$("#spectators").append($("<li>").text("testUsername"));
+function listUsers() {
+	document.getElementById("players").style.borderColor = "rgb(235, 199, 0)";
+	document.getElementById("players").style.borderStyle = "solid"; 
+	document.getElementById("players").style.borderRadius = "16px";
+	document.getElementById("players").style.backgroundColor = "rgb(198, 198, 198)";
+	$("#players").append($("<h3>").text("Players"));
+
+    if(spectators.length>0){
+		document.getElementById("spectators").style.borderColor = "cyan";
+		document.getElementById("spectators").style.borderStyle = "solid"; 
+		document.getElementById("spectators").style.borderRadius = "16px";
+		document.getElementById("spectators").style.backgroundColor = "rgb(198, 198, 198)";
+		$("#spectators").append($("<h3>").text("Spectators"));
+	}	
+
+	for (p in players) {		
+		$("#players").append($("<li>").text(players[p]));
+	}
+	for (s in spectators) {
+		$("#spectators").append($("<h3>").text("Spectators"));
+	}
 }
 
 function setup() {
+
+	if(players.length>0){
+		listUsers();
+	}
+
 	if (lobbycode != null) {
 		var socket = io.connect('http://' + document.domain + ':' + location.port);
 		socket.on('connect', function() {
@@ -32,7 +51,6 @@ function setup() {
 					document.getElementById("players").style.borderRadius = "16px";
 					document.getElementById("players").style.backgroundColor = "rgb(198, 198, 198)";
 					$("#players").append($("<h3>").text("Players"));
-					test_spectators();
 				}
 				$("#players").append($("<li>").text(username));
 			}
