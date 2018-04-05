@@ -73,17 +73,17 @@ p {
   list-style: none;
   float: left;
   clear: both;
-  margin: 10px 0;
+  margin-bottom: 10px;
   max-width: 200px;
   }
 
-.chatroom .chats .chat img {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  position: absolute;
-  top: -10px;
-  left: 0px;
+.um {
+  position: relative;
+  float: left;
+  clear: both;
+  font-size: 10px;
+  color: #FFF;
+  
   }
 
 .chatroom .chats .chat.right {
