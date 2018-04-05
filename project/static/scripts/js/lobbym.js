@@ -48,8 +48,22 @@ function setup() {
 	
 	socket.on('new user', function(username) {
 		if ($("#players li").length == numPlayers) {
+			if ($("#spectators li").length == 0) {
+				document.getElementById("spectators").style.borderColor = "cyan";
+				document.getElementById("spectators").style.borderStyle = "solid"; 
+				document.getElementById("spectators").style.borderRadius = "16px";
+				document.getElementById("spectators").style.backgroundColor = "rgb(198, 198, 198)";
+				$("#spectators").append($("<h3>").text("Spectators"));
+			}
 			$("#spectators").append($("<li>").text(username));
 		} else {
+			if ($("#players li").length == 0) {
+				document.getElementById("players").style.borderColor = "rgb(235, 199, 0)";
+				document.getElementById("players").style.borderStyle = "solid"; 
+				document.getElementById("players").style.borderRadius = "16px";
+				document.getElementById("players").style.backgroundColor = "rgb(198, 198, 198)";
+				$("#players").append($("<h3>").text("Players"));
+			}
 			$("#players").append($("<li>").text(username));
 		}
 	});

@@ -36,7 +36,7 @@
        
            <!-- for game-->
         <div id="game" style="flex-grow: 4">
-            <!-- <script type="text/javascript" src="{{url_for('static', filename='scripts/js/testGame.js')}}"></script> -->
+            <script type="text/javascript" src="{{url_for('static', filename='scripts/js/testGame.js')}}"></script>
         </div>
 
         <!-- for react chat-->
@@ -115,10 +115,7 @@
 										)
 									}
 								</ul>
-								<form className="input" onSubmit={(e) => this.submitMessage(e)}>
-									<input type="text" ref="msg" />
-									<input type="submit" value="Submit" />
-								</form>
+								
 							</div>
 						);
 					}
