@@ -6,7 +6,7 @@ from sqlalchemy.exc import IntegrityError
 import string, random, json
 from database import UserProfile, UserStats, UserLogin, Lobby, Chatlog
 
-from vars import num_players, room_occupants
+from vars import num_players, room_occupants, game_player
 connected = 0
 @app.route('/')
 def default():
@@ -25,15 +25,20 @@ def redirect_controller():
 	username = session["username"]
 	code = request.args.get('room')
 	if username in room_occupants[code]["players"]:
-		if connected == 0:
-			connected = connected + 1
-			return url_for('mobile_controller')
-		elif connected == 1:
-			return url_for('mobile_controller2')
+		if code not in game_player:
+			game_player[code] = 0
+		else:
+			game_player[code] = game_player[code] + 1
+		return url_for('mobile_controller', playerNum=game_player[code])
+		# if connected == 0:
+			# connected = connected + 1
+			# return url_for('mobile_controller')
+		# elif connected == 1:
+			# return url_for('mobile_controller2')
 
 @app.route('/controller/', methods=['GET'])
-def mobile_controller():
-	return render_template('index_controller.html')
+def mobile_controller(playerNum=None):
+	return render_template('index_controller.html', playerNum=playerNum, username=session['username'])
 
 @app.route('/controller2/', methods=['GET'])
 def mobile_controller2():

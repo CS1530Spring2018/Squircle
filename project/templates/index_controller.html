@@ -7,8 +7,14 @@
 	<script type ="text/javascript" src="https://cdn.scaledrone.com/scaledrone.min.js"></script>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/hammerjs/hammer.min.js")}}"></script>
 	<script type="text/javascript" src="{{ url_for("static", filename="scripts/js/myjoystick.js") }}"></script>
-	<script type="text/javascript" src="{{ url_for("static", filename="scripts/js/main_controller.js") }}" room="player_one"></script>
 	<title>Controller</title>
+	<script type="text/javascript">
+		var plist = ["player_one", "player_two", "player_three", "player_four"];
+		var playerNum = {{playerNum|safe}};
+		var username = "{{username|safe}}";
+		var curr_room = plist[playerNum];
+	</script>
+	<script type="text/javascript" src="{{ url_for("static", filename="scripts/js/main_controller.js") }}"></script>
 {% endblock %}
 {% block body %}
 	<script>
