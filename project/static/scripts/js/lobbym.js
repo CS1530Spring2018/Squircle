@@ -1,4 +1,4 @@
-var socket;
+
 function sendMessage() {
 	textArea = $("#typing")[0];
 	message = textArea.value;
@@ -18,19 +18,15 @@ function listUsers() {
 }
 
 function setupChat() {
-	//$("#Chat").removeAttr("hidden");
-	$("#main_chatbox").removeAttr("hidden");
+	$("#Chat").removeAttr("hidden");
+	// $("#main_chatbox").removeAttr("hidden");
 	$("#userslist").attr("hidden", "hidden");
-	$("#sendMessage").on("click", sendMessage);
+	// $("#sendMessage").on("click", sendMessage);
 }
 
 function setup() {
 	
-	socket = io.connect('http://' + document.domain + ':' + location.port);
 	
-	socket.on('connect', function() {
-		socket.emit('join', {'code': lobbycode, 'username':username});
-	});
 	
 	socket.emit('is room ready', {'code': lobbycode});
 	socket.on('room is ready', function() {
@@ -92,8 +88,8 @@ function setup() {
 	});
 	
 	socket.on('new message', function(m, sender) {
-		$("#history").append($("<p>").text(sender+":"+m));
-		document.getElementById("history").scrollTop = history.scrollHeight;
+		// $("#history").append($("<p>").text(sender+":"+m));
+		// document.getElementById("history").scrollTop = history.scrollHeight;
 	});
 }
 window.addEventListener("load", setup, true);

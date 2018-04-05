@@ -36,6 +36,17 @@ class Chatroom extends React.Component {
 	}
 
 	componentDidMount() {
+		socket.on('new message', function(m, sender) {
+			this.setState({
+				chats: this.state.chats.concat([{
+					username: sender,
+					content: <p>m</p>,
+					//img: "http://i.imgur.com/Tj5DGiO.jpg",
+				}])
+			}, () => {
+				ReactDOM.findDOMNode(this.refs.msg).value = "";
+			});
+		});
 		this.scrollToBot();
 	}
 
@@ -49,7 +60,7 @@ class Chatroom extends React.Component {
 
 	submitMessage(e) {
 		e.preventDefault();
-
+		socket.emit('new message', {"username":username, "room":lobbycode, "message":ReactDOM.findDOMNode(this.refs.msg).value});
 		this.setState({
 			chats: this.state.chats.concat([{
 				username: "username",
@@ -60,7 +71,9 @@ class Chatroom extends React.Component {
 			ReactDOM.findDOMNode(this.refs.msg).value = "";
 		});
 	}
-
+	
+	
+	
 	render() {
 		const username = "username";
 		const { chats } = this.state;

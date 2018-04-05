@@ -19,6 +19,12 @@
 		var players = users["players"];
 		var spectators = users["spectators"];
 		var numPlayers = data["num_players"];
+		var socket;
+		socket = io.connect('http://' + document.domain + ':' + location.port);
+	
+		socket.on('connect', function() {
+			socket.emit('join', {'code': lobbycode, 'username':username});
+		});
 		console.log(data);
 		console.log(users);
 	</script>
@@ -46,8 +52,90 @@
 	</div>
 	
 	<!-- for react chat-->
-	<div id="Chat" >
-		<script type="text/babel" src="{{url_for('static', filename='scripts/js/chat.js')}}"></script>
+	<div id="Chat" hidden>
+		<script type="text/babel">
+			const Message = ({chat, user}) => (
+				<li className={`chat ${user === chat.username ? "right" : "left"}`}>
+					{user !== chat.username
+						&& <img src={chat.img} alt={`${chat.username}'s profile pic`} />
+					}
+					{chat.content}
+				</li>
+			);
+
+			class Chatroom extends React.Component {
+				constructor(props) {
+					super(props);
+					this.state = {chats:[]};
+					this.submitMessage = this.submitMessage.bind(this);
+				}
+				getInitialState() {
+					return {chats:[]};
+				}
+				_handleNewMessage(sender, m) {
+					var message = sender + ":" + m;
+					var {chats} = this.state;
+					chats.push(message);
+					this.setState({chats});
+					
+				}
+				componentDidMount() {
+					socket.on('new message', this._handleNewMessage);
+					this.scrollToBot();
+				}
+
+				componentDidUpdate() {
+					this.scrollToBot();
+				}
+
+				scrollToBot() {
+					ReactDOM.findDOMNode(this.refs.chats).scrollTop = ReactDOM.findDOMNode(this.refs.chats).scrollHeight;
+				}
+
+				submitMessage(e) {
+					e.preventDefault();
+					socket.emit('new message', {"username":username, "room":lobbycode, "message":ReactDOM.findDOMNode(this.refs.msg).value});
+					this.setState({
+						chats: this.state.chats.concat([{
+							username: "username",
+							content: <p>{ReactDOM.findDOMNode(this.refs.msg).value}</p>,
+							//img: "http://i.imgur.com/Tj5DGiO.jpg",
+						}])
+					}, () => {
+						ReactDOM.findDOMNode(this.refs.msg).value = "";
+					});
+				}
+				
+				
+				
+				render() {
+					const username = "username";
+					const { chats } = this.state;
+
+					return (
+						<div className="chatroom">
+							<h3>Squircle</h3>
+							<ul className="chats" ref="chats">
+								{
+									chats.map((chat) => 
+										<Message chat={chat} user={username} />
+									)
+								}
+							</ul>
+							<form className="input" onSubmit={(e) => this.submitMessage(e)}>
+								<input type="text" ref="msg" />
+								<input type="submit" value="Submit" />
+							</form>
+						</div>
+					);
+				}
+			}
+				
+			ReactDOM.render(
+				<Chatroom />,
+				document.getElementById('Chat')
+			);
+		</script>
 	</div>
 	<!-- <div id="main_chatbox"hidden> -->
 		<!-- <div id="chatbox"> -->
