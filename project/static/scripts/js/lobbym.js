@@ -10,18 +10,30 @@ function sendMessage() {
 
 function listUsers() {
 	for (p in players) {
+		if ($("#players li").length == 0) {
+			document.getElementById("players").style.borderColor = "rgb(235, 199, 0)";
+			document.getElementById("players").style.borderStyle = "solid"; 
+			document.getElementById("players").style.borderRadius = "16px";
+			document.getElementById("players").style.backgroundColor = "rgb(198, 198, 198)";
+			$("#players").append($("<h3>").text("Players"));
+		}
 		$("#players").append($("<li>").text(players[p]));
 	}
 	for (s in spectators) {
+		if ($("#spectators li").length == 0) {
+			document.getElementById("spectators").style.borderColor = "cyan";
+			document.getElementById("spectators").style.borderStyle = "solid"; 
+			document.getElementById("spectators").style.borderRadius = "16px";
+			document.getElementById("spectators").style.backgroundColor = "rgb(198, 198, 198)";
+			$("#spectators").append($("<h3>").text("Spectators"));
+		}
 		$("#spectators").append($("<li>").text(spectators[s]));
 	}
 }
 
 function setupChat() {
-	$("#Chat").removeAttr("hidden");
-	// $("#main_chatbox").removeAttr("hidden");
 	$("#userslist").attr("hidden", "hidden");
-	// $("#sendMessage").on("click", sendMessage);
+	$("#chatcontainer").removeAttr("hidden");
 }
 
 function setup() {
@@ -48,22 +60,10 @@ function setup() {
 	
 	socket.on('new user', function(username) {
 		if ($("#players li").length == numPlayers) {
-			if ($("#spectators li").length == 0) {
-				document.getElementById("spectators").style.borderColor = "cyan";
-				document.getElementById("spectators").style.borderStyle = "solid"; 
-				document.getElementById("spectators").style.borderRadius = "16px";
-				document.getElementById("spectators").style.backgroundColor = "rgb(198, 198, 198)";
-				$("#spectators").append($("<h3>").text("Spectators"));
-			}
+			
 			$("#spectators").append($("<li>").text(username));
 		} else {
-			if ($("#players li").length == 0) {
-				document.getElementById("players").style.borderColor = "rgb(235, 199, 0)";
-				document.getElementById("players").style.borderStyle = "solid"; 
-				document.getElementById("players").style.borderRadius = "16px";
-				document.getElementById("players").style.backgroundColor = "rgb(198, 198, 198)";
-				$("#players").append($("<h3>").text("Players"));
-			}
+			
 			$("#players").append($("<li>").text(username));
 		}
 	});
@@ -99,11 +99,6 @@ function setup() {
 			}
 		}
 		setupChat();
-	});
-	
-	socket.on('new message', function(m, sender) {
-		// $("#history").append($("<p>").text(sender+":"+m));
-		// document.getElementById("history").scrollTop = history.scrollHeight;
 	});
 }
 window.addEventListener("load", setup, true);
