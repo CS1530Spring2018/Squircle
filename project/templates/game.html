@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <link rel="stylesheet", href="{{url_for("static", filename="css/desktop.css")}}", type="text/css"/>
-    <!-- <link rel="stylesheet", href="{{url_for("static", filename="css/chat.css")}}", type="text/css"/> -->
+    <link rel="stylesheet", href="{{url_for("static", filename="css/chat.css")}}", type="text/css"/>
 
     <!-- controller/game -->
     <script  type="text/javascript" src="{{ url_for('static', filename='bower_components/phaser/dist/phaser.min.js') }}"></script>
@@ -16,6 +16,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+	
+   <!-- chat-->	
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
 	<script type = "text/javascript">
 		var lobbycode = "{{code|safe}}"
@@ -25,7 +27,6 @@
 			socket.emit('create', {'code': lobbycode});
 		});
 	</script>
-   <!-- chat-->
    
 {%endblock%}
 {%block body%}
@@ -128,7 +129,4 @@
 			</script>
         </div>
     </div>
-
-    
-
 {%endblock%}
