@@ -1,3 +1,12 @@
+function test_spectators(){
+	document.getElementById("spectators").style.borderColor = "cyan";
+					document.getElementById("spectators").style.borderStyle = "solid"; 
+					document.getElementById("spectators").style.borderRadius = "16px";
+					document.getElementById("spectators").style.backgroundColor = "rgb(198, 198, 198)";
+					$("#spectators").append($("<h3>").text("Spectators"));
+					$("#spectators").append($("<li>").text("testUsername"));
+}
+
 function setup() {
 	if (lobbycode != null) {
 		var socket = io.connect('http://' + document.domain + ':' + location.port);
@@ -23,6 +32,7 @@ function setup() {
 					document.getElementById("players").style.borderRadius = "16px";
 					document.getElementById("players").style.backgroundColor = "rgb(198, 198, 198)";
 					$("#players").append($("<h3>").text("Players"));
+					test_spectators();
 				}
 				$("#players").append($("<li>").text(username));
 			}
