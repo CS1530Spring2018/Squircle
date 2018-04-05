@@ -2,65 +2,131 @@
 {%block head%}
     <title>Game/Chat</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <link rel="stylesheet", href="{{url_for("static", filename="css/desktop.css")}}", type="text/css"/>
+    <link rel="stylesheet", href="{{url_for("static", filename="css/chat.css")}}", type="text/css"/>
 
+    <!-- controller/game -->
     <script  type="text/javascript" src="{{ url_for('static', filename='bower_components/phaser/dist/phaser.min.js') }}"></script>
     <script type = "text/javascript" src="https://cdn.scaledrone.com/scaledrone.min.js"></script>
     <script type="text/javascript" src="{{url_for("static", filename="bower_components/jquery/dist/jquery.min.js")}}"></script>
-	<script type="text/javascript" src="{{url_for("static", filename="bower_components/socket.io-client/dist/socket.io.slim.js")}}"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<script type="text/javascript">
-		{% if code %}
-			var lobbycode = "{{code|safe}}";
-		{% else %}
-			var lobbycode = null;
-		{% endif %}
-	</script>
-   <!-- for chat-->
-   <!-- <script type="text/javascript" src="{{url_for("static", filename="scripts/js/index.js")}}"></script> -->
-   
-   <!-- for react-->
-   <!-- <script src="https://unpkg.com/react@latest/dist/react.js"></script> -->
-   <!-- <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script> -->
-   <!-- <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script> -->
 
+	<!-- react-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+	
+   <!-- chat-->	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+	<script type = "text/javascript">
+		var lobbycode = "{{code|safe}}"
+		var socket = io.connect('http://' + document.domain + ':' + location.port);
+	
+		socket.on('connect', function() {
+			socket.emit('create', {'code': lobbycode});
+		});
+	</script>
+   
 {%endblock%}
 {%block body%}
 
-   <div style="padding:20px;margin-top:30px;"></div>
+    <div style="padding:10px;margin-top:20px;"></div>
     
-   <div class="flex-container">
+    <div class="flex-container">
        
-	   <!-- for game-->
-	   <div id="game" style="flex-grow: 4">
-			GAMEVIEW
-			<script type="text/javascript" src="{{url_for('static', filename='scripts/js/testGame.js')}}"></script>
-		</div>
+           <!-- for game-->
+        <div id="game" style="flex-grow: 4">
+            <script type="text/javascript" src="{{url_for('static', filename='scripts/js/testGame.js')}}"></script>
+        </div>
 
-	   <!-- for chat-->
-		<div id="main_chatbox" style="flex-grow: 1">
-			<div id="chatbox">
-				<div id="history">
-				</div>
-				<!-- <textarea placeholder="Type here..." id="typing"></textarea> -->
-			</div>
-			<!-- <button id="sendMessage" type="button">Send</button> -->
-		</div>
+        <!-- for react chat-->
+        <div id="Chat" style="flex-grow: 1">
+			<script type="text/babel">
+				const Message = ({chat, user}) => (
+					<div>
+						<p className="um">{chat.username}</p>
+						<li className={`chat ${user === chat.username ? "right" : "left"}`}>
+							{user !== chat.username
+							}
+							{chat.content}
+						</li>
+					</div>
+				);
+
+				class Chatroom extends React.Component {
+					constructor(props) {
+						super(props);
+						this.state = {chats:[]};
+						this.submitMessage = this.submitMessage.bind(this);
+						this._handleNewMessage = this._handleNewMessage.bind(this);
+					}
+					getInitialState() {
+						return {chats:[]};
+					}
+					_handleNewMessage(m, sender) {
+						this.setState({
+							chats: this.state.chats.concat([{
+								username: sender,
+								content: <p>{m}</p>
+							}])
+						}, () => {
+							ReactDOM.findDOMNode(this.refs.msg).value = "";
+						});
+					}
+					componentDidMount() {
+						socket.on('new message', this._handleNewMessage);
+						this.scrollToBot();
+					}
+
+					componentDidUpdate() {
+						this.scrollToBot();
+					}
+
+					scrollToBot() {
+						ReactDOM.findDOMNode(this.refs.chats).scrollTop = ReactDOM.findDOMNode(this.refs.chats).scrollHeight;
+					}
+
+					submitMessage(e) {
+						e.preventDefault();
+						socket.emit('new message', {"username":username, "room":lobbycode, "message":ReactDOM.findDOMNode(this.refs.msg).value});
+						this.setState({
+							chats: this.state.chats.concat([{
+								username: "username",
+								content: <p>{ReactDOM.findDOMNode(this.refs.msg).value}</p>
+							}])
+						}, () => {
+							ReactDOM.findDOMNode(this.refs.msg).value = "";
+						});
+					}
+					
+					
+					
+					render() {
+						const username = "username";
+						const { chats } = this.state;
+
+						return (
+							<div className="chatroom">
+								<h3>Squircle</h3>
+								<ul className="chats" ref="chats">
+									{
+										chats.map((chat) => 
+											<Message chat={chat} user={username} />
+										)
+									}
+								</ul>
+								
+							</div>
+						);
+					}
+				}
+					
+				ReactDOM.render(
+					<Chatroom />,
+					document.getElementById('Chat')
+				);
+			</script>
+        </div>
     </div>
-	<script type="text/javascript">
-		function setup() {
-			if (lobbycode != null) {
-				var socket = io.connect('http://' + document.domain + ':' + location.port);
-				socket.on('connect', function() {
-					socket.emit('game join', {'code': lobbycode});
-				});
-			
-				socket.on('new message', function(m, sender) {
-					$("#history").append($("<p>").text(sender+":"+m));
-					document.getElementById("history").scrollTop = history.scrollHeight;
-				});
-			}
-		}
-		$(document).ready( setup);
-	</script>
 {%endblock%}

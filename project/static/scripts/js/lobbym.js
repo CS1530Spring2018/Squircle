@@ -33,10 +33,8 @@ function listUsers() {
 }
 
 function setupChat() {
-	$("#Chat").removeAttr("hidden");
-	// $("#main_chatbox").removeAttr("hidden");
 	$("#userslist").attr("hidden", "hidden");
-	// $("#sendMessage").on("click", sendMessage);
+	$("#chatcontainer").removeAttr("hidden");
 }
 
 function setup() {
@@ -109,11 +107,6 @@ function setup() {
 			}
 		}
 		setupChat();
-	});
-	
-	socket.on('new message', function(m, sender) {
-		// $("#history").append($("<p>").text(sender+":"+m));
-		// document.getElementById("history").scrollTop = history.scrollHeight;
 	});
 }
 window.addEventListener("load", setup, true);
