@@ -30,13 +30,12 @@
 		<h1 class="text-center" style="margin-top:-20px" id="lobbycode">{% if code %}{{code}}{% endif %}</h1>
 		{% if not code %}
 			<button id="genLobbyCode" type="button" class="yellow-button">Create a Lobby</button>
-		{% endif %}
-		<div id="wrapper">
-			<div id="players">
-			</div>
-			<div id="spectators">
-			</div>
-		</div>
+		{% endif %}		
 	</div>
-	
+	<div style="margin:0 auto;text-align:center;width:80%;max-width:1000px;min-width:400px">
+		<div id="players" style="float:left;padding-left:6%;padding-bottom:20px;text-align:left;width:41%;font-size:16px">
+		</div>
+		<div id="spectators" style="margin-left:51%;padding-left:6%;padding-bottom:20px;text-align:left;width:41%;font-size:16px">
+		</div>
+	</div>	
 {%endblock%}
