@@ -2,7 +2,7 @@
 
 var drone = new ScaleDrone('JX2gIREeJoi7FDzN');
 
-var curr_room = document.currentScript.getAttribute('room');
+// var curr_room = document.currentScript.getAttribute('room');
 
 drone.on('open', function (error) {
   if (error) {

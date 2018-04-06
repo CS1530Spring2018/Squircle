@@ -7,8 +7,36 @@
 	<script type ="text/javascript" src="https://cdn.scaledrone.com/scaledrone.min.js"></script>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/hammerjs/hammer.min.js")}}"></script>
 	<script type="text/javascript" src="{{ url_for("static", filename="scripts/js/myjoystick.js") }}"></script>
-	<script type="text/javascript" src="{{ url_for("static", filename="scripts/js/main_controller.js") }}" room="player_one"></script>
 	<title>Controller</title>
+	<script type="text/javascript">
+		var plist = ["player_one", "player_two", "player_three", "player_four"];
+		var playerNum = {{playerNum|safe}};
+		var username = "{{username|safe}}";
+		var curr_room = plist[playerNum];
+	</script>
+	<script type="text/javascript" src="{{ url_for("static", filename="scripts/js/main_controller.js") }}"></script>
+	<script type-"text/javascript">
+		$(document).ready(function() {
+			switch(playerNum) {
+				case 0:
+					$(".containerL").css("background-color", "rgb(149, 0, 235)");
+					$(".containerL").css("border-left", "1px solid rgb(149, 0, 235)");
+					$(".containerL").css("border-right", "1px solid rgb(149, 0, 235)");
+					break;
+				case 1:
+					$(".containerL").css("background-color", "rgb(235, 27, 0)");
+					$(".containerL").css("border-left", "1px solid rgb(235, 27, 0)");
+					$(".containerL").css("border-right", "1px solid rgb(235, 27, 0)");
+					break;
+				case 2:
+					$(".containerL").css();
+					break;
+				case 3:
+					$(".containerL").css();
+			}
+		});
+		
+	</script>
 {% endblock %}
 {% block body %}
 	<script>
