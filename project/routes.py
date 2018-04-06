@@ -5,9 +5,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.exc import IntegrityError
 import string, random, json
 from database import UserProfile, UserStats, UserLogin, Lobby, Chatlog
-
 from vars import num_players, room_occupants, game_player
-connected = 0
+
 @app.route('/')
 def default():
 	if is_mobile():
@@ -30,13 +29,8 @@ def redirect_controller():
 		else:
 			game_player[code] = game_player[code] + 1
 		return url_for('mobile_controller', playerNum=game_player[code])
-		# if connected == 0:
-			# connected = connected + 1
-			# return url_for('mobile_controller')
-		# elif connected == 1:
-			# return url_for('mobile_controller2')
 
-@app.route('/controller/', methods=['GET'])
+@app.route('/controller/<playerNum>', methods=['GET'])
 def mobile_controller(playerNum=None):
 	return render_template('index_controller.html', playerNum=playerNum, username=session['username'])
 
