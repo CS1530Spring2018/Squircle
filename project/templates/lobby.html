@@ -21,9 +21,14 @@
 {%endblock%}
 {%block body%}
 	<ul class="nav-bar">
-		<li><a class="active" href="{{ url_for("lobby") }}">Lobby</a></li>
-		<li><a href="{{ url_for("logger") }}">Login/Profile</a></li>
-		<li><a href="{{ url_for("unlogger") }}">Logout</a></li>
+		<li><img src="../static/images/logos/squircle_logo.png" class="scale-logo-header" alt="Squircle">
+		</li>
+		<li><a class="active" href="{{ url_for("lobby") }}">Home</a></li>
+
+		<!-- FOR DEBUGGING PURPOSES -->
+
+		<!-- <li><a href="{{ url_for("logger") }}">Login/Profile</a></li>
+		<li><a href="{{ url_for("unlogger") }}">Logout</a></li> -->
 	</ul>
 
 	<div style="padding:20px;margin-top:100px;"></div>
