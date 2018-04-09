@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+.login_box  {
+    background-color: blue;
+    width: 100px;
+}
+.btn-group button {
+    background-color: #364852; /* Green background */
+    border: 1px solid white; /* Green border */
+    color: white; /* White text */
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    float: left; /* Float the buttons side by side */
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+    background-color: #3e8e41;
+}
+
+#button_login{
+    width:50%;
+    border-top-left-radius: 10px;
+    background-color: #7a0026;
+}
+
+#button_account{
+    width:50%;
+    border-top-right-radius: 10px;
+}
