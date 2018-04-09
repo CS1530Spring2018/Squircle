@@ -21,20 +21,30 @@
 
 	<div style="padding:20px;margin-top:100px;"></div>
 
-	<div class="flex-container">
+	<div class="login-container">
 			<div style="flex-grow: 1"></div>
 
 			<div id="login_container" style="flex-grow: 3">
 					<img src="../static/images/logos/squircle_logoWtext.png" class="scale-logo-small" alt="Squircle">
 
-					<div style="margin-top:20px;">
-						<div class = "flex-container">
+					<div style="margin-top:0px;">
+						<div class = "login-container">
 							<div style="flex-grow: 1"></div>
 
-								<div class="btn-group" style ="flex-grow:1; width:20%;">
+							<div class ="logon_box" style="flex-grow:1">
+
+								<div class="btn-group" style =" width:100%;">
 										<button id ="button_login" onclick="document.getElementById('id01').style.display='block'">Login</button>
 										<button id ="button_account" onclick="document.getElementById('id02').style.display='block'">Create Account</button>
 								</div>
+								<label for="uname"><b></b></label>
+
+									<input type="text" placeholder="Username" name="user" required>
+									<label for="psw"><b></b></label>
+
+									<input type="password" placeholder="Password" name="pass" required>
+									<input type="submit" id="button_logon" value="Login" name="type"/>
+							</div>
 							<div style="flex-grow: 1"></div>
 
 						</div>
