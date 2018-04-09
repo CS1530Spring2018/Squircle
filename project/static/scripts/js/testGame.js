@@ -23,6 +23,8 @@ var drone;
 var xDig1;
 var yDig1;
 var log1;
+var jumping1 = false;
+var jumping2 = false;
 
 var xDig2;
 var yDig2;
@@ -181,7 +183,10 @@ function createCollisions(ctx) {
 
 	ctx.physics.add.overlap(player1, stars2, collectStar, null, this);
 	ctx.physics.add.overlap(player2, stars2, collectStar, null, this);
+
+	
 }
+
 
 function createSockets() {
 	drone.on('open', function(error) {
@@ -372,7 +377,7 @@ function resetBomb(bomb) {
  * this will be what controls the player and interprets
  * data from the incoming socket signal
 */
-
+var player1Jump = 0;
 function player1Controller() {
 
 	if(xDig1 > 0 && receiving) {
@@ -383,9 +388,14 @@ function player1Controller() {
 	} else {
 		idle(player1);
 	}
-
-	if(log1 === 'tapFunction') {
+	
+	if(log1 === 'tapFunction' && player1Jump < 1) {
 		jump(500, player1);
+		player1Jump ++;
+	} else {
+		if (log1 === undefined) {
+			player1Jump = 0;
+		}
 	}
 }
 
@@ -461,7 +471,7 @@ function fireBomb() {
 	bombs.toggleVisible();
 	bombs.getChildren();
 }
-
+var player2Jump = 0;
 function player2Controller() {
 
 	if(xDig2 > 0 && receiving2) {
@@ -473,9 +483,16 @@ function player2Controller() {
 		idle(player2);
 	}
 
-	if(log2 === 'tapFunction') {
+	if(log2 === 'tapFunction' && player2Jump < 1) {
 		jump(500, player2);
+		player2Jump ++;
+	} else {
+		if (log2 === undefined) {
+			player2Jump = 0;
+		}
 	}
+
+
 }
 
 function update() {
