@@ -1,52 +1,38 @@
 const Message = ({chat, user}) => (
-	<li className={`chat ${user === chat.username ? "right" : "left"}`}>
-		{user !== chat.username
-			&& <img src={chat.img} alt={`${chat.username}'s profile pic`} />
-		}
-		{chat.content}
-	</li>
+	<div>
+		<p className="um">{`${user === chat.username ? "":chat.username}`}</p>
+		
+		<li className={`chat ${user === chat.username ? "right" : "left"}`}>
+			{user !== chat.username
+			}
+			{chat.content}
+		</li>
+	</div>
 );
-
 class Chatroom extends React.Component {
 	constructor(props) {
 		super(props);
-
-		this.state = {
-			chats: [//{
-				// username: "username",
-				// content: <p>usernameusernames</p>,
-				// img: "http://i.imgur.com/Tj5DGiO.jpg", // 
-			// }, {
-				// username: "user1",
-				// content: <p>user1</p>,
-				// img: "http://i.imgur.com/Tj5DGiO.jpg",
-			// }, {
-				// username: "user2",
-				// content: <p>user2</p>,
-				// img: "http://i.imgur.com/Tj5DGiO.jpg",
-			// }, {
-				// username: "user3",
-				// content: <p>user3</p>,
-				// img: "http://i.imgur.com/ARbQZix.jpg",
-			//}
-			]
-		};
-
+		this.state = {chats:[]};
 		this.submitMessage = this.submitMessage.bind(this);
+		this._handleNewMessage = this._handleNewMessage.bind(this);
 	}
-
-	componentDidMount() {
-		socket.on('new message', function(m, sender) {
+	getInitialState() {
+		return {chats:[]};
+	}
+	_handleNewMessage(m, sender) {
+		if (sender != username) {
 			this.setState({
 				chats: this.state.chats.concat([{
 					username: sender,
-					content: <p>m</p>,
-					//img: "http://i.imgur.com/Tj5DGiO.jpg",
+					content: <p>{m}</p>
 				}])
 			}, () => {
 				ReactDOM.findDOMNode(this.refs.msg).value = "";
 			});
-		});
+		}
+	}
+	componentDidMount() {
+		socket.on('new message', this._handleNewMessage);
 		this.scrollToBot();
 	}
 
@@ -64,8 +50,7 @@ class Chatroom extends React.Component {
 		this.setState({
 			chats: this.state.chats.concat([{
 				username: "username",
-				content: <p>{ReactDOM.findDOMNode(this.refs.msg).value}</p>,
-				//img: "http://i.imgur.com/Tj5DGiO.jpg",
+				content: <p>{ReactDOM.findDOMNode(this.refs.msg).value}</p>
 			}])
 		}, () => {
 			ReactDOM.findDOMNode(this.refs.msg).value = "";
@@ -77,7 +62,6 @@ class Chatroom extends React.Component {
 	render() {
 		const username = "username";
 		const { chats } = this.state;
-
 		return (
 			<div className="chatroom">
 				<h3>Squircle</h3>

@@ -8,8 +8,7 @@
 {%endblock%}
 {%block body%}
 	<ul class="nav-bar">
-		<li><a  href="{{ url_for("lobby") }}">Lobby</a></li>
-		<li><a class="active" href="{{ url_for("logger") }}">Login/Profile</a></li>
+		<li><a class="active" href="{{ url_for("logger") }}">Login</a></li>
 		<li><a href="{{ url_for("unlogger") }}">Logout</a></li>
 	</ul>	
 	<div style="padding:20px;margin-top:30px;"></div>
@@ -23,8 +22,5 @@
 				<input type="submit" value="Join Lobby" class="yellow-button">
 			</div>
 		</form>
-		<div class="text-center">
-				<a href="{{ url_for("unlogger") }}">click here to logout</a>
-		</div>
 	</div>
 {%endblock%}
