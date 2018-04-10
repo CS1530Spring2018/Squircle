@@ -469,6 +469,14 @@ function jump(velocity, player) {
 	player.setVelocityY(-velocity);
 }
 
+function moveLeftEnemy(velocity, player) {
+	player.setVelocityX(-velocity);
+}
+
+function moveRightEnemy(velocity, player) {
+	player.setVelocityX(velocity);
+}
+
 function idle(player) {
 	player.setVelocityX(0);
 	player.anims.play(player.data.hitAnim);
@@ -476,7 +484,12 @@ function idle(player) {
 
 function enemyController() {
 
-
+	if(xDig4 > 0 && receiving4) {
+		moveRightEnemy(160, enemy);
+		//console.log("TEST");
+	} else if (xDig4 < 0 && receiving4) {
+		moveLeftEnemy(160, enemy);
+	}
 	
 }
 
@@ -548,5 +561,6 @@ function update() {
 	//testPlayerController(player1);
 	player1Controller();
 	player2Controller();
+	enemyController();
 	redSwitch ++;
 }
