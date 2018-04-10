@@ -18,6 +18,10 @@ def default():
 def test_game():
 	return render_template("game.html")
 
+@app.route('/help/')
+def faq():
+	return render_template('faq.html')
+	
 @app.route('/getcontroller/')
 def redirect_controller():
 	global connected
