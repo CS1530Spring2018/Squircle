@@ -1,25 +1,25 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
-.login_box  {
-    background-color: blue;
-    width: 100px;
-}
+
+
 .login-container {
     display: flex;
-    align-items: stretch;
+    align-items: center;
     text-align: center;
     height:100%;
 }
 
-.login-container > div {
-  color: rgb(255, 255, 255);
-  /* background-color:black; */
-  
+/* .login-container > div {
+  color: rgb(255, 255, 255);  
   width: 100px;
   text-align: center;
   border-radius: 20px;
-}
-
+} */
+.logincontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+  }
 .btn-group button {
     background-color: #364852; /* Green background */
     border: 1px solid white; /* Green border */
@@ -70,7 +70,7 @@
 }
 
 .button_lobby {
-    background-color: #364852;
+    background-color: #1e282d;
     color: white;
     font-family: 'Montserrat', sans-serif;
 
@@ -81,6 +81,9 @@
     border-width: 1px;
     font-size: 25px;
     border-radius: 10px;
-    border-color: white;
-    border-width: 10px;
+    border: 2px solid #E8E8E8;}
+
+.placeholder{
+    color:white;
+    text-align: center;
 }

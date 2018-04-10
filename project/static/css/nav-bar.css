@@ -5,7 +5,6 @@ ul.nav-bar{
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #111;
     position: fixed;
     top: 0;
     width: 100%;
@@ -19,14 +18,18 @@ ul.nav-bar li a{
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    margin-top:1px;
+    margin-right: 10px;
+    margin-left:5px;
+    padding: 16px 16px;
     text-decoration: none;
 }
 
 ul.nav-bar li a:hover:not(.active) {
-    background-color: #333;
+	background-color: rgb(235, 199, 0);
+
 }
 
 .active {
-    background-color:  rgb(235, 199, 0);
+
 }

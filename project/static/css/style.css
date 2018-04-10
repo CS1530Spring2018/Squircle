@@ -16,7 +16,7 @@ body{
 }
 html { 
 	
-	background-color: rgb(74, 78, 82);
+	background-color: #394049;
 	
   }
 
@@ -91,15 +91,30 @@ h1{
 .scale-logo-small{
 	height: auto; 
 	width: auto; 
-	max-width: 500px; 
+	max-width: 350px; 
 	max-height: 175px;
-	align-items: center
+	align-items: center;
+  }
+  
+  .scale-logo-mobile{
+	height: auto; 
+	width: 100vh; 
+	max-width: 400px; 
+	max-height: 300px;
+  	align-items: center;
+	}
+
+.scale-logo-large{
+	height: auto; 
+	width: auto; 
+	max-width: 700px; 
+	align-items: center;
   }
 
   .scale-logo-header{
-	margin:1px;
-	margin-left:5px;
-	height: 50px; 
-	width: 50px; 
+	margin:8px;
+	height: 40px; 
+	width: 40px; 
 	align-items: center;
   }
+
