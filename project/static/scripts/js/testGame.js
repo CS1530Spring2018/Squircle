@@ -11,6 +11,7 @@ var platforms;
 var inputTimer = 0;
 var receiving = false;
 var receiving2 = false;
+var receiving4 = false;
 var player1;
 var fire;
 var stars1;
@@ -25,6 +26,10 @@ var yDig1;
 var log1;
 var jumping1 = false;
 var jumping2 = false;
+
+var xDig4;
+var xDig4;
+var log4;
 
 var xDig2;
 var yDig2;
@@ -187,7 +192,6 @@ function createCollisions(ctx) {
 	
 }
 
-
 function createSockets() {
 	drone.on('open', function(error) {
 
@@ -213,6 +217,38 @@ function createSockets() {
 			xDig1 = data.xdig;
 			yDig1 = data.ydig;
 			log1 = data.log;
+		});
+
+	});
+
+	drone.on('error', function(error){
+		console.log(error);
+	});
+
+	drone.on('open', function(error) {
+
+		//checking for errors
+		if(error){
+			return console.error(error);
+		}
+
+		var room = drone.subscribe('player_four');
+
+		room.on('open', function (error) {
+			if (error) {
+				console.error(error);
+			} else {
+				console.log('Connected to room');
+			}
+		});
+
+		room.on('data', function (data) {
+			inputTimer = 0;
+			receiving4 = true;
+			// Record controller state
+			xDig4 = data.xdig;
+			yDig4 = data.ydig;
+			log4 = data.log;
 		});
 
 	});
@@ -327,15 +363,13 @@ function create() {
 	createPlayer1(this);
 	createPlayer2(this);
 
-	enemy = this.physics.add.sprite(550, 800, 'cannon');
+	enemy = this.physics.add.sprite(400, 800, 'cannon');
 	enemy.setCollideWorldBounds(true);
-	enemy.visible = false;
+	enemy.visible = true;
 
 	createCollisions(this);
 
 	cursors = this.input.keyboard.createCursorKeys();
-
-	
 
 	bombs = this.physics.add.group();
 
@@ -441,29 +475,9 @@ function idle(player) {
 }
 
 function enemyController() {
-	if(cursors.left.isDown && cursors.right.isDown) {
-		enemy.setVelocityX(0);
-	}
 
-	if (cursors.right.isDown && !cursors.left.isDown){
-		enemy.setVelocityX(160);
-	}
 
-	if (cursors.left.isDown && !cursors.right.isDown){
-		enemy.setVelocityX(-160);
-	}
 	
-	if(!cursors.left.isDown && !cursors.right.isDown) {
-		enemy.setVelocityX(0);
-	}
-
-	if (cursors.up.isDown && player1.body.touching.down){
-		
-	}
-
-	if (fire.isDown){
-		fireBomb();
-	}
 }
 
 function fireBomb() {
