@@ -1,0 +1,33 @@
+html {
+	background-image: none;
+	background-color: seashell;
+}
+.rel{
+	position: relative;
+}
+
+#faq-title {
+	font-size: 33px;
+	/* background-color: rgb(198, 198, 198); */
+	margin-right: 32%;
+	margin-left: 32%;
+}
+
+#container {
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
+.section h3 {
+	font-size: 23px;
+	margin-bottom: 0;
+}
+
+.section p {
+	margin-top: 5px;
+}
+
+.section h4 {
+	margin-top: 5px;
+	margin-bottom: 0;
+}
