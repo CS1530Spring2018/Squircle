@@ -22,16 +22,23 @@
 		<li><a href="{{ url_for("unlogger") }}">Logout</a></li>
 		<li class="nav-bar"><a href="{{ url_for("faq") }}">Help</a></li>
 	</ul>
-
+	
 	<div style="padding:20px;margin-top:30px;"></div>
-	<div id="container" class="center">
-		<img src="../static/images/logos/logo_black_squircle.png" class="scale-logo-small" alt="Squircle">
-		<div style="padding:5px;margin-top:5px;"></div>
-		<h2 class="text-center" style="font-size:36px" id="lobbycode">{% if code %}Join Lobby: {% endif %}</h2>
-		<h1 class="text-center" style="margin-top:-20px" id="lobbycode">{% if code %}{{code}}{% endif %}</h1>
-		{% if not code %}
-			<button id="genLobbyCode" type="button" class="yellow-button">Create a Lobby</button>
-		{% endif %}		
+	<div>
+		<div id="container" class="center">
+			<img src="../static/images/logos/logo_black_squircle.png" class="scale-logo-small" alt="Squircle">
+			<div style="padding:5px;margin-top:5px;"></div>
+			<h2 class="text-center" style="font-size:36px" id="lobbycode">{% if code %}Join Lobby: {% endif %}</h2>
+			<h1 class="text-center" style="margin-top:-20px" id="lobbycode">{% if code %}{{code}}{% endif %}</h1>
+			{% if not code %}
+				<button id="genLobbyCode" type="button" class="yellow-button">Create a Lobby</button>
+			{% endif %}		
+		</div>
+		<div id="help">
+			<span class="text-center" id='close'>X</span>
+			<h3>Help</h3>
+			<p>Creating a lobby generates a Lobby Code - share this code with your friends so that they can join your lobby!</p>
+		</div>
 	</div>
 	<div style="margin:0 auto;text-align:center;width:80%;max-width:1000px;min-width:400px">
 		<div id="players" style="float:left;padding-left:6%;padding-bottom:20px;text-align:left;width:41%;font-size:16px">

@@ -92,5 +92,9 @@ function setup() {
 		}
 		req.send();
 	});
+	
+	$("#close").on("click", function() {
+		$("#help").attr("hidden", "hidden");
+	});
 }
 window.addEventListener("load", setup, true);
