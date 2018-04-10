@@ -13,15 +13,23 @@
 		<li class="nav-bar"><a href="{{ url_for("faq") }}">Help</a></li>
 	</ul>	
 	<div style="padding:20px;margin-top:30px;"></div>
-	<h2 class="text-center">Welcome! Please</h2>
-	<div class="text-center">
-			<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="yellow-button">login</button>
-	</div>
-	<h2 class="text-center">or</h2>
-	<div class="text-center">
-			<button onclick="document.getElementById('id02').style.display='block'" style="width:auto;" class="yellow-button">create a new account</button>
+	<div>
+		<div id="container">
+			<h2 class="text-center">Welcome! Please</h2>
+			<div class="text-center">
+				<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="yellow-button">login</button>
+			</div>
+			<h2 class="text-center">or</h2>
+			<div class="text-center">
+				<button onclick="document.getElementById('id02').style.display='block'" style="width:auto;" class="yellow-button">create a new account</button>
+			</div>
 		</div>
-	
+		<div id="help">
+			<span class="text-center" id='close'>X</span>
+			<h3>Help</h3>
+			<p>Login, Create Account</p>
+		</div>
+	</div>
 
 	<div id="id01" class="modal">
 	

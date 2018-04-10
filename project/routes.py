@@ -24,7 +24,6 @@ def faq():
 	
 @app.route('/getcontroller/')
 def redirect_controller():
-	global connected
 	username = session["username"]
 	code = request.args.get('room')
 	if username in room_occupants[code]["players"]:
