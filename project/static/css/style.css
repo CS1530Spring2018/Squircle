@@ -1,16 +1,18 @@
 #container {
 	margin-left: 30%;
-	/* margin-right: 0; */
 	display: inline-block;
 	width :40%;
 	float: left;
 }
 #help {
-	margin-top: 10%;
-	float: left;
+	position: fixed;
+	bottom: 0;
+	right: 0;
 	width: 15%;
 	padding: 10px;
 	padding-top: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
 	box-sizing: border-box;
 	background-color: seashell;
 	border: 2px solid #ccc;
@@ -28,19 +30,16 @@
 #close {
     float:right;
     display:inline-block;
-    padding:2px 5px;
-    background: red;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
+    padding-right: 5px;
+	padding-bottom: 7px;
+	color: #000;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 #close:hover {
-	float:right;
-	display:inline-block;
-	padding:2px 5px;
-	background:#ccc;
-	color:#fff;
+	color: red;
+	cursor: pointer;
 }
 .warning {
 	font-size: large;

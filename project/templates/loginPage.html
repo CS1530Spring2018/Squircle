@@ -17,17 +17,12 @@
 		<div id="container">
 			<h2 class="text-center">Welcome! Please</h2>
 			<div class="text-center">
-				<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="yellow-button">login</button>
+				<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="yellow-button">Login</button>
 			</div>
 			<h2 class="text-center">or</h2>
 			<div class="text-center">
-				<button onclick="document.getElementById('id02').style.display='block'" style="width:auto;" class="yellow-button">create a new account</button>
+				<button onclick="document.getElementById('id02').style.display='block'" style="width:auto;" class="yellow-button">Create A New Account</button>
 			</div>
-		</div>
-		<div id="help">
-			<span class="text-center" id='close'>X</span>
-			<h3>Help</h3>
-			<p>Login, Create Account</p>
 		</div>
 	</div>
 
@@ -100,3 +95,8 @@
 			}
 			</script>
 {%endblock%}
+{% block tip %}
+	Click on <strong>Login</strong> and enter your username and password to login!
+	</br>
+	Click on <strong>Create A New Account</strong> and enter your profile information to get started with Squircle!
+{% endblock %}

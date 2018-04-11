@@ -34,11 +34,7 @@
 				<button id="genLobbyCode" type="button" class="yellow-button">Create a Lobby</button>
 			{% endif %}		
 		</div>
-		<div id="help">
-			<span class="text-center" id='close'>X</span>
-			<h3>Help</h3>
-			<p>Creating a lobby generates a Lobby Code - share this code with your friends so that they can join your lobby!</p>
-		</div>
+		
 	</div>
 	<div style="margin:0 auto;text-align:center;width:80%;max-width:1000px;min-width:400px">
 		<div id="players" style="float:left;padding-left:6%;padding-bottom:20px;text-align:left;width:41%;font-size:16px">
@@ -46,4 +42,8 @@
 		<div id="spectators" style="margin-left:51%;padding-left:6%;padding-bottom:20px;text-align:left;width:41%;font-size:16px">
 		</div>
 	</div>	
+	
 {%endblock%}
+{% block tip %}
+	Creating a lobby generates a Lobby Code - share this code with your friends so that they can join your lobby!
+{% endblock %}

@@ -25,6 +25,12 @@
 				</div>
 			{% endif %}
 		{% endwith %}
+		
 		{%block body%}{%endblock%}
+		<div id="help">
+			<span class="text-center" id='close'>&times;</span>
+			<h3>Help</h3>
+			<p>{% block tip %}{% endblock %}</p>
+		</div>
 	</body>
 </html>
