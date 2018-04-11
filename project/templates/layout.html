@@ -3,6 +3,7 @@
 	<head>
 		<link rel="stylesheet", href="{{url_for("static", filename="css/style.css")}}", type="text/css"/>
 		<link rel="stylesheet", href="{{url_for("static", filename="css/login.css")}}", type="text/css"/>
+		<script type="text/javascript" src="{{url_for("static", filename="bower_components/jquery/dist/jquery.min.js")}}"></script>
 		{% block head %}{% endblock %}
 	</head>
 	
@@ -28,13 +29,26 @@
 		
 		{%block body%}{%endblock%}
 		<div id="help">
-			<span class="text-center" id='close'>&times;</span>
-			<h3>Help</h3>
-			<p>{% block tip %}{% endblock %}</p>
+			<div id="header-content">
+				<span class="text-center" id='close'>&#8681;</span>
+				<h3>Help</h3>
+			</div>
+			
+			<div id="help-content">
+				<hr>
+				<p>{% block tip %}{% endblock %}</p>
+			</div>
 		</div>
 		<script type="text/javascript">
 			document.getElementById("close").onclick = function() {
-				document.getElementById("help").style.display="none";
+				var arrow = $("#close").html();
+				if(arrow == "\u21e9") {     
+					$("#close").html("\u21e7"); 
+					$("#help-content").attr("hidden", "hidden");
+				} else {            
+					$("#close").html("\u21e9");   
+					$("#help-content").removeAttr("hidden");				
+				}
 			};
 		</script>
 	</body>
