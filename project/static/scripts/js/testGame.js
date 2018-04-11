@@ -67,7 +67,7 @@ var config = {
 	physics: {
 		default: 'arcade',
 		arcade: {
-			gravity: {y: 300},
+			gravity: {y: 600},
 			debug: false
 		}
 	},
@@ -135,8 +135,6 @@ function createPlayer2(ctx) {
 		frameRate: 10,
 		repeat: -1
 	});
-
-	player2.body.setGravity(300);
 }
 
 function createPlayer1(ctx) {
@@ -168,7 +166,6 @@ function createPlayer1(ctx) {
 		repeat: -1
 	});
 
-	player1.body.setGravity(300);
 }
 
 function createCollisions(ctx) {

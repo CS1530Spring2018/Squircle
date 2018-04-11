@@ -36,7 +36,7 @@ def mobile_controller(playerNum=None):
 
 @app.route('/controllerTest/', methods=['GET'])
 def mobile_controller2():
-	return render_template('index_controller.html', playerNum=3, username="test")
+	return render_template('index_controller.html', playerNum=0, username="test")
 
 @app.route('/getgame/')
 def redirect_game():
