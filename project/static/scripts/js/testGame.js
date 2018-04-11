@@ -407,7 +407,8 @@ function hitBomb (player, bomb)
 }
 
 function resetBomb(bomb) {
-	bomb.kill();
+	bomb.y = 1000;
+	bomb.setVisible(false);
 	canFire = true;
 }
 
@@ -486,8 +487,9 @@ function idle(player) {
 	player.anims.play(player.data.hitAnim);
 }
 
+var firedBomb = {y:0};
 function enemyController() {
-
+	
 	if(xDig4 > 0 && receiving4) {
 		moveRightEnemy(160, enemy);
 		//console.log("TEST");
@@ -496,8 +498,13 @@ function enemyController() {
 	}
 	
 	if(log4 === 'swipeUFunction' && canFire) {
-		fireBomb(enemy.x);
+		firedBomb = fireBomb(enemy.x);
 		canFire = false;
+	}
+
+	if (firedBomb.y > 610 && !canFire){
+		resetBomb(firedBomb);
+		console.log("RESET");
 	}
 }
 
@@ -507,7 +514,9 @@ function fireBomb(x) {
     bomb.setBounce(1);
     bomb.setCollideWorldBounds(false);
     bomb.setVelocityY(-800);
-    bomb.allowGravity = false;
+	bomb.allowGravity = false;
+	
+	return bomb;
 }
 var player2Jump = 0;
 function player2Controller() {
