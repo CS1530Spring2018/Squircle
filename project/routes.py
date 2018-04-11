@@ -18,9 +18,12 @@ def default():
 def test_game():
 	return render_template("game.html")
 
+@app.route('/help/')
+def faq():
+	return render_template('faq.html')
+	
 @app.route('/getcontroller/')
 def redirect_controller():
-	global connected
 	username = session["username"]
 	code = request.args.get('room')
 	if username in room_occupants[code]["players"]:

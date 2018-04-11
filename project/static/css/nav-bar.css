@@ -2,11 +2,12 @@ body {margin:0;}
 
 ul.nav-bar{
     list-style-type: none;
-    margin: 0;
+    margin-top: 0;
+	margin-bottom: 10px;
     padding: 0;
     overflow: hidden;
     background-color: #111;
-    position: fixed;
+    position: relative;
     top: 0;
     width: 100%;
 }
@@ -30,3 +31,4 @@ ul.nav-bar li a:hover:not(.active) {
 .active {
     background-color:  rgb(235, 199, 0);
 }
+
