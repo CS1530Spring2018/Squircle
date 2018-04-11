@@ -9,6 +9,7 @@ html {
 	margin-right: 15%;
 	margin-left: 15%;
 	margin-top: 3%;
+	font-family: Tahoma;
 }
 #faq-title {
 	font-size: 33px;
@@ -27,6 +28,7 @@ html {
 .section h4 {
 	margin-top: 5px;
 	margin-bottom: 0;
+	font-size: 18px;
 }
 @media screen and (min-width:700px) {
 	#faq {
