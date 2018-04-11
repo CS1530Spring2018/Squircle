@@ -19,6 +19,7 @@ var stars2;
 var player2;
 var cursors;
 var bombs;
+var firedBombs;
 var enemy;
 var drone;
 var xDig1;
@@ -30,6 +31,7 @@ var jumping2 = false;
 var xDig4;
 var xDig4;
 var log4;
+var canFire = true;
 
 var xDig2;
 var yDig2;
@@ -369,11 +371,15 @@ function create() {
 	cursors = this.input.keyboard.createCursorKeys();
 
 	bombs = this.physics.add.group();
+	firedBombs = this.physics.add.group();
 
 	this.physics.add.collider(bombs, platforms);
 
 	this.physics.add.collider(player1, bombs, hitBomb, null, this);
 	this.physics.add.collider(player2, bombs, hitBomb, null, this);
+
+	this.physics.add.collider(player1, firedBombs, hitBomb, null, this);
+	this.physics.add.collider(player2, firedBombs, hitBomb, null, this);
 
 	fire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
 
@@ -402,6 +408,7 @@ function hitBomb (player, bomb)
 
 function resetBomb(bomb) {
 	bomb.kill();
+	canFire = true;
 }
 
 /**
@@ -488,12 +495,19 @@ function enemyController() {
 		moveLeftEnemy(160, enemy);
 	}
 	
+	if(log4 === 'swipeUFunction' && canFire) {
+		fireBomb(enemy.x);
+		canFire = false;
+	}
 }
 
-function fireBomb() {
-		
-	bombs.toggleVisible();
-	bombs.getChildren();
+function fireBomb(x) {
+	console.log("BOMB");
+	var bomb = firedBombs.create(x, 540, 'bomb');
+    bomb.setBounce(1);
+    bomb.setCollideWorldBounds(false);
+    bomb.setVelocityY(-800);
+    bomb.allowGravity = false;
 }
 var player2Jump = 0;
 function player2Controller() {
@@ -541,7 +555,7 @@ function update() {
 	// 	jump(500);
 	// }
 	
-	if (redSwitch>=100) {
+	if (redSwitch>=50) {
 		if (bombHit){
 			bombHit = false;
 			redSwitch = 0;
