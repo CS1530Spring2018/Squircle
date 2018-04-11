@@ -32,5 +32,10 @@
 			<h3>Help</h3>
 			<p>{% block tip %}{% endblock %}</p>
 		</div>
+		<script type="text/javascript">
+			document.getElementById("close").onclick = function() {
+				document.getElementById("help").style.display="none";
+			};
+		</script>
 	</body>
 </html>
