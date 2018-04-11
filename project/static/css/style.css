@@ -97,10 +97,11 @@ h1{
   }
   
   .scale-logo-mobile{
+	width: 100vw;
 	height: auto; 
-	width: 100vh; 
-	max-width: 400px; 
-	max-height: 300px;
+
+	max-width: auto; 
+	max-height: auto;
   	align-items: center;
 	}
 

@@ -15,12 +15,21 @@
   text-align: center;
   border-radius: 20px;
 } */
+
+p{
+	font-size:10px;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    text-align: center;
+    font-style: italic;
+}
+
 .logincontainer {
     text-align: center;
     margin: 24px 0 12px 0;
     position: relative;
   }
-  
+
 .btn-group button {
     background-color: #364852; /* Green background */
     border: 1px solid white; /* Green border */
@@ -46,10 +55,15 @@
     background-color: #3e8e41;
 }
 
-#button_login{
+#signin{
     width:50%;
     border-top-left-radius: 10px;
-    background-color: #7a0026;
+    min-height: 40px;
+}
+
+#createAccount{
+    width:50%;
+    border-top-right-radius: 10px;
     min-height: 40px;
 }
 
@@ -60,6 +74,17 @@
 }
 
 #button_logon{
+    width:100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #3e8e41;
+    color: white; /* White text */
+    font-family: 'Montserrat', sans-serif;
+    min-height: 40px;
+    margin-top: 5px;
+}
+
+#button_create{
     width:100%;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -88,3 +113,9 @@
     color:white;
     text-align: center;
 }
+.content { display:none }
+
+.active, .btn:hover {
+    background-color: #666;
+    color: white;
+  }

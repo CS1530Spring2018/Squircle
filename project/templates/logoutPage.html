@@ -1,12 +1,13 @@
 {%extends "layout.html"%}
-{%block head%}'=
+{%block head%}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
 <title>Logout</title>{%endblock%}
 {%block body%}
 	<ul class="nav-bar">
-		<li><a href="{{ url_for("lobby") }}">Lobby</a></li>
-		<li><a href="{{ url_for("logger") }}">Login/Profile</a></li>
-		<li><a class="active" href="{{ url_for("unlogger") }}">Logout</a></li>
+		<li><a href="{{ url_for("logger") }}">Login</a></li>
 	</ul>	
 	<div style="padding:20px;margin-top:30px;"></div>
 	<div class="text-center">
