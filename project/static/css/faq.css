@@ -6,17 +6,14 @@ html {
 	position: relative;
 }
 #faq {
-	margin-right: 25%;
-	margin-left: 25%;
+	margin-right: 15%;
+	margin-left: 15%;
 	margin-top: 3%;
+	font-family: Tahoma;
 }
 #faq-title {
 	font-size: 33px;
 	/* background-color: rgb(198, 198, 198); */
-}
-
-#container {
-	margin: 0;
 }
 
 .section h3 {
@@ -31,4 +28,11 @@ html {
 .section h4 {
 	margin-top: 5px;
 	margin-bottom: 0;
+	font-size: 18px;
+}
+@media screen and (min-width:700px) {
+	#faq {
+		margin-right: 25%;
+		margin-left: 25%;
+	}
 }

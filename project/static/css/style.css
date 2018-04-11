@@ -1,14 +1,11 @@
-#container {
-	margin-left: 30%;
-	display: inline-block;
-	width :40%;
-	float: left;
+#join {
+	width:40%;
 }
 #help {
 	position: fixed;
 	bottom: 0;
 	right: 0;
-	width: 15%;
+	width: 50%;
 	/* padding-top: 8px; */
 	padding-left: 10px;
 	padding-right: 10px;
@@ -49,6 +46,11 @@
 #close:hover {
 	color: red;
 	cursor: pointer;
+}
+@media screen and (min-width: 700px) {
+	#help {
+		width: 15%;
+	}
 }
 .warning {
 	font-size: large;

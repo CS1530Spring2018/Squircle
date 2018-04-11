@@ -1,6 +1,7 @@
 {%extends "layout.html"%}
 {%block head%}
 	<title>Squircle Lobby</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/socket.io-client/dist/socket.io.slim.js")}}"></script>
 	<script type="text/javascript">
@@ -22,9 +23,9 @@
 		<li class="nav-bar"><a href="{{ url_for("faq") }}">Help</a></li>
 	</ul>
 	
-	<div style="padding:20px;margin-top:30px;"></div>
+	<div style="padding:20px;margin-top:15px;"></div>
 	<div>
-		<div id="container" class="center">
+		<div class="center">
 			<img src="../static/images/logos/logo_black_squircle.png" class="scale-logo-small" alt="Squircle">
 			<div style="padding:5px;margin-top:5px;"></div>
 			<h2 class="text-center" style="font-size:36px" id="lobbycode">{% if code %}Join Lobby: {% endif %}</h2>
@@ -44,5 +45,5 @@
 	
 {%endblock%}
 {% block tip %}
-	Creating a lobby generates a Lobby Code - share this code with your friends so that they can join your lobby!
+	Click on <strong>Create a Lobby</strong> to create a lobby. Creating a lobby generates a Lobby Code - share this code with your friends so that they can join your lobby!
 {% endblock %}
