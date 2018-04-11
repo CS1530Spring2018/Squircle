@@ -1,41 +1,44 @@
-{%extends "layout.html"%}
-{%block head%}
+<!doctype html>
+<html>
+	<head>
 	<title>Squircle Help</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
-	<link rel="stylesheet", href="{{url_for("static", filename="css/faq.css")}}", type="text/css"/>
-{%endblock%}
-{%block body%}
-	<ul class="nav-bar">
-		<li class="nav-bar"><a href="{{ url_for("lobby") }}">Lobby</a></li>
-		<li class="nav-bar"><a href="{{ url_for("logger") }}">Login/Profile</a></li>
-		<li class="nav-bar"><a href="{{ url_for("unlogger") }}">Logout</a></li>
-		<li class="nav-bar"><a class="active" href="{{ url_for("faq") }}">Help</a></li>
-	</ul>
-	<div class="rel" id="faq">
-		<h2 class="text-center" id="faq-title">Frequently Asked Questions</h2>
-		<div class="rel" id="container">
-			<div class="rel section">
-				<h3>Account Creation</h3>
-				<h4>How do I create an account?</h4>
-				<p>To create an account...</p>
-			</div>
-			<div class="rel section">
-				<h3>Logging In And Out</h3>
-				<p>To login...</p>
-			</div>
-			<div class="rel section">
-				<h3>Creating a Lobby</h3>
-				<p>To login...</p>
-			</div>
-			<div class="rel section">
-				<h3>Joining a Lobby</h3>
-				<p>To login...</p>
-			</div>
-			<div class="rel section">
-				<h3>Gameplay</h3>
-				<p>To login...</p>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
+		<link rel="stylesheet", href="{{url_for("static", filename="css/style.css")}}", type="text/css"/>
+		<link rel="stylesheet", href="{{url_for("static", filename="css/faq.css")}}", type="text/css"/>
+	</head>
+	<body>
+		<ul class="nav-bar">
+			<li class="nav-bar"><a href="{{ url_for("lobby") }}">Lobby</a></li>
+			<li class="nav-bar"><a href="{{ url_for("logger") }}">Login/Profile</a></li>
+			<li class="nav-bar"><a href="{{ url_for("unlogger") }}">Logout</a></li>
+			<li class="nav-bar"><a class="active" href="{{ url_for("faq") }}">Help</a></li>
+		</ul>
+		<div class="rel" id="faq">
+			<h2 class="text-center" id="faq-title">Frequently Asked Questions</h2>
+			<div class="rel" id="container">
+				<div class="rel section">
+					<h3>Account Creation</h3>
+					<h4>How do I create an account?</h4>
+					<p>To create an account...</p>
+				</div>
+				<div class="rel section">
+					<h3>Logging In And Out</h3>
+					<p>To login...</p>
+				</div>
+				<div class="rel section">
+					<h3>Creating a Lobby</h3>
+					<p>To login...</p>
+				</div>
+				<div class="rel section">
+					<h3>Joining a Lobby</h3>
+					<p>To login...</p>
+				</div>
+				<div class="rel section">
+					<h3>Gameplay</h3>
+					<p>To login...</p>
+				</div>
 			</div>
 		</div>
-	</div>
-{%endblock%}
+	</body>
+</html>
