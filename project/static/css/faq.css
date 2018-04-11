@@ -5,17 +5,18 @@ html {
 .rel{
 	position: relative;
 }
-
+#faq {
+	margin-right: 25%;
+	margin-left: 25%;
+	margin-top: 3%;
+}
 #faq-title {
 	font-size: 33px;
 	/* background-color: rgb(198, 198, 198); */
-	margin-right: 32%;
-	margin-left: 32%;
 }
 
 #container {
-	margin-left: 20%;
-	margin-right: 20%;
+	margin: 0;
 }
 
 .section h3 {
