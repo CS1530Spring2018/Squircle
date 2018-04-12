@@ -167,3 +167,17 @@ h1{
 	align-items: center;
   }
 
+
+  .button_lobby {
+    background-color: #1e282d;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+
+    height:80px;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    border-width: 1px;
+    font-size: 25px;
+    border-radius: 10px;
+    border: 2px solid #E8E8E8;}
