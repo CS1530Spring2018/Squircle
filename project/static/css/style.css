@@ -63,13 +63,8 @@ body{
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 html { 
-	background: url(../images/backgrounds/website.png) no-repeat center center fixed; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
 	
-	background-color: rgb(198, 198, 198);
+	background-color: #394049;
 	
   }
 
@@ -144,6 +139,30 @@ h1{
 .scale-logo-small{
 	height: auto; 
 	width: auto; 
-	max-width: 200px; 
-	max-height: 200px;
+	max-width: 350px; 
+	max-height: 175px;
+	align-items: center;
+  }  
+  .scale-logo-mobile{
+	width: 100vw;
+	height: auto; 
+
+	max-width: auto; 
+	max-height: auto;
+  	align-items: center;
+	}
+
+.scale-logo-large{
+	height: auto; 
+	width: auto; 
+	max-width: 700px; 
+	align-items: center;
   }
+
+  .scale-logo-header{
+	margin:8px;
+	height: 40px; 
+	width: 40px; 
+	align-items: center;
+  }
+
