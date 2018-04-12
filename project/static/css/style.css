@@ -47,13 +47,11 @@
 	color: red;
 	cursor: pointer;
 }
-@media screen and (min-width: 700px) {
-	#help {
-		width: 15%;
-	}
-}
+
 .warning {
-	font-size: large;
+	font-size: 25px;
+	/* color: white; */
+	/* font-weight: bold; */
 }
 
 .text-center {
@@ -136,6 +134,14 @@ h1{
 	font-weight:bold
 }
 
+#flashbox {
+	/* -moz-border-radius: 20px; */
+	/* -webkit-border-radius: 20px; */
+	/* border-radius: 20px; */
+	background-color: salmon;
+	display: table;
+}
+
 .scale-logo-small{
 	height: auto; 
 	width: auto; 
@@ -181,3 +187,13 @@ h1{
     font-size: 25px;
     border-radius: 10px;
     border: 2px solid #E8E8E8;}
+	
+@media screen and (min-width: 700px) {
+	#help {
+		width: 15%;
+	}
+	
+	#flashbox {
+		width: 40%;
+	}
+}
