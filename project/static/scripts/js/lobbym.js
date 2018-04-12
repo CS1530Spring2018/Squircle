@@ -28,7 +28,7 @@ function listUsers() {
 		$("#players").append($("<li>").text(players[p]));
 	}
 	for (s in spectators) {
-		$("#spectators").append($("<h3>").text("Spectators"));
+		$("#spectators").append($("<li>").text(spectators[s]));
 	}
 }
 
@@ -38,7 +38,9 @@ function setupChat() {
 }
 
 function setup() {
-	
+	if (data == null) {
+		return;
+	}
 	socket.emit('is room ready', {'code': lobbycode});
 	socket.on('room is ready', function() {
 		setupChat();
@@ -76,6 +78,13 @@ function setup() {
 		}
 	});
 	
+	if (players.length == numPlayers) {
+		for (player of $("#players li")) {
+			if (username == player.innerText) {
+				$("#ready").removeAttr("disabled");
+			}
+		}
+	}
 	socket.on('players reached', function() {
 		for (player of $("#players li")) {
 			if (username == player.innerText) {
