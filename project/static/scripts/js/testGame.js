@@ -11,6 +11,7 @@ var platforms;
 var inputTimer = 0;
 var receiving = false;
 var receiving2 = false;
+var receiving4 = false;
 var player1;
 var fire;
 var stars1;
@@ -18,6 +19,7 @@ var stars2;
 var player2;
 var cursors;
 var bombs;
+var firedBombs;
 var enemy;
 var drone;
 var xDig1;
@@ -25,6 +27,11 @@ var yDig1;
 var log1;
 var jumping1 = false;
 var jumping2 = false;
+
+var xDig4;
+var xDig4;
+var log4;
+var canFire = true;
 
 var xDig2;
 var yDig2;
@@ -62,7 +69,7 @@ var config = {
 	physics: {
 		default: 'arcade',
 		arcade: {
-			gravity: {y: 300},
+			gravity: {y: 600},
 			debug: false
 		}
 	},
@@ -130,8 +137,6 @@ function createPlayer2(ctx) {
 		frameRate: 10,
 		repeat: -1
 	});
-
-	player2.body.setGravity(300);
 }
 
 function createPlayer1(ctx) {
@@ -163,7 +168,6 @@ function createPlayer1(ctx) {
 		repeat: -1
 	});
 
-	player1.body.setGravity(300);
 }
 
 function createCollisions(ctx) {
@@ -186,7 +190,6 @@ function createCollisions(ctx) {
 
 	
 }
-
 
 function createSockets() {
 	drone.on('open', function(error) {
@@ -213,6 +216,38 @@ function createSockets() {
 			xDig1 = data.xdig;
 			yDig1 = data.ydig;
 			log1 = data.log;
+		});
+
+	});
+
+	drone.on('error', function(error){
+		console.log(error);
+	});
+
+	drone.on('open', function(error) {
+
+		//checking for errors
+		if(error){
+			return console.error(error);
+		}
+
+		var room = drone.subscribe('player_four');
+
+		room.on('open', function (error) {
+			if (error) {
+				console.error(error);
+			} else {
+				console.log('Connected to room');
+			}
+		});
+
+		room.on('data', function (data) {
+			inputTimer = 0;
+			receiving4 = true;
+			// Record controller state
+			xDig4 = data.xdig;
+			yDig4 = data.ydig;
+			log4 = data.log;
 		});
 
 	});
@@ -327,22 +362,24 @@ function create() {
 	createPlayer1(this);
 	createPlayer2(this);
 
-	enemy = this.physics.add.sprite(550, 800, 'cannon');
+	enemy = this.physics.add.sprite(400, 800, 'cannon');
 	enemy.setCollideWorldBounds(true);
-	enemy.visible = false;
+	enemy.visible = true;
 
 	createCollisions(this);
 
 	cursors = this.input.keyboard.createCursorKeys();
 
-	
-
 	bombs = this.physics.add.group();
+	firedBombs = this.physics.add.group();
 
 	this.physics.add.collider(bombs, platforms);
 
 	this.physics.add.collider(player1, bombs, hitBomb, null, this);
 	this.physics.add.collider(player2, bombs, hitBomb, null, this);
+
+	this.physics.add.collider(player1, firedBombs, hitBomb, null, this);
+	this.physics.add.collider(player2, firedBombs, hitBomb, null, this);
 
 	fire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
 
@@ -370,7 +407,9 @@ function hitBomb (player, bomb)
 }
 
 function resetBomb(bomb) {
-	bomb.kill();
+	bomb.y = 1000;
+	bomb.setVisible(false);
+	canFire = true;
 }
 
 /**
@@ -435,41 +474,49 @@ function jump(velocity, player) {
 	player.setVelocityY(-velocity);
 }
 
+function moveLeftEnemy(velocity, player) {
+	player.setVelocityX(-velocity);
+}
+
+function moveRightEnemy(velocity, player) {
+	player.setVelocityX(velocity);
+}
+
 function idle(player) {
 	player.setVelocityX(0);
 	player.anims.play(player.data.hitAnim);
 }
 
+var firedBomb = {y:0};
 function enemyController() {
-	if(cursors.left.isDown && cursors.right.isDown) {
-		enemy.setVelocityX(0);
-	}
-
-	if (cursors.right.isDown && !cursors.left.isDown){
-		enemy.setVelocityX(160);
-	}
-
-	if (cursors.left.isDown && !cursors.right.isDown){
-		enemy.setVelocityX(-160);
+	
+	if(xDig4 > 0 && receiving4) {
+		moveRightEnemy(160, enemy);
+		//console.log("TEST");
+	} else if (xDig4 < 0 && receiving4) {
+		moveLeftEnemy(160, enemy);
 	}
 	
-	if(!cursors.left.isDown && !cursors.right.isDown) {
-		enemy.setVelocityX(0);
+	if(log4 === 'swipeUFunction' && canFire) {
+		firedBomb = fireBomb(enemy.x);
+		canFire = false;
 	}
 
-	if (cursors.up.isDown && player1.body.touching.down){
-		
-	}
-
-	if (fire.isDown){
-		fireBomb();
+	if (firedBomb.y > 610 && !canFire){
+		resetBomb(firedBomb);
+		console.log("RESET");
 	}
 }
 
-function fireBomb() {
-		
-	bombs.toggleVisible();
-	bombs.getChildren();
+function fireBomb(x) {
+	console.log("BOMB");
+	var bomb = firedBombs.create(x, 540, 'bomb');
+    bomb.setBounce(1);
+    bomb.setCollideWorldBounds(false);
+    bomb.setVelocityY(-800);
+	bomb.allowGravity = false;
+	
+	return bomb;
 }
 var player2Jump = 0;
 function player2Controller() {
@@ -517,7 +564,7 @@ function update() {
 	// 	jump(500);
 	// }
 	
-	if (redSwitch>=100) {
+	if (redSwitch>=50) {
 		if (bombHit){
 			bombHit = false;
 			redSwitch = 0;
@@ -534,5 +581,6 @@ function update() {
 	//testPlayerController(player1);
 	player1Controller();
 	player2Controller();
+	enemyController();
 	redSwitch ++;
 }
