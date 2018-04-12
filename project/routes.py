@@ -21,6 +21,9 @@ def test_game():
 @app.route('/help/')
 def faq():
 	return render_template('faq.html')
+@app.route('/about/')
+def about():
+	return render_template('about.html')
 	
 @app.route('/getcontroller/')
 def redirect_controller():
