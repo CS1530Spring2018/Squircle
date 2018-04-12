@@ -18,9 +18,12 @@ def default():
 def test_game():
 	return render_template("game.html")
 
+@app.route('/help/')
+def faq():
+	return render_template('faq.html')
+	
 @app.route('/getcontroller/')
 def redirect_controller():
-	global connected
 	username = session["username"]
 	code = request.args.get('room')
 	if username in room_occupants[code]["players"]:
@@ -119,8 +122,12 @@ def lobby(code=None):
 				return render_template("lobbym.html", code=code, data=json.dumps({'username':session['username'],
 					'users':room_occupants[code], 'num_players':num_players}))
 			except KeyError as ke:
-				flash("That lobby is not valid!")
-				return redirect(url_for("profile", username=session['username']))
+				if 'username' in ke.args:
+					flash("You can only create a lobby on desktop!")
+					return redirect(url_for("lobby"))
+				else:
+					flash("That lobby is not valid!")
+					return redirect(url_for("profile", username=session['username']))
 		else:
 			return render_template("lobby.html", code=code, num_players=num_players)
 

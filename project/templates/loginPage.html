@@ -10,17 +10,21 @@
 		<li><a href="{{ url_for("lobby") }}">Lobby</a></li>
 		<li><a class="active"  href="{{ url_for("logger") }}">Login/Profile</a></li>
 		<li><a href="{{ url_for("unlogger") }}">Logout</a></li>
+		<li class="nav-bar"><a href="{{ url_for("faq") }}">Help</a></li>
 	</ul>	
-	<div style="padding:20px;margin-top:30px;"></div>
-	<h2 class="text-center">Welcome! Please</h2>
-	<div class="text-center">
-			<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="yellow-button">login</button>
-	</div>
-	<h2 class="text-center">or</h2>
-	<div class="text-center">
-			<button onclick="document.getElementById('id02').style.display='block'" style="width:auto;" class="yellow-button">create a new account</button>
+	<!-- <div style="padding:20px;margin-top:15px;"></div> -->
+	<div>
+		<div>
+			<h2 class="text-center">Welcome! Please</h2>
+			<div class="text-center">
+				<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="yellow-button">Login</button>
+			</div>
+			<h2 class="text-center">or</h2>
+			<div class="text-center">
+				<button onclick="document.getElementById('id02').style.display='block'" style="width:auto;" class="yellow-button">Create A New Account</button>
+			</div>
 		</div>
-	
+	</div>
 
 	<div id="id01" class="modal">
 	
@@ -91,3 +95,8 @@
 			}
 			</script>
 {%endblock%}
+{% block tip %}
+	Click on <strong>Login</strong> and enter your username and password to login!
+	</br>
+	Click on <strong>Create A New Account</strong> and enter your profile information to get started with Squircle!
+{% endblock %}

@@ -1,0 +1,38 @@
+html {
+	background-image: none;
+	background-color: seashell;
+}
+.rel{
+	position: relative;
+}
+#faq {
+	margin-right: 15%;
+	margin-left: 15%;
+	margin-top: 3%;
+	font-family: Tahoma;
+}
+#faq-title {
+	font-size: 33px;
+	/* background-color: rgb(198, 198, 198); */
+}
+
+.section h3 {
+	font-size: 23px;
+	margin-bottom: 0;
+}
+
+.section p {
+	margin-top: 5px;
+}
+
+.section h4 {
+	margin-top: 5px;
+	margin-bottom: 0;
+	font-size: 18px;
+}
+@media screen and (min-width:700px) {
+	#faq {
+		margin-right: 25%;
+		margin-left: 25%;
+	}
+}

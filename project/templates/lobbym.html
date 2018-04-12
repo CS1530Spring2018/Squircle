@@ -3,7 +3,6 @@
 	<title>Squircle Lobby</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
-	<script type="text/javascript" src="{{url_for("static", filename="bower_components/jquery/dist/jquery.min.js")}}"></script>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/socket.io-client/dist/socket.io.slim.js")}}"></script>
 	<!-- react-->
 	<link rel="stylesheet", href="{{url_for("static", filename="css/desktop.css")}}", type="text/css"/>
@@ -37,9 +36,10 @@
 		<li class="nav-bar"><a class="active" href="{{ url_for("lobby") }}">Lobby</a></li>
 		<li class="nav-bar"><a href="{{ url_for("logger") }}">Login/Profile</a></li>
 		<li class="nav-bar"><a href="{{ url_for("unlogger") }}">Logout</a></li>
+		<li class="nav-bar"><a href="{{ url_for("faq") }}">Help</a></li>
 	</ul>	
 
-	<div id="container" class="text-center">
+	<div class="text-center">
 		<h1 class="text-center" id="lobbycode">Lobby {% if code %} {{code}} {% endif %}</h1>
 	</div>
 	
@@ -145,7 +145,6 @@
 			</script>
 		</div>
 	</div>
-	
-	
-	
 {%endblock%}
+{% block tip %}
+{% endblock %}

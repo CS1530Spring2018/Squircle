@@ -11,15 +11,17 @@
 		<li><a  href="{{ url_for("lobby") }}">Lobby</a></li>
 		<li><a class="active" href="{{ url_for("logger") }}">Login/Profile</a></li>
 		<li><a href="{{ url_for("unlogger") }}">Logout</a></li>
+		<li class="nav-bar"><a href="{{ url_for("faq") }}">Help</a></li>
 	</ul>	
-	<div style="padding:20px;margin-top:30px;"></div>
-	<div id="container" class="text-center">
+	<div style="padding:20px;margin-top:15px;"></div>
+	<div class="text-center">
 			<img src="../static/images/logos/logo_black_squircle.png" class="scale-logo-small" alt="Squircle">
 		<h2 class="text-center">Welcome, {{user}}</h2>
 		<form action="" method="post" class="text-center">
-			<div>
+			<div id="joindiv">
 				<h3>Join Lobby</h3> 
 				<input type="text" name="code" id="join" required>
+				</br>
 				<input type="submit" value="Join Lobby" class="yellow-button">
 			</div>
 		</form>
@@ -28,3 +30,6 @@
 		</div>
 	</div>
 {%endblock%}
+{% block tip %}
+	Enter the five digit lobby code in the text box then click <strong>Join Lobby</strong> to join a lobby and start gaming!
+{% endblock %}
