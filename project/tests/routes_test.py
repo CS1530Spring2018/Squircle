@@ -161,6 +161,11 @@ class RoutesTestCase(unittest.TestCase):
 		
 		rv = self.app.get('/lobby/'+code)
 		assert b'Help' in rv.data
+
+	def test_getgame(self):
+		code = self.get_lobby_code()
+		rv = self.app.get('/getgame/', query_string={'lobby':code})
+		assert bytes(code, 'utf-8') in rv.data
 		
 	def test_game_page(self):
 		code = self.get_lobby_code()
