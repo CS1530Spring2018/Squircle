@@ -71,7 +71,7 @@ def logger():
 		return redirect(url_for("logger"))
 	elif request.method == "POST" and request.form["type"]=="Create Account":
 		failure = create_account(request.form["user"], request.form["pass"], 
-			about_me=request.form['about'], age=request.form['age'], country=request.form['country'])
+			about_me=request.form['about'], country=request.form['country'])
 		if "Duplicate" == failure:
 			flash("Username already exists. Try something different.")
 			return redirect(url_for("logger"))
@@ -160,10 +160,10 @@ def is_mobile():
 	return useragent.platform in ['android', 'iphone', 'ipad']
 	
 
-def create_account(new_username, new_password, about_me=None, age=None, country=None):
+def create_account(new_username, new_password, about_me=None, country=None):
 	new_user = UserLogin(username=new_username, password=generate_password_hash(new_password))
 	db.session.add(new_user)
-	new_profile = UserProfile(username=new_username, about_me=about_me, age=age, country=country)
+	new_profile = UserProfile(username=new_username, about_me=about_me, country=country)
 	db.session.add(new_profile)
 	try:
 		db.session.commit()
