@@ -3,6 +3,8 @@
 	<title>Squircle Lobby</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
+	<link rel="stylesheet", href="{{url_for("static", filename="css/lobby.css")}}", type="text/css"/>
+	<link rel="stylesheet", href="{{url_for("static", filename="css/login-container.css")}}", type="text/css"/>
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/socket.io-client/dist/socket.io.slim.js")}}"></script>
 	<script type="text/javascript">
 		{% if code %}
@@ -17,21 +19,18 @@
 {%endblock%}
 {%block body%}
 	<ul class="nav-bar">
-		<li><a class="active" href="{{ url_for("lobby") }}">Lobby</a></li>
-		<li><a href="{{ url_for("logger") }}">Login/Profile</a></li>
-		<li><a href="{{ url_for("unlogger") }}">Logout</a></li>
 		<li class="nav-bar"><a href="{{ url_for("faq") }}">Help</a></li>
 	</ul>
 	
-	<div style="padding:20px;margin-top:15px;"></div>
+	<div style="padding:20px;margin-top:100px;"></div>
 	<div>
 		<div class="center">
-			<img src="../static/images/logos/logo_black_squircle.png" class="scale-logo-small" alt="Squircle">
+			<img src="../static/images/logos/squircle_logoWtext.png" class="scale-logo-large" alt="Squircle">
 			<div style="padding:5px;margin-top:5px;"></div>
 			<h2 class="text-center" style="font-size:36px" id="lobbycode">{% if code %}Join Lobby: {% endif %}</h2>
 			<h1 class="text-center" style="margin-top:-20px" id="lobbycode">{% if code %}{{code}}{% endif %}</h1>
 			{% if not code %}
-				<button id="genLobbyCode" type="button" class="yellow-button">Create a Lobby</button>
+			<button id="genLobbyCode" class="button_lobby">Create Lobby</button>
 			{% endif %}		
 		</div>
 		

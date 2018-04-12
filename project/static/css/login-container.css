@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+
+
+.login-container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height:100%;
+}
+
+/* .login-container > div {
+  color: rgb(255, 255, 255);  
+  width: 100px;
+  text-align: center;
+  border-radius: 20px;
+} */
+
+p{
+	font-size:10px;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    text-align: center;
+    font-style: italic;
+}
+
+.logincontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+  }
+
+.btn-group button {
+    background-color: #364852; /* Green background */
+    border: 1px solid white; /* Green border */
+    color: white; /* White text */
+    cursor: pointer; /* Pointer/hand icon */
+    float: left; /* Float the buttons side by side */
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+    background-color: #3e8e41;
+}
+
+#signin{
+    width:50%;
+    border-top-left-radius: 10px;
+    min-height: 40px;
+}
+
+#createAccount{
+    width:50%;
+    border-top-right-radius: 10px;
+    min-height: 40px;
+}
+
+#button_account{
+    width:50%;
+    border-top-right-radius: 10px;
+    min-height: 40px;
+}
+
+#button_logon{
+    width:100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #3e8e41;
+    color: white; /* White text */
+    font-family: 'Montserrat', sans-serif;
+    min-height: 40px;
+    margin-top: 5px;
+}
+
+#button_create{
+    width:100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #3e8e41;
+    color: white; /* White text */
+    font-family: 'Montserrat', sans-serif;
+    min-height: 40px;
+    margin-top: 5px;
+}
+
+.button_lobby {
+    background-color: #1e282d;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+
+    height:80px;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    border-width: 1px;
+    font-size: 25px;
+    border-radius: 10px;
+    border: 2px solid #E8E8E8;}
+
+.placeholder{
+    color:white;
+    text-align: center;
+}
+.content { display:none }
+
+.active, .btn:hover {
+    background-color: #666;
+    color: white;
+  }
