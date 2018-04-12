@@ -66,7 +66,8 @@ def logger():
 				session["username"] = request.form["user"]
 				return redirect(url_for("profile", username=user.username))
 		# bad password or bad username, just login again
-		flash("Invalid login. Try again.")
+		flash("We were unable to log you in :(")
+		flash("Make sure your password and username are correct.")
 		return redirect(url_for("logger"))
 	elif request.method == "POST" and request.form["type"]=="Create Account":
 		failure = create_account(request.form["user"], request.form["pass"], 
@@ -77,7 +78,7 @@ def logger():
 		#once new account is registered first set session
 		session["username"] = request.form["user"]
 		#then redirect to profile
-		flash("Your account has been created successfully.")
+		# flash("Your account has been created successfully.")
 		return redirect(url_for("profile", username=request.form["user"]))
 	else:
 		return render_template("loginPage.html")
@@ -106,7 +107,8 @@ def profile(username=None):
 		if lobbies:
 			return redirect(url_for('lobby', code=code))
 		else:
-			flash("That lobby is not valid!")
+			flash("Something went wrong :(")
+			flash("Make sure you entered the lobby code correctly and try again.")
 			return redirect(url_for("profile", username=username))
 	else:
 		abort(404)
@@ -126,10 +128,12 @@ def lobby(code=None):
 					'users':room_occupants[code], 'num_players':num_players}))
 			except KeyError as ke:
 				if 'username' in ke.args:
-					flash("You can only create a lobby on desktop!")
+					flash("We're sorry, you can only create a lobby on the desktop site.")
+					flash("Try joining a lobby on your phone or tablet.")
 					return redirect(url_for("lobby"))
 				else:
-					flash("That lobby is not valid!")
+					flash("Something went wrong :(")
+					flash("Make sure you entered the lobby code correctly and try again.")
 					return redirect(url_for("profile", username=session['username']))
 		else:
 			return render_template("lobby.html", code=code, num_players=num_players)
