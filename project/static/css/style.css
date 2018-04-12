@@ -143,8 +143,9 @@ h1{
 	max-height: 175px;
 	align-items: center;
   }  
+
   .scale-logo-mobile{
-	width: 100vw;
+	width: 80%;
 	height: auto; 
 
 	max-width: auto; 

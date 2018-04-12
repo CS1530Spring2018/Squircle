@@ -28,58 +28,50 @@
 {%endblock%}
 {%block body%}
 
-<ul class="nav-bar">
-	<li class="nav-bar"><a href="{{ url_for("faq") }}">Help</a></li>
-</ul>	
-	<div style="padding:20px;margin-top:12%"></div>
+	<ul class="nav-bar">
+		<li class="nav-bar"><a href="{{ url_for("faq") }}">Help</a></li>
+	</ul>	
+
+	<div style="padding:20px;margin-top:3%"></div>
+
 	<div>
 		<div class="center">
-			<img src="../static/images/logos/squircle_logoWtext.png" class="scale-logo-mobile">			</div>
+		<img src="../static/images/logos/squircle_logoWtext.png" class="scale-logo-mobile">
 		</div>
-			<div style="padding:20px;margin-top:3%"></div>
-				
-		<div class="center">
+	</div>
 
-		<div class="btn-group-wrap">
-			<div class="btn-group" style =" width:80%;text-align:center;">
-				<button class="but" type="button" id="signin" style="width:40%">Sign In</button>
-				<button class="but" type="button" id="createAccount" style="width:40%">Create Account</button>
-			</div>
-			</div>
-		</div>
+	<div style="margin-top:4%"></div>
 
-		<div id="signindiv" class="content">
-				<form class="modal-content animate" action="" method="post">
-							<div class="container">
-							<input type="text" placeholder="Enter Username" name="user" required>
-							<input type="password" placeholder="Enter Password" name="pass" required>
-							<input type="submit" class="login-button" value="Login" name="type" id="button_logon"/>
-							</div>
-				
-					</form>
-		</div>
+	<div class="btn-group">
+		<button class="but" type="button" id="signin" style="width:40%">Sign In</button>
+		<button class="but" type="button" id="createAccount" style="width:40%">Create Account</button>
+	</div>
+
+	<div id="signindiv" class="content">
+			<form class="modal-content animate" action="" method="post">
+						<input type="text" placeholder="Enter Username" name="user" required>
+						<input type="password" placeholder="Enter Password" name="pass" required>
+						<input type="submit" class="login-button" value="Login" name="type" id="button_logon"/>
+				</form>
+	</div>
 		
 	<div id="createAccountdiv" class="content" style="display: none">
 		<form class="modal-content animate" action="" method="post">
-
-					<div class="container">
-					<input type="text" placeholder="Enter Username" name="user" required>
-					<input type="password" placeholder="Enter Password" name="pass" required>
-					<div style="margin-top:10px"></div>
-					<p>-----  The following is optional  -----</p>
-					
-					<input type="text" placeholder="Country" name="country">
-					<!-- <input type="number" min="1" max="130" placeholder="Age" name="age" style="margin-top:10px"> -->
-					<input type="text" placeholder="About Me" name="about">
-					
-					<input type="number" min="1" max="130" placeholder="Age" name="age" style="margin-top:10px">
-					<input type="submit" class="login-button" value="Create Account" name="type"/>
-					</div>
-		
-					<!-- <div class="container"> -->
-					<!-- <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button> -->
-				</form>
+			<input type="text" placeholder="Enter Username" name="user" required>
+			<input type="password" placeholder="Enter Password" name="pass" required>
+			<p class= "option">-----  The following is optional  -----</p>
+			
+			<input type="text" placeholder="Country" name="country">
+			<!-- <input type="number" min="1" max="130" placeholder="Age" name="age" style="margin-top:10px"> -->
+			<input type="text" placeholder="About Me" name="about">
+			
+			<div class= "agebox">
+				<input type="number" min="12" max="130" placeholder="Age:" name="age" style="margin-top:10px">
 			</div>
+			<input type="submit" class="login-button" value="Create Account" name="type" id="button_create"/>
+		</form>
+	
+	</div>
 
 	<script>
 			// Get the modal
