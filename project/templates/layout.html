@@ -12,15 +12,27 @@
 			{% if messages %}
 				<div id="flash" class="modal" style="display:block;">
 					
-					<div class="modal-content animate">
+					<div class="modal-content animate" id="flashbox">
 						<div class="imgcontainer">
-							<span onclick="document.getElementById('flash').style.display='none'" class="close" title="Close Modal">&times;</span>
-							<img src="../static/images/logos/logo_black.png" class="scale-logo-small">
-						</div>
-						<div class="container">
-							{% for message in messages %}
-								<p class="warning">{{ message }}</p>
-							{% endfor %}
+							<div style="float:right;">
+								<span onclick="document.getElementById('flash').style.display='none'" class="close" title="Close Modal">&times;</span>
+							</div>
+							<table>
+								<tr>
+									<td id="flashlogo">
+										<div style="float:left;">
+											<img src="../static/images/logos/logo_black.png" class="scale-logo-small" style="float:left;padding:20px;">
+										</div>
+									</td>
+									<td>
+										<div style="display:inline-block;padding:15px;float:right;">
+											{% for message in messages %}
+												<p class="warning">{{ message }}</p>
+											{% endfor %}
+										</div>
+									</td>
+								</tr>
+							</table>
 						</div>
 					</div>
 				</div>
