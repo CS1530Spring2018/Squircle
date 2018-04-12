@@ -30,6 +30,18 @@ html {
 	margin-bottom: 0;
 	font-size: 18px;
 }
+
+#faq a {
+	text-decoration: none;
+}
+
+#faq a:link {
+	color: grey;
+}
+
+#faq a:unvisited {
+	color: black;
+}
 @media screen and (min-width:700px) {
 	#faq {
 		margin-right: 25%;
