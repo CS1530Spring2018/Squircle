@@ -485,16 +485,22 @@ function hitBomb (player, bomb)
 		player.data.justHit = true;
 		if (player.data.health <= 0) {
 			//gameOver = true;
-			player.setY(-1000);
 			player.setVisible(false);
 			player.setGravityY(0);
+			player.setY(-1000);
 			deadPlayers++;
 
-			if(deadPlayers >= 1) {
-				gameCtx.add.text(400, 300, 'GAME OVER', { fontSize: '24px', fill: '#000' });
+			if(deadPlayers >= 3) {
+				gameCtx.add.text(300, 300, 'GAME OVER', { fontSize: '24px', fill: '#000' });
 				player1.data.score = player1Score;
 				player2.data.score = player2Score;
 				player3.data.score = player3Score;
+				player1.data.num = "Player 1";
+				player2.data.num = "Player 2";
+				player3.data.num = "Player 3";
+				player1.data.win = false;
+				player2.data.win = false;
+				player3.data.win = false;
 				rankPlayers(gameCtx);
 				gameOver = true;
 			} else {
@@ -516,14 +522,42 @@ function resetBomb(bomb) {
 }
 
 function rankPlayers(ctx) {
-	var scores = [player1Score, player2Score, player3Score];
+	var players = [player1, player2, player3];
 
-	scores.sort();
-
+	sortPlayers(players);
+	findWinners(players);
 	var offset = 0;
 	for(var i = 0; i < 3; i++) {
-		ctx.add.text(400, 200+offset, 'score: ' + scores[i], { fontSize: '24px', fill: '#000' });
-		offset += 18;
+		ctx.add.text(400, 200+offset,
+		players[i].data.num + ' Score: ' + players[i].data.score,
+		 { fontSize: '24px', fill: '#000' });
+		offset += 20;
+	}
+}
+
+function sortPlayers(playerArr) {
+    var swapped;
+    do {
+        swapped = false;
+        for (var i=0; i < playerArr.length-1; i++) {
+            if (playerArr[i].data.score < playerArr[i+1].data.score) {
+                var temp = playerArr[i];
+                playerArr[i] = playerArr[i+1];
+                playerArr[i+1] = temp;
+                swapped = true;
+            }
+        }
+    } while (swapped);
+}
+
+function findWinners(playerArr) {
+
+	var topScore = playerArr[0].data.score;
+
+	for(var i = 0; i < playerArr.length; i++) {
+		if(playerArr[i].data.score == topScore) {
+			playerArr[i].data.win = true;
+		}
 	}
 }
 
@@ -653,7 +687,7 @@ function fireBomb(x) {
     bomb.setCollideWorldBounds(false);
     bomb.setVelocityY(-800);
 	bomb.allowGravity = false;
-	
+	//bombHit = true;
 	return bomb;
 }
 var player2Jump = 0;
@@ -702,7 +736,7 @@ function update() {
 	// 	jump(500);
 	// }
 	
-	if (redSwitch>=50) {
+	if (redSwitch>=20) {
 		if (bombHit){
 			bombHit = false;
 			redSwitch = 0;
