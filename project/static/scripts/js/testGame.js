@@ -490,11 +490,12 @@ function hitBomb (player, bomb)
 			player.setGravityY(0);
 			deadPlayers++;
 
-			if(deadPlayers >= 1) {
+			if(deadPlayers >= 3) {
 				gameCtx.add.text(400, 300, 'GAME OVER', { fontSize: '24px', fill: '#000' });
 				player1.data.score = player1Score;
 				player2.data.score = player2Score;
 				player3.data.score = player3Score;
+				rankPlayers(gameCtx);
 				gameOver = true;
 			} else {
 				this.physics.resume();
@@ -514,7 +515,7 @@ function resetBomb(bomb) {
 	canFire = true;
 }
 
-function rankPlayers() {
+function rankPlayers(ctx) {
 
 }
 
