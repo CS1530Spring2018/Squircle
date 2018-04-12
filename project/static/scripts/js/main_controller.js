@@ -2,6 +2,8 @@
 
 var drone = new ScaleDrone('JX2gIREeJoi7FDzN');
 
+// Josh's scaledrone 3f3Nr3a5goxGGm8p
+
 // var curr_room = document.currentScript.getAttribute('room');
 
 drone.on('open', function (error) {
