@@ -4,25 +4,37 @@
 	<link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/socket.io-client/dist/socket.io.slim.js")}}"></script>
-	
+	<link rel="stylesheet", href="{{url_for("static", filename="css/login-container.css")}}", type="text/css"/>
+
 {%endblock%}
 {%block body%}
-	<ul class="nav-bar">
-		<li><a href="{{ url_for("unlogger") }}">Logout</a></li>
-		<li class="nav-bar"><a href="{{ url_for("faq") }}">FAQ</a></li>
-	</ul>	
-	<div style="padding:20px;margin-top:15px;"></div>
+
+
+<ul class="nav-bar">
+	<li><a href="{{ url_for("unlogger") }}">Logout</a></li>
+	<li class="nav-bar"><a href="{{ url_for("faq") }}">FAQ</a></li>
+</ul>	
+
+<div style="padding:20px;margin-top:3%"></div>
+
+<div>
+	<div class="center">
+	<img src="../static/images/logos/squircle_logoWtext.png" class="scale-logo-mobile">
+	</div>
+</div>
+
+<div style="margin-top:4%"></div>
+
 	<div class="text-center">
-			<img src="../static/images/logos/logo_black_squircle.png" class="scale-logo-small" alt="Squircle">
 		<h2 class="text-center">Welcome, {{user}}</h2>
-		<form action="" method="post" class="text-center">
-			<div id="joindiv">
-				<h3>Join Lobby</h3> 
-				<input type="text" name="code" id="join" required>
-				</br>
-				<input type="submit" value="Join Lobby" class="yellow-button">
-			</div>
-		</form>
+	</div>
+
+
+	<div class="joindiv">
+			<form class="modal-content animate" action="" method="post">
+					<input type="text" placeholder="Type Lobby Code Here" style="width:74%" name="code" required>
+					<input type="submit" value="Join" id="button_join" style="width:24%">
+			</form>
 	</div>
 {%endblock%}
 {% block tip %}
