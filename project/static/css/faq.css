@@ -1,6 +1,5 @@
 html {
 	background-image: none;
-	background-color: seashell;
 }
 .rel{
 	position: relative;
@@ -10,6 +9,7 @@ html {
 	margin-left: 15%;
 	margin-top: 3%;
 	font-family: Tahoma;
+	color: #ccc;
 }
 #faq-title {
 	font-size: 33px;
