@@ -30,6 +30,8 @@ var log1;
 var jumping1 = false;
 var jumping2 = false;
 
+var gameCtx;
+
 var xDig4;
 var xDig4;
 var log4;
@@ -52,6 +54,8 @@ var player3Score = 0;
 var player1ScoreText;
 var player2ScoreText;
 var player3ScoreText;
+
+var deadPlayers = 0;
 
 var drone;
 drone = new ScaleDrone('JX2gIREeJoi7FDzN')
@@ -403,6 +407,7 @@ function collectStar (player, star)
 }
 
 function create() {
+	gameCtx = this;
 	this.add.image(400, 300, 'sky');
 	player1 = this.physics.add.sprite(100, 450, 'dude');
 	player2 = this.physics.add.sprite(200, 450, 'dude2');
@@ -457,9 +462,11 @@ function create() {
 
 	this.physics.add.collider(player1, bombs, hitBomb, null, this);
 	this.physics.add.collider(player2, bombs, hitBomb, null, this);
+	this.physics.add.collider(player3, bombs, hitBomb, null, this);
 
 	this.physics.add.collider(player1, firedBombs, hitBomb, null, this);
 	this.physics.add.collider(player2, firedBombs, hitBomb, null, this);
+	this.physics.add.collider(player3, firedBombs, hitBomb, null, this);
 
 	fire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
 
@@ -477,7 +484,22 @@ function hitBomb (player, bomb)
 		player.data.health -= 1;
 		player.data.justHit = true;
 		if (player.data.health <= 0) {
-			gameOver = true;
+			//gameOver = true;
+			player.setY(-1000);
+			player.setVisible(false);
+			player.setGravityY(0);
+			deadPlayers++;
+
+			if(deadPlayers >= 1) {
+				gameCtx.add.text(400, 300, 'GAME OVER', { fontSize: '24px', fill: '#000' });
+				player1.data.score = player1Score;
+				player2.data.score = player2Score;
+				player3.data.score = player3Score;
+				rankPlayers(gameCtx);
+				gameOver = true;
+			} else {
+				this.physics.resume();
+			}
 		} else {
 			this.physics.resume();
 		}
@@ -489,7 +511,20 @@ function hitBomb (player, bomb)
 function resetBomb(bomb) {
 	bomb.y = 1000;
 	bomb.setVisible(false);
+	bomb.setGravityY(0);
 	canFire = true;
+}
+
+function rankPlayers(ctx) {
+	var scores = [player1Score, player2Score, player3Score];
+
+	scores.sort();
+
+	var offset = 0;
+	for(var i = 0; i < 3; i++) {
+		ctx.add.text(400, 200+offset, 'score: ' + scores[i], { fontSize: '24px', fill: '#000' });
+		offset += 18;
+	}
 }
 
 /**
@@ -601,10 +636,11 @@ function enemyController() {
 	
 	if(log4 === 'swipeUFunction' && canFire) {
 		firedBomb = fireBomb(enemy.x);
+		log4 = "plsClap";
 		canFire = false;
 	}
 
-	if (firedBomb.y > 610 && !canFire){
+	if (firedBomb.y > 590 && !canFire){
 		resetBomb(firedBomb);
 		console.log("RESET");
 	}
@@ -676,6 +712,9 @@ function update() {
 			} else if (player2.data.justHit === true) {
 				player2.data.justHit = false;
 				player2.setTint(0xffffff);
+			}  else if (player3.data.justHit === true) {
+				player3.data.justHit = false;
+				player3.setTint(0xffffff);
 			}
 		}
 	}
