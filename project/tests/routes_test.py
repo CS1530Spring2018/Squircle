@@ -167,9 +167,25 @@ class RoutesTestCase(unittest.TestCase):
 		rv = self.app.get('/game/'+code)
 		assert bytes(code, 'utf-8') in rv.data
 
-	def test_controller_page(self):
+	def test_controller_page_0(self):
 		self.create_account('bob', 'bob', '', '', '')
 		rv = self.app.get('/controller/0')
 		assert b'player_one' in rv.data
+	
+	def test_controller_page_1(self):
+		self.create_account('bob', 'bob', '', '', '')
+		rv = self.app.get('/controller/1')
+		assert b'player_two' in rv.data
+	
+	def test_controller_page_2(self):
+		self.create_account('bob', 'bob', '', '', '')
+		rv = self.app.get('/controller/2')
+		assert b'player_three' in rv.data
+		
+	def test_controller_page_3(self):
+		self.create_account('bob', 'bob', '', '', '')
+		rv = self.app.get('/controller/3')
+		assert b'player_four' in rv.data
+		
 if __name__ == '__main__':
     unittest.main()
