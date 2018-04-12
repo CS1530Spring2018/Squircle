@@ -142,6 +142,10 @@ h1{
 	display: table;
 }
 
+#flashlogo {
+	display: none;
+}
+
 .scale-logo-small{
 	height: auto; 
 	width: auto; 
@@ -195,5 +199,9 @@ h1{
 	
 	#flashbox {
 		width: 40%;
+	}
+	
+	#flashlogo {
+		display: table-cell;
 	}
 }
