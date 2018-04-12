@@ -490,7 +490,7 @@ function hitBomb (player, bomb)
 			player.setGravityY(0);
 			deadPlayers++;
 
-			if(deadPlayers >= 3) {
+			if(deadPlayers >= 1) {
 				gameCtx.add.text(400, 300, 'GAME OVER', { fontSize: '24px', fill: '#000' });
 				player1.data.score = player1Score;
 				player2.data.score = player2Score;
@@ -516,7 +516,15 @@ function resetBomb(bomb) {
 }
 
 function rankPlayers(ctx) {
+	var scores = [player1Score, player2Score, player3Score];
 
+	scores.sort();
+
+	var offset = 0;
+	for(var i = 0; i < 3; i++) {
+		ctx.add.text(400, 200+offset, 'score: ' + scores[i], { fontSize: '24px', fill: '#000' });
+		offset += 18;
+	}
 }
 
 /**
