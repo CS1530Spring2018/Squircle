@@ -11,12 +11,14 @@ var platforms;
 var inputTimer = 0;
 var receiving = false;
 var receiving2 = false;
+var receiving3 = false;
 var receiving4 = false;
 var player1;
 var fire;
 var stars1;
 var stars2;
 var player2;
+var player3;
 var cursors;
 var bombs;
 var firedBombs;
@@ -37,13 +39,19 @@ var xDig2;
 var yDig2;
 var log2;
 
+var xDig3;
+var yDig3;
+var log3;
+
 var redSwitch = 0;
 var bombHit = false;
 var player1Score = 0;
 var player2Score = 0;
+var player3Score = 0;
 
 var player1ScoreText;
 var player2ScoreText;
+var player3ScoreText;
 
 var drone;
 drone = new ScaleDrone('JX2gIREeJoi7FDzN')
@@ -99,7 +107,8 @@ function preload() {
 	this.load.spritesheet('dude2', url_for('image', 'dude2.png',),
 	{frameWidth: 32, frameHeight: 48});
 
-	
+	this.load.spritesheet('dude3', url_for('image', 'dude3.png',),
+	{frameWidth: 32, frameHeight: 48});
 }
 
 function createWorld() {
@@ -107,6 +116,36 @@ function createWorld() {
     platforms.create(600, 400, 'ground');
     platforms.create(50, 250, 'ground');
 	platforms.create(750, 220, 'ground');
+}
+
+function createPlayer3(ctx) {
+
+	player3.setBounce(0.2);
+	player3.setCollideWorldBounds(true);
+	player3.name = 'player3';
+	player3.data = {health: 3, justHit: false, hitAnim: 'turn3',
+	rightAnim: 'right3',
+	leftAnim: 'left3'};
+
+	ctx.anims.create({
+		key: 'left3',
+		frames: ctx.anims.generateFrameNumbers('dude3', { start: 0, end: 3 }),
+		frameRate: 10,
+		repeat: -1
+	});
+	
+	ctx.anims.create({
+		key: 'turn3',
+		frames: [ { key: 'dude3', frame: 4 } ],
+		frameRate: 5
+	});
+	
+	ctx.anims.create({
+		key: 'right3',
+		frames: ctx.anims.generateFrameNumbers('dude3', { start: 5, end: 8 }),
+		frameRate: 10,
+		repeat: -1
+	});
 }
 
 function createPlayer2(ctx) {
@@ -173,9 +212,13 @@ function createPlayer1(ctx) {
 function createCollisions(ctx) {
 	ctx.physics.add.collider(player1, platforms);
 	ctx.physics.add.collider(player2, platforms);
+	ctx.physics.add.collider(player3, platforms);
 	ctx.physics.add.collider(enemy, player1);
 	ctx.physics.add.collider(enemy, player2);
+	ctx.physics.add.collider(enemy, player3);
 	ctx.physics.add.collider(player1, player2);
+	ctx.physics.add.collider(player1, player3);
+	ctx.physics.add.collider(player3, player2);
 	ctx.physics.add.collider(stars1, platforms);
 	ctx.physics.add.collider(stars2, platforms);
 	ctx.physics.add.collider(stars1, stars2);
@@ -184,11 +227,11 @@ function createCollisions(ctx) {
 
 	ctx.physics.add.overlap(player1, stars1, collectStar, null, this);
 	ctx.physics.add.overlap(player2, stars1, collectStar, null, this);
+	ctx.physics.add.overlap(player3, stars1, collectStar, null, this);
 
 	ctx.physics.add.overlap(player1, stars2, collectStar, null, this);
 	ctx.physics.add.overlap(player2, stars2, collectStar, null, this);
-
-	
+	ctx.physics.add.overlap(player3, stars2, collectStar, null, this);	
 }
 
 function createSockets() {
@@ -287,6 +330,38 @@ function createSockets() {
 	drone.on('error', function(error){
 		console.log(error);
 	});
+
+	drone.on('open', function(error) {
+
+		//checking for errors
+		if(error){
+			return console.error(error);
+		}
+
+		var room = drone.subscribe('player_three');
+
+		room.on('open', function (error) {
+			if (error) {
+				console.error(error);
+			} else {
+				console.log('Connected to room');
+			}
+		});
+
+		room.on('data', function (data) {
+			inputTimer = 0;
+			receiving3 = true;
+			// Record controller state
+			xDig3 = data.xdig;
+			yDig3 = data.ydig;
+			log3 = data.log;
+		});
+
+	});
+
+	drone.on('error', function(error){
+		console.log(error);
+	});
 }
 
 function collectStar (player, star)
@@ -300,6 +375,9 @@ function collectStar (player, star)
 	} else if (player.name === 'player2') {
 		player2Score++;
 		player2ScoreText.setText('Player 2 Score: '+player2Score);
+	} else if (player.name === 'player3') {
+		player3Score++;
+		player3ScoreText.setText('Player 3 Score: '+player3Score);
 	}
 
 	if (stars1.countActive(true) === 0 && stars2.countActive(true) === 0)
@@ -328,6 +406,7 @@ function create() {
 	this.add.image(400, 300, 'sky');
 	player1 = this.physics.add.sprite(100, 450, 'dude');
 	player2 = this.physics.add.sprite(200, 450, 'dude2');
+	player3 = this.physics.add.sprite(300, 450, 'dude3');
 	platforms = this.physics.add.staticGroup();
 
 	stars1 = this.physics.add.group({
@@ -361,6 +440,7 @@ function create() {
 
 	createPlayer1(this);
 	createPlayer2(this);
+	createPlayer3(this);
 
 	enemy = this.physics.add.sprite(400, 800, 'cannon');
 	enemy.setCollideWorldBounds(true);
@@ -385,7 +465,7 @@ function create() {
 
 	player1ScoreText = this.add.text(16, 16, 'Player 1 Score: 0', { fontSize: '16px', fill: '#000' });
 	player2ScoreText = this.add.text(16, 32, 'Player 2 Score: 0', { fontSize: '16px', fill: '#000' });
-
+	player3ScoreText = this.add.text(16, 48, 'Player 3 Score: 0', { fontSize: '16px', fill: '#000' });
 }
 
 function hitBomb (player, bomb)
@@ -434,6 +514,28 @@ function player1Controller() {
 	} else {
 		if (log1 === undefined) {
 			player1Jump = 0;
+		}
+	}
+}
+
+var player3Jump = 0;
+function player3Controller() {
+
+	if(xDig3 > 0 && receiving3) {
+		moveRight(160, player3);
+		//console.log("TEST");
+	} else if (xDig3 < 0 && receiving3) {
+		moveLeft(160, player3);
+	} else {
+		idle(player3);
+	}
+	
+	if(log3 === 'tapFunction' && player3Jump < 1) {
+		jump(500, player3);
+		player3Jump ++;
+	} else {
+		if (log3 === undefined) {
+			player3Jump = 0;
 		}
 	}
 }
@@ -581,6 +683,7 @@ function update() {
 	//testPlayerController(player1);
 	player1Controller();
 	player2Controller();
+	player3Controller();
 	enemyController();
 	redSwitch ++;
 }
