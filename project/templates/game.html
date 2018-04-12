@@ -34,13 +34,14 @@
     
     <div class="flex-container">
        
-           <!-- for game-->
-        <div id="game" style="flex-grow: 4">
+		   <!-- for game-->
+		<div style="flex-grow: 0.25"></div>
+        <div id="game" style="flex-grow: 8;max-width:800px;min-width:800px;border-radius:32px">
             <script type="text/javascript" src="{{url_for('static', filename='scripts/js/testGame.js')}}"></script>
         </div>
-
+		<div style="flex-grow: 0.25;max-width:100px"></div>
         <!-- for react chat-->
-        <div id="Chat" style="flex-grow: 1">
+        <div id="Chat" style="flex-grow: 1;min-width:200px">
 			<script type="text/babel">
 				const Message = ({chat, user}) => (
 					<div>
@@ -126,7 +127,8 @@
 					document.getElementById('Chat')
 				);
 			</script>
-        </div>
+		</div>
+		<div style="flex-grow: 0.25"></div>
     </div>
 {%endblock%}
 {% block tip %}
