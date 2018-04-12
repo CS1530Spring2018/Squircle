@@ -1,28 +1,18 @@
 {%extends "layout.html"%}
 {%block head%}
-<<<<<<< HEAD
-=======
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
->>>>>>> layoutupdate
 <link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Logout</title>{%endblock%}
+<title>Logout</title>
+{%endblock%}
 {%block body%}
-	<ul class="nav-bar">
-<<<<<<< HEAD
-		<li><a href="{{ url_for("lobby") }}">Lobby</a></li>
-		<li><a href="{{ url_for("logger") }}">Login/Profile</a></li>
-		<li><a class="active" href="{{ url_for("unlogger") }}">Logout</a></li>
-		<li class="nav-bar"><a href="{{ url_for("faq") }}">Help</a></li>
-=======
-		<li><a href="{{ url_for("logger") }}">Login</a></li>
->>>>>>> layoutupdate
-	</ul>	
+<ul class="nav-bar">
+	<li><a href="{{ url_for("logger") }}">Login</a></li>
+	<li class="nav-bar"><a href="{{ url_for("faq") }}">Help</a></li>
+</ul>	
+
 	<div style="padding:20px;margin-top:15px;"></div>
 	<div class="text-center">
-			<img src="../static/images/logos/logo_black_squircle.png" class="scale-logo-small" alt="Squircle">
+			<img src="../static/images/logos/squircle_logoWtext.png" class="scale-logo-small" alt="Squircle">
 			<h2> You have successfully been logged out!</h2>
 			<a class="yellow-button" href="{{ url_for("logger") }}">Login</a>
 	</div>
