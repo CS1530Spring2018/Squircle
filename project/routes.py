@@ -115,7 +115,10 @@ def profile(username=None):
 @app.route("/lobby/<code>")
 def lobby(code=None):
 	if not code:
-		return render_template("lobby.html", num_players=num_players)
+		if is_mobile():
+			return render_template("lobbym.html", data=None)
+		else:
+			return render_template("lobby.html", num_players=num_players)	
 	else:
 		if is_mobile():
 			try:

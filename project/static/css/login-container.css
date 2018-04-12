@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+
+
+.btn-group button {
+    background-color: #364852; /* Green background */
+    border: 1px solid white; /* Green border */
+    color: white; /* White text */
+    cursor: pointer; /* Pointer/hand icon */
+    float: left; /* Float the buttons side by side */
+    font-family: 'Montserrat', sans-serif;
+}
+
+.btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+    background-color: #e63131;
+}
+.btn-group{
+    width:100%; 
+    justify-content: center;
+    display: flex;
+}
+  
+
+#signin{
+    border-top-left-radius: 10px;
+    min-height: 40px;
+}
+
+#createAccount{
+    border-top-right-radius: 10px;
+    min-height: 40px;
+}
+
+#button_account{
+    width:50%;
+    border-top-right-radius: 10px;
+    min-height: 40px;
+}
+
+#button_logon{
+    width:100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #3e8e41;
+    color: white; /* White text */
+    font-family: 'Montserrat', sans-serif;
+    min-height: 40px;
+    margin-top: 3%;
+}
+
+p.option {
+	font-size:10px;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    text-align: center;
+    font-style: italic;
+}
+
+#button_create{
+    width:100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #3e8e41;
+    color: white; /* White text */
+    font-family: 'Montserrat', sans-serif;
+    min-height: 40px;
+    margin-top: 3%;
+}
+
+.button_lobby {
+    background-color: #1e282d;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+
+    height:80px;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    border-width: 1px;
+    font-size: 25px;
+    border-radius: 10px;
+    border: 2px solid #E8E8E8;}
+
+.placeholder{
+    color:white;
+    text-align: center;
+}
+.content { display:inline-block;
+    width: 100%; }
+
+.active, .btn:hover {
+    background-color: #666;
+    color: white;
+  }

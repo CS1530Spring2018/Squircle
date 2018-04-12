@@ -1,87 +1,77 @@
 {%extends "layout.html"%}
 {%block head%}
 	<title>Squircle Login</title>
-	<link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
-	<link rel="stylesheet", href="{{url_for("static", filename="css/login.css")}}", type="text/css"/>
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- STYLESHEETS-->
+	<link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
+	<link rel="stylesheet", href="{{url_for("static", filename="css/login-container.css")}}", type="text/css"/>
+	<link rel="stylesheet", href="{{url_for("static", filename="css/desktop.css")}}", type="text/css"/>
+
+	<!-- FOR USE WITH LOGIN CONTAINER-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script>
+			$(window).on('load',function(){
+				$("#signindiv").show();
+			});
+		
+			$(function() {
+				$(".but").on("click",function(e) {
+					e.preventDefault();
+					$(".content").hide();
+					$("#"+this.id+"div").show();
+				});
+			});
+		</script>
+
 {%endblock%}
 {%block body%}
+
 	<ul class="nav-bar">
-		<li><a href="{{ url_for("lobby") }}">Lobby</a></li>
-		<li><a class="active"  href="{{ url_for("logger") }}">Login/Profile</a></li>
-		<li><a href="{{ url_for("unlogger") }}">Logout</a></li>
-		<li class="nav-bar"><a href="{{ url_for("faq") }}">Help</a></li>
+		<li class="nav-bar"><a href="{{ url_for("faq") }}">FAQ</a></li>
 	</ul>	
-	<!-- <div style="padding:20px;margin-top:15px;"></div> -->
+
+	<div style="padding:20px;margin-top:3%"></div>
+
 	<div>
-		<div>
-			<h2 class="text-center">Welcome! Please</h2>
-			<div class="text-center">
-				<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="yellow-button">Login</button>
-			</div>
-			<h2 class="text-center">or</h2>
-			<div class="text-center">
-				<button onclick="document.getElementById('id02').style.display='block'" style="width:auto;" class="yellow-button">Create A New Account</button>
-			</div>
+		<div class="center">
+		<img src="../static/images/logos/squircle_logoWtext.png" class="scale-logo-mobile">
 		</div>
 	</div>
 
-	<div id="id01" class="modal">
-	
-	<form class="modal-content animate" action="" method="post">
-		<div class="imgcontainer">
-			<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-			<img src="../static/images/logos/logo_black.png" class="scale-logo-small">
-			</div>
-			
-			<div class="container">
-			<label for="uname"><b>Username</b></label>
-			<input type="text" placeholder="Enter Username" name="user" required>
+	<div style="margin-top:4%"></div>
 
-			<label for="psw"><b>Password</b></label>
-			<input type="password" placeholder="Enter Password" name="pass" required>
-			<input type="submit" class="login-button" value="Login" name="type"/>
-			</div>
-
-			<div class="container" style="background-color:#f1f1f1">
-			<button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-		</div>
-	</form>
+	<div class="btn-group">
+		<button class="but" type="button" id="signin" style="width:40%">Sign In</button>
+		<button class="but" type="button" id="createAccount" style="width:40%">Create Account</button>
 	</div>
 
-	<div id="id02" class="modal">
-	
+	<div id="signindiv" class="content">
 			<form class="modal-content animate" action="" method="post">
-				<div class="imgcontainer">
-					<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-					<img src="../static/images/logos/logo_black.png" class="scale-logo-small">
-					</div>
-					
-					<div class="container">
-					<label for="uname"><b>Username</b></label>
-					<input type="text" placeholder="Enter Username" name="user" required>
+						<input type="text" placeholder="Enter Username" name="user" required>
+						<input type="password" placeholder="Enter Password" name="pass" required>
+						<input type="submit" class="login-button" value="Login" name="type" id="button_logon"/>
+				</form>
+	</div>
 		
-					<label for="psw"><b>Password</b></label>
-					<input type="password" placeholder="Enter Password" name="pass" required>
-					
-					<label for="country"><b>Country</b><a> (optional)</a></label>
-					<input type="text" placeholder="Country (optional)" name="country">
-		
-					<label for="age"><b>Age</b><a> (optional)</a></label>
-					<br>
-					<input type="number" min="1" max="130" placeholder="Age" name="age" style="margin-top:10px">
-					<br>
-					<div style="margin-top:10px"></div>
-					<label for="about"><b>About Me</b><a> (optional)</a></label>
-					<input type="text" placeholder="About Me (optional)" name="about">
-					<input type="submit" class="login-button" value="Create Account" name="type"/>
-					</div>
-		
-					<div class="container" style="background-color:#f1f1f1">
-					<button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-				</div>
-			</form>
+	<div id="createAccountdiv" class="content" style="display: none">
+		<form class="modal-content animate" action="" method="post">
+			<input type="text" placeholder="Enter Username" name="user" required>
+			<input type="password" placeholder="Enter Password" name="pass" required>
+			<p class= "option">-----  The following is optional  -----</p>
+			
+			<input type="text" placeholder="Country" name="country">
+			<!-- <input type="number" min="1" max="130" placeholder="Age" name="age" style="margin-top:10px"> -->
+			<input type="text" placeholder="About Me" name="about">
+			
+			<div class= "agebox">
+				<input type="number" min="12" max="130" placeholder="Age:" name="age" style="margin-top:10px">
 			</div>
+			<input type="submit" class="login-button" value="Create Account" name="type" id="button_create"/>
+		</form>
+	
+	</div>
 
 	<script>
 			// Get the modal
@@ -93,7 +83,7 @@
 					modal.style.display = "none";
 				}
 			}
-			</script>
+	</script>
 {%endblock%}
 {% block tip %}
 	Click on <strong>Login</strong> and enter your username and password to login!
