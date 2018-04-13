@@ -76,7 +76,8 @@ def logger():
 		failure = create_account(request.form["user"], request.form["pass"], 
 			about_me=request.form['about'], age=request.form['age'], country=request.form['country'])
 		if "Duplicate" == failure:
-			flash("Username already exists. Try something different.")
+			flash("Oh no! Looks like that username has been taken.")
+			flash("Try a different username.")
 			return redirect(url_for("logger"))
 		#once new account is registered first set session
 		session["username"] = request.form["user"]
