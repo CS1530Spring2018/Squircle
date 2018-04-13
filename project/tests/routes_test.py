@@ -62,7 +62,7 @@ class RoutesTestCase(unittest.TestCase):
 		self.create_account('admin', 'root', '20', 'usa', 'some about me text')
 		self.logout()
 		rv = self.create_account('admin', 'root', '20', 'usa', 'some about me text')
-		assert b'Username already exists. Try something different.' in rv.data
+		assert b'Oh no! Looks like that username has been taken.' in rv.data
 
 	def test_create_account_no_optional_info(self):
 		rv = self.create_account('admin', 'root', '', '', '')
@@ -87,11 +87,11 @@ class RoutesTestCase(unittest.TestCase):
 		self.create_account('admin', 'root', '20', 'usa', 'some about me text')
 		self.logout()
 		rv = self.login('admin', 'bad_password')
-		assert b'Invalid login. Try again.' in rv.data
+		assert b'Make sure your password and username are correct.' in rv.data
 
 	def test_login_bad_username(self):
 		rv = self.login('bad_username', 'root')
-		assert b'Invalid login. Try again.' in rv.data
+		assert b'Make sure your password and username are correct.' in rv.data
 	
 	def test_unlogged_in_unauthorized(self):
 		rv = self.app.get('/profile/admin')
@@ -127,7 +127,7 @@ class RoutesTestCase(unittest.TestCase):
 	def test_join_bad_lobby(self):
 		self.create_account('admin', 'root', '20', 'usa', 'some about me text')
 		rv = self.app.post('/profile/admin', data={'code':'BADCODE'}, follow_redirects=True)
-		assert b'That lobby is not valid!' in rv.data
+		assert b'Make sure you entered the lobby code correctly and try again.' in rv.data
 		
 	def test_join_valid_lobby(self):
 		code = self.get_lobby_code()
