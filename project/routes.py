@@ -21,6 +21,9 @@ def test_game():
 @app.route('/help/')
 def faq():
 	return render_template('faq.html')
+@app.route('/about/')
+def about():
+	return render_template('about.html')
 	
 @app.route('/getcontroller/')
 def redirect_controller():
@@ -73,7 +76,8 @@ def logger():
 		failure = create_account(request.form["user"], request.form["pass"], 
 			about_me=request.form['about'], country=request.form['country'])
 		if "Duplicate" == failure:
-			flash("Username already exists. Try something different.")
+			flash("Oh no! Looks like that username has been taken.")
+			flash("Try a different username.")
 			return redirect(url_for("logger"))
 		#once new account is registered first set session
 		session["username"] = request.form["user"]

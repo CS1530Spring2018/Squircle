@@ -1,7 +1,14 @@
 <!doctype html>
 <html>
 	<head>
-	<title>Squircle Help</title>
+		<link rel="apple-touch-icon" sizes="114x114" href="{{url_for("static", filename="images/icons/apple-touch-icon.png")}}">
+		<link rel="icon" type="image/png" sizes="32x32" href="{{url_for("static", filename="images/icons/favicon-32x32.png")}}">
+		<link rel="icon" type="image/png" sizes="16x16" href="{{url_for("static", filename="images/icons/favicon-16x16.png")}}">
+		<link rel="manifest" href="{{url_for("static", filename="images/icons/site.webmanifest")}}">
+		<link rel="mask-icon" href="{{url_for("static", filename="images/icons/safari-pinned-tab.svg")}}" color="#5bbad5">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="theme-color" content="#ffffff">
+		<title>Squircle Help</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
 		<link rel="stylesheet", href="{{url_for("static", filename="css/style.css")}}", type="text/css"/>
@@ -9,8 +16,9 @@
 	</head>
 	<body>
 		<ul class="nav-bar">
-			<li class="nav-bar"><a href="/">Back</a></li>
-			<li class="nav-bar"><a class="active" href="{{ url_for("faq") }}">FAQ</a></li>
+			<li class="nav-bar"><a href="/">Home</a></li>
+			<li class="nav-bar"><a href="{{ url_for("faq") }}">FAQ</a></li>
+			<li class="nav-bar"><a href="{{ url_for("about") }}">About</a></li>
 		</ul>
 		<div id="faq">
 			<h2 id="faq-title">Frequently Asked Questions</h2>
