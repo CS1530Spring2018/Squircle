@@ -23,13 +23,12 @@
 		<li class="nav-bar"><a href="{{ url_for("about") }}">About</a></li>
 	</ul>
 	
-	<div style="padding:20px;margin-top:100px;"></div>
+	<div style="margin-top:5%;"></div>
 	<div>
 		<div class="center">
 			<img src="../static/images/logos/squircle_logoWtext.png" class="scale-logo-large" alt="Squircle">
-			<div style="padding:5px;margin-top:5px;"></div>
-			<h2 class="text-center" style="font-size:36px" id="lobbycode">{% if code %}Join Lobby: {% endif %}</h2>
-			<h1 class="text-center" style="margin-top:-20px" id="lobbycode">{% if code %}{{code}}{% endif %}</h1>
+			<div style="margin-top:2.5%;"></div>
+			<h1 class="text-center" style="font-size:36px" id="lobbycode">{% if code %}Join Lobby: {{code}}{% endif %}</h2>
 			{% if not code %}
 			<button id="genLobbyCode" class="button_lobby">Create Lobby</button>
 			{% endif %}		
