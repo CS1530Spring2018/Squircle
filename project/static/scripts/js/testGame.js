@@ -95,6 +95,10 @@ var config = {
 var game = new Phaser.Game(config);
 
 function preload() {
+	
+	// game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+    // game.scale.pageAlignHorizontally = true;
+    // game.scale.pageAlignVertically = true;
 	this.load.image('sky', url_for('image', 'sky.png'));
 	this.load.image('ground', url_for('image', 'platform.png'));
 	this.load.image('star', url_for('image', 'star.png'));

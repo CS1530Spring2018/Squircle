@@ -163,7 +163,7 @@ h1{
 
 .scale-logo-large{
 	height: auto; 
-	width: 45%; 
+	width: 35%; 
 	align-items: center;
 	padding: 0px 0px 0px 0px;
   }
@@ -181,11 +181,13 @@ h1{
     color: white;
 	font-family: 'Montserrat', sans-serif;
     height:auto;
-    width: 35%;
+    width: 40%;
     border-width: 1px;
 	font-size: 1.5vw;
-    border-radius: 10px;
-    border: 2px solid #E8E8E8;}
+	border-radius: 10px;
+	padding: 1%;
+	border: 2px solid #E8E8E8;
+}
 	
 @media screen and (min-width: 700px) {
 	#help {

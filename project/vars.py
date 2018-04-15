@@ -1,4 +1,4 @@
-num_players = 4
+num_players = 1
 room_occupants = {}
 room_ready = {}
 game_player = {}
