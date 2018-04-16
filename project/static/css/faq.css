@@ -5,10 +5,10 @@ html {
 	position: relative;
 }
 #faq {
-	margin-right: 15%;
-	margin-left: 15%;
+	margin-right: 10%;
+	margin-left: 10%;
 	margin-top: 3%;
-	font-family: Tahoma;
+    font-family: 'Montserrat' , sans-serif;
 	color: #ccc;
 }
 #faq-title {
@@ -47,4 +47,10 @@ html {
 		margin-right: 25%;
 		margin-left: 25%;
 	}
+}
+
+
+h2 {
+	color:white;
+	margin-top: 50px;
 }

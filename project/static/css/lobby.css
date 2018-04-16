@@ -1,0 +1,82 @@
+
+h1 {
+    margin: 0;
+    display: inline-block;
+    font-family: 'Montserrat' , sans-serif;
+    color: white;
+    background-color: rgba(0,0,0,.8);
+    border-radius: 10px;
+    padding:16px;
+}
+
+/* The Magic Float Center Code */
+.float_center {
+    float: right;
+  
+    position: relative;
+    left: -50%; /* or right 50% */
+    text-align: left;
+  }
+  .float_center > .child {
+    position: relative;
+    left: 50%;
+  }
+  
+  
+  
+  /* style */
+  body {
+    height:100%;
+    width:100%;
+    /* background-color: #dd9999;
+    background-color: #E288A0; */
+    font-family: 'Montserrat' , sans-serif;
+  }
+  .clear {
+    clear:both;
+  }
+  
+  #title {
+    text-align: center;
+    color: #ffffff;
+    margin: 40px 0 0 0;
+  }
+  #subtitle {
+    text-align: center;
+    color: #A00C2F;
+    margin: 0;
+  }
+  #profilecontainer {
+    width: 500px;
+    margin: 20px auto 0 auto;
+    background-color: #E288A0;
+    background-color: rgba(255,255,255,0.5);
+    
+    border: 7px solid #B71F45;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  ul {
+    list-style-type: none;
+    margin:0;
+    padding:10px 0;
+  }
+  ul li {
+    float: left;
+    list-style-type: none;
+    margin: 0 6px;
+  }
+  ul a {
+    display: block;
+    height: 26px;
+    line-height: 26px;
+    text-decoration: none;
+    color: #C12247;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 0px 4px;
+    /* background-color: #ffffff; */
+  }
+p {
+  margin: 0;
+}
