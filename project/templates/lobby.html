@@ -28,18 +28,17 @@
 		<div class="center">
 			<img src="../static/images/logos/squircle_logoWtext.png" class="scale-logo-large" alt="Squircle">
 			<div style="margin-top:2.5%;"></div>
-
-			<h1 class="text-center" style="font-size:36px" id="lobbycode">{% if code %}Join Lobby: {{code}}{% endif %}</h1>
+			<h1 class="text-center" style="font-size:36px; " id="lobbycode">{% if code %}Join Lobby: {{code}}{% endif %}</h1>
 			{% if not code %}
 			<button id="genLobbyCode" class="button_lobby">Create Lobby</button>
 			{% endif %}		
 		</div>
 		
 	</div>
-	<section id="profilecontainer" class="center">
+	<section id="profilecontainer">
 		<div class="float_center">
 			<ul class="child">
-			  <button style="width:40%"><a href="#">Player 1</a></button>
+			  <button style="width:40%" class="profileButton"><a href="#">Player 1</a></button>
 			  <button style="width:40%"><a href="#">Player 2</a></button>
 			</ul>
 			<div class="clear"></div>

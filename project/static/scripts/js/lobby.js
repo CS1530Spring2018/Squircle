@@ -2,7 +2,7 @@ function listUsers() {
 	document.getElementById("players").style.borderColor = "rgb(235, 199, 0)";
 	document.getElementById("players").style.borderStyle = "solid"; 
 	document.getElementById("players").style.borderRadius = "16px";
-	document.getElementById("players").style.backgroundColor = "rgb(198, 198, 198)";
+	// document.getElementById("players").style.backgroundColor = "rgb(198, 198, 198)";
 	$("#players").append($("<h3>").text("Players"));
 
     if(spectators.length>0){
