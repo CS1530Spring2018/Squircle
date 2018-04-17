@@ -2,6 +2,8 @@
 {%block head%}
 	<title>{{user}}</title>
 	<link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
+	<link rel="stylesheet", href="{{url_for("static", filename="css/faq.css")}}", type="text/css"/>
+
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script type="text/javascript" src="{{url_for("static", filename="bower_components/socket.io-client/dist/socket.io.slim.js")}}"></script>
 	<link rel="stylesheet", href="{{url_for("static", filename="css/login-container.css")}}", type="text/css"/>
@@ -12,22 +14,23 @@
 
 <ul class="nav-bar">
 	<li><a href="{{ url_for("unlogger") }}">Logout</a></li>
-	<li class="nav-bar"><a href="{{ url_for("faq") }}">FAQ</a></li>
 </ul>	
 
 <div style="padding:20px;margin-top:3%"></div>
+
 
 <div>
 	<div class="center">
 	<img src="../static/images/logos/squircle_logoWtext.png" class="scale-logo-mobile">
 	</div>
 </div>
+<div id="faq">
 
-<div style="margin-top:4%"></div>
+		<div class="rel section">
+			<h2 style="color:white;, text-align: left;">Welcome, {{user}}</h2>
+		</div>
+</div>
 
-	<div class="text-center">
-		<h2 class="text-center">Welcome, {{user}}</h2>
-	</div>
 
 
 	<div class="joindiv">

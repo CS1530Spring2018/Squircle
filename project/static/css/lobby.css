@@ -59,29 +59,7 @@ h1 {
     border-radius: 25px;
     justify-content: center;
   }
-  ul {
-    list-style-type: none;
-    margin:0;
-    padding:10px 0;
-  }
-  ul li {
-    float: left;
-    list-style-type: none;
-    margin: 0 6px;
-  }
-  ul a {
-    display: block;
-    height: 26px;
-    line-height: 26px;
-    text-decoration: none;
-    color: #C12247;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 0px 4px;
-    font-family: 'Montserrat' , sans-serif;
 
-    /* background-color: #ffffff; */
-  }
 p {
   margin: 0;
 }

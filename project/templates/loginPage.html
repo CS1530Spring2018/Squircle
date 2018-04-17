@@ -28,9 +28,11 @@
 {%endblock%}
 {%block body%}
 
-	<ul class="nav-bar">
-		<li class="nav-bar"><a href="{{ url_for("faq") }}">FAQ</a></li>
-	</ul>	
+<ul class="nav-bar">
+	<li class="nav-bar"><a class ="active" href="/">Home</a></li>
+	<li class="nav-bar"><a href="{{ url_for("faq") }}">FAQ</a></li>
+	<li class="nav-bar"><a href="{{ url_for("about") }}">About</a></li>
+</ul>
 
 	<div style="padding:20px;margin-top:3%"></div>
 
