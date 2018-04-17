@@ -2,14 +2,18 @@ function listUsers() {
 	document.getElementById("players").style.borderColor = "rgb(235, 199, 0)";
 	document.getElementById("players").style.borderStyle = "solid"; 
 	document.getElementById("players").style.borderRadius = "16px";
-	document.getElementById("players").style.backgroundColor = "rgb(198, 198, 198)";
-	$("#players").append($("<h3>").text("Players"));
+	document.getElementById("players").style.backgroundColor = "rgba(0, 0, 0, .3)";
+	document.getElementById("players").style.color = "white";
+	// document.getElementById("players").style.backgroundColor = "rgb(198, 198, 198)";
+	
+	$("#players").append($("<h2>").text("Players"));
 
     if(spectators.length>0){
 		document.getElementById("spectators").style.borderColor = "cyan";
 		document.getElementById("spectators").style.borderStyle = "solid"; 
 		document.getElementById("spectators").style.borderRadius = "16px";
-		document.getElementById("spectators").style.backgroundColor = "rgb(198, 198, 198)";
+		document.getElementById("spectators").style.backgroundColor = "rgba(0, 0, 0, .3)";
+		document.getElementById("spectators").style.color = "white";
 		$("#spectators").append($("<h3>").text("Spectators"));
 	}	
 
@@ -40,7 +44,8 @@ function setup() {
 					document.getElementById("spectators").style.borderColor = "cyan";
 					document.getElementById("spectators").style.borderStyle = "solid"; 
 					document.getElementById("spectators").style.borderRadius = "16px";
-					document.getElementById("spectators").style.backgroundColor = "rgb(198, 198, 198)";
+					document.getElementById("spectators").style.backgroundColor = "rgba(0, 0, 0, .3)";
+					document.getElementById("spectators").style.color = "white";
 					$("#spectators").append($("<h3>").text("Spectators"));
 				}
 				$("#spectators").append($("<li>").text(username));
@@ -49,8 +54,10 @@ function setup() {
 					document.getElementById("players").style.borderColor = "rgb(235, 199, 0)";
 					document.getElementById("players").style.borderStyle = "solid"; 
 					document.getElementById("players").style.borderRadius = "16px";
-					document.getElementById("players").style.backgroundColor = "rgb(198, 198, 198)";
-					$("#players").append($("<h3>").text("Players"));
+					document.getElementById("players").style.backgroundColor = "rgba(0, 0, 0, .3)";
+					document.getElementById("players").style.color = "white";
+	
+					$("#players").append($("<h2>").text("Players"));
 				}
 				$("#players").append($("<li>").text(username));
 			}

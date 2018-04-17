@@ -56,7 +56,7 @@
 	text-align: center;
 }
 body{
-	font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Montserrat' , sans-serif;
 }
 html { 
 	
@@ -70,9 +70,11 @@ h1{
 }
 
 .yellow-button{
-	width: auto;
-	background-color: rgb(235, 199, 0);
-    border: none;
+	width: 80%;
+    background-color: #3e8e41;
+	border: none;
+	font-family: 'Montserrat' , sans-serif;
+
     color: white;
     /* padding: 20px; */
     text-align: center;
@@ -82,22 +84,25 @@ h1{
     /* margin: 4px 2px; */
 	cursor: pointer;
 	/* border-radius: 12px; */
-	border-color: black;
+	border-color: white;
 	border-style: solid;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+
 	/* padding:12px 28px; */
-	color: black;
 	-webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
 
 .yellow-button:disabled{
 	background: gray;
+	color:white;
 }
 
-.yellow-button:hover:enabled{
-	background-color:black; /* Green */
+/* .yellow-button:hover:enabled{
+	background-color:black; 
     color: rgb(235, 199, 0);
-}
+} */
 
 .scale-logo{
     height: auto; 
@@ -163,9 +168,9 @@ h1{
 
 .scale-logo-large{
 	height: auto; 
-	width: auto; 
-	max-width: 700px; 
+	width: 35%; 
 	align-items: center;
+	padding: 0px 0px 0px 0px;
   }
 
   .scale-logo-header{
@@ -179,16 +184,15 @@ h1{
   .button_lobby {
     background-color: #1e282d;
     color: white;
-    font-family: 'Montserrat', sans-serif;
-
-    height:80px;
-    border: none;
-    cursor: pointer;
-    width: 50%;
+	font-family: 'Montserrat', sans-serif;
+    height:auto;
+    width: 40%;
     border-width: 1px;
-    font-size: 25px;
-    border-radius: 10px;
-    border: 2px solid #E8E8E8;}
+	font-size: 1.5vw;
+	border-radius: 10px;
+	padding: 1%;
+	border: 2px solid #E8E8E8;
+}
 	
 @media screen and (min-width: 700px) {
 	#help {

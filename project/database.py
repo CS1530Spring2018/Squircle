@@ -8,7 +8,7 @@ class UserLogin(db.Model):
 class UserProfile(db.Model):
 	username = db.Column(db.String(80), db.ForeignKey('user_login.username'), nullable=False, primary_key=True)
 	about_me = db.Column(db.Text, nullable=True)
-	age = db.Column(db.Integer, nullable=True)
+	# age = db.Column(db.Integer, nullable=True)
 	country = db.Column(db.String(20), nullable=True)
 	
 class UserStats(db.Model):

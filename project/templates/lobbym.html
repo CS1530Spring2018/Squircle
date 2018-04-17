@@ -7,6 +7,7 @@
 	<!-- react-->
 	<link rel="stylesheet", href="{{url_for("static", filename="css/desktop.css")}}", type="text/css"/>
 	<link rel="stylesheet", href="{{url_for("static", filename="css/chat.css")}}", type="text/css"/>
+	<link rel="stylesheet", href="{{url_for("static", filename="css/faq.css")}}", type="text/css"/>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
@@ -31,29 +32,88 @@
 				});
 			{% endif %}
 		{% endif %}
-		
-		
 	</script>
 	<script type="text/javascript" src="{{url_for("static", filename="scripts/js/lobbym.js")}}"></script>
 {%endblock%}
 {%block body%}
-	<ul class="nav-bar">
-		<li class="nav-bar"><a href="{{ url_for("unlogger") }}">Logout</a></li>
-		<li class="nav-bar"><a href="{{ url_for("faq") }}">FAQ</a></li>
+<ul class="nav-bar">
+		<li style = "float:right"><a href="{{ url_for("unlogger") }}">Logout</a></li>
 	</ul>	
 
-	<div class="text-center">
-		<h1 class="text-center" id="lobbycode">Lobby {% if code %} {{code}} {% endif %}</h1>
-	</div>
-	
+	<div id="faq">
+			<div class="rel section">
+					<h2 class="text-center" id="lobbycode" style = "text-align: left">Lobby: {% if code %} {{code}} {% endif %}</h2>
+					
+					<div style="padding:5px;margin-top:3%"></div>
+
+					<h4 class="text-center" style = "text-align: left">Username:</h4>
+					<h4 class="text-center" style = "text-align: left">Country:</h4>
+					<h4 class="text-center" style = "text-align: left">About Me:</h4>
+					<div style="padding:5px;margin-top:3%"></div>
+
+			<hr>
+			<h3 class="text-center" style = "text-align: left; color:white;">Tutorial</h3>
+			<div style="padding:5px;margin-top:3%"></div>
+
+			<h4 class="text-center" style = "text-align: center">Players will be assigned a character</h4>
+
+			<div>
+					<div class="center">
+					<img src="../static/images/tutorial/panel1.png" class="scale-logo-mobile">
+					</div>
+				</div>
+
+			<h4 class="text-center" style = "text-align: center">Hold down on the COLORED panel to move LEFT and RIGHT</h4>
+
+			<div>
+					<div class="center">
+					<img src="../static/images/tutorial/panel2.png" class="scale-logo-mobile">
+					</div>
+				</div>
+
+				<h4 class="text-center" style = "text-align: center">Hold down on the BLACK panel to JUMP</h4>
+
+				<div>
+						<div class="center">
+						<img src="../static/images/tutorial/panel3.png" class="scale-logo-mobile">
+						</div>
+					</div>
+					<h4 class="text-center" style = "text-align: center">Swipe up on the BLACK panel to SHOOT</h4>
+
+					<div>
+							<div class="center">
+							<img src="../static/images/tutorial/panel4.png" class="scale-logo-mobile">
+							</div>
+						</div>
+
+						
+				<h4 class="text-center" style = "text-align: center">GOAL: Collect the most stars or eliminate all players!</h4>
+
+			<div style="padding:5px;margin-top:3%"></div>
+
+			<hr>
+
+			<div style="padding:5px;margin-top:3%"></div>
+
+		</div>
+
+	</div> 
+
+	<div style="padding:5px;margin-top:3%"></div>
+
+	<div id="userslist" style="margin:0 auto; float:center; text-align:center;width:100%;max-width:1000px;min-width:400px">
+			<div style="justify-content: center">
+		<div id="players" style="text-align:left;width:80%;font-size:16px"></div>
+			</div>
+			<div id="spectators" style="margin-left:51%;padding-left:6%;padding-bottom:20px;text-align:left;width:41%;font-size:16px">
+			</div>
+			<button id="ready" type="button" class="yellow-button" disabled>I'm Ready</button>
+		</div>
+	<div style="padding:5px;margin-top:3%"></div>
+
+
 	{% if data %}
-	<div id="userslist" style="margin:0 auto;text-align:center;width:80%;max-width:1000px;min-width:400px">
-		<div id="players" style="float:left;padding-left:6%;padding-bottom:20px;text-align:left;width:41%;font-size:16px">
-		</div>
-		<div id="spectators" style="margin-left:51%;padding-left:6%;padding-bottom:20px;text-align:left;width:41%;font-size:16px">
-		</div>
-		<button id="ready" type="button" class="yellow-button" disabled>I'm Ready</button>
-	</div>
+
 	{% else %}
 		<div class="text-center">
 			<a href="{{url_for("profile")}}">
@@ -65,95 +125,8 @@
 	<div id="chatcontainer" hidden>
 		<div id="Chat" >
 			{% if data %}
-			<script type="text/babel">
-				const Message = ({chat, user}) => (
-					<div>
-						<p className="um">{`${user === chat.username ? "":chat.username}`}</p>
-						
-						<li className={`chat ${user === chat.username ? "right" : "left"}`}>
-							{user !== chat.username
-							}
-							{chat.content}
-						</li>
-					</div>
-				);
-				class Chatroom extends React.Component {
-					constructor(props) {
-						super(props);
-						this.state = {chats:[]};
-						this.submitMessage = this.submitMessage.bind(this);
-						this._handleNewMessage = this._handleNewMessage.bind(this);
-					}
-					getInitialState() {
-						return {chats:[]};
-					}
-					_handleNewMessage(m, sender) {
-						if (sender != username) {
-							this.setState({
-								chats: this.state.chats.concat([{
-									username: sender,
-									content: <p>{m}</p>
-								}])
-							}, () => {
-								ReactDOM.findDOMNode(this.refs.msg).value = "";
-							});
-						}
-					}
-					componentDidMount() {
-						socket.on('new message', this._handleNewMessage);
-						this.scrollToBot();
-					}
+			<script type="text/jsx" src="{{url_for('static', filename='scripts/jsx/chatm.js')}}"></script>
 
-					componentDidUpdate() {
-						this.scrollToBot();
-					}
-
-					scrollToBot() {
-						ReactDOM.findDOMNode(this.refs.chats).scrollTop = ReactDOM.findDOMNode(this.refs.chats).scrollHeight;
-					}
-
-					submitMessage(e) {
-						e.preventDefault();
-						socket.emit('new message', {"username":username, "room":lobbycode, "message":ReactDOM.findDOMNode(this.refs.msg).value});
-						this.setState({
-							chats: this.state.chats.concat([{
-								username: "username",
-								content: <p>{ReactDOM.findDOMNode(this.refs.msg).value}</p>
-							}])
-						}, () => {
-							ReactDOM.findDOMNode(this.refs.msg).value = "";
-						});
-					}
-					
-					
-					
-					render() {
-						const username = "username";
-						const { chats } = this.state;
-						return (
-							<div className="chatroom">
-								<h3>Squircle</h3>
-								<ul className="chats" ref="chats">
-									{
-										chats.map((chat) => 
-											<Message chat={chat} user={username} />
-										)
-									}
-								</ul>
-								<form className="input" onSubmit={(e) => this.submitMessage(e)}>
-									<input type="text" ref="msg" />
-									<input type="submit" value="Submit" />
-								</form>
-							</div>
-						);
-					}
-				}
-					
-				ReactDOM.render(
-					<Chatroom />,
-					document.getElementById('Chat')
-				);
-			</script>
 			{% endif %}
 		</div>
 	</div>

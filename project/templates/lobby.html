@@ -18,24 +18,42 @@
 {%endblock%}
 {%block body%}
 	<ul class="nav-bar">
-		<li class="nav-bar"><a href="/">Home</a></li>
+		<li class="nav-bar"><a class ="active" href="/">Home</a></li>
 		<li class="nav-bar"><a href="{{ url_for("faq") }}">FAQ</a></li>
 		<li class="nav-bar"><a href="{{ url_for("about") }}">About</a></li>
 	</ul>
 	
-	<div style="padding:20px;margin-top:100px;"></div>
+	<div style="margin-top:5%;"></div>
 	<div>
 		<div class="center">
 			<img src="../static/images/logos/squircle_logoWtext.png" class="scale-logo-large" alt="Squircle">
-			<div style="padding:5px;margin-top:5px;"></div>
-			<h2 class="text-center" style="font-size:36px" id="lobbycode">{% if code %}Join Lobby: {% endif %}</h2>
-			<h1 class="text-center" style="margin-top:-20px" id="lobbycode">{% if code %}{{code}}{% endif %}</h1>
+			<div style="margin-top:2.5%;"></div>
+			<h1 class="text-center" style="font-size:36px; " id="lobbycode">{% if code %}Join Lobby: {{code}}{% endif %}</h1>
 			{% if not code %}
 			<button id="genLobbyCode" class="button_lobby">Create Lobby</button>
 			{% endif %}		
 		</div>
 		
 	</div>
+	<!-- <section id="profilecontainer">
+		<div class="float_center">
+			<ul class="child">
+			  <button style="width:40%" class="profileButton"><a href="#">Player 1</a></button>
+			  <button style="width:40%"><a href="#">Player 2</a></button>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	
+		<div class="float_center">
+			<ul class="child">
+				<button style="width:40%"><a href="#">Player 3</a></button>
+				<button style="width:40%"><a href="#">Player 4</a></button>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</section> -->
 	<div style="margin:0 auto;text-align:center;width:80%;max-width:1000px;min-width:400px">
 		<div id="players" style="float:left;padding-left:6%;padding-bottom:20px;text-align:left;width:41%;font-size:16px">
 		</div>

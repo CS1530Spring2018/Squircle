@@ -1,0 +1,23 @@
+
+h1 {
+    margin: 0;
+    display: inline-block;
+    font-family: 'Montserrat' , sans-serif;
+    color: white;
+    border-radius: 10px;
+    padding:16px;
+}
+
+#userslist {
+  margin:0 auto;
+  text-align:center;
+  justify-content: center;
+  width:100%;
+  max-width:1000px;
+  min-width:400px;
+}
+#players  {
+  text-align:left;
+  width:100%;
+  font-size:16px
+}

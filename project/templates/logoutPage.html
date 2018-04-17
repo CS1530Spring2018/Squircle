@@ -1,19 +1,33 @@
 {%extends "layout.html"%}
 {%block head%}
 <link rel="stylesheet", href="{{url_for("static", filename="css/nav-bar.css")}}", type="text/css"/>
+<link rel="stylesheet", href="{{url_for("static", filename="css/faq.css")}}", type="text/css"/>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Logout</title>
 {%endblock%}
 {%block body%}
 <ul class="nav-bar">
-	<li><a href="{{ url_for("logger") }}">Login</a></li>
-	<li class="nav-bar"><a href="{{ url_for("faq") }}">FAQ</a></li>
-</ul>	
-	<div style="padding:20px;margin-top:15px;"></div>
-	<div class="text-center">
-			<img src="../static/images/logos/squircle_logoWtext.png" class="scale-logo-small" alt="Squircle">
-			<h2> You have successfully been logged out!</h2>
+		<li class="nav-bar"><a href="/">Home</a></li>
+		<li class="nav-bar"><a href="{{ url_for("faq") }}">FAQ</a></li>
+		<li class="nav-bar"><a href="{{ url_for("about") }}">About</a></li>
+	</ul>
+	
+<div style="padding:20px;margin-top:3%"></div>
+
+<div>
+	<div class="center">
+	<img src="../static/images/logos/squircle_logoWtext.png" class="scale-logo-mobile">
 	</div>
+</div>
+
+<div style="padding:5px;margin-top:3%"></div>
+<div id="faq">
+
+		<div class="rel section">
+			<h3 class="text-center" style="color:white"> You have successfully been logged out!</h3>
+		</div>
+</div>
 {%endblock%}
 {% block tip %}
 	You have been logged out!
