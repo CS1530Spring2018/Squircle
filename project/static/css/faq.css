@@ -3,6 +3,8 @@ html {
 }
 .rel{
 	position: relative;
+	margin-top: 5%;
+
 }
 #faq {
 	margin-right: 10%;
@@ -13,7 +15,7 @@ html {
 }
 #faq-title {
 	font-size: 35px;
-	color:white;
+	color:white; 
 	/* background-color: rgb(198, 198, 198); */
 }
 
@@ -51,8 +53,6 @@ html {
 }
 
 .section h2 {
-	margin-top: 50px;
-	margin-bottom: 3%;
 	font-size: 25px;
 	color:white;
 }

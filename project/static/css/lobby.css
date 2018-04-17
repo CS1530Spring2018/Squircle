@@ -8,58 +8,16 @@ h1 {
     padding:16px;
 }
 
-/* The Magic Float Center Code */
-.float_center {
-    float: right;
-  
-    position: relative;
-    left: -50%; /* or right 50% */
-    text-align: left;
-  }
-  .float_center > .child {
-    position: relative;
-    left: 50%;
-  }
-  
-  .profileButton{
-    background-color: white;
-    width:100%;
-  }
-  
-  /* style */
-  body {
-    height:100%;
-    width:100%;
-    /* background-color: #dd9999;
-    background-color: #E288A0; */
-    font-family: 'Montserrat' , sans-serif;
-  }
-  .clear {
-    clear:both;
-  }
-  
-  #title {
-    text-align: center;
-    color: #ffffff;
-    /* margin: 40px 0 0 0; */
-  }
-  #subtitle {
-    text-align: center;
-    color: #A00C2F;
-    margin: 0;
-  }
-  #profilecontainer {
-    width: 50%;
-    margin: 0 auto 0 auto;
-    /* background-color: #E288A0; */
-    background-color: rgba(0,0,0,0.5);
-    
-    border: 7px solid #000000;
-    padding: 20px;
-    border-radius: 25px;
-    justify-content: center;
-  }
-
-p {
-  margin: 0;
+#userslist {
+  margin:0 auto;
+  text-align:center;
+  justify-content: center;
+  width:100%;
+  max-width:1000px;
+  min-width:400px;
+}
+#players  {
+  text-align:left;
+  width:100%;
+  font-size:16px
 }
