@@ -596,9 +596,10 @@ function player3Controller() {
 
 	if(xDig3 > 0 && receiving3) {
 		moveRight(160, player3);
-		//console.log("TEST");
+		//console.log("TEST RIGHT");
 	} else if (xDig3 < 0 && receiving3) {
 		moveLeft(160, player3);
+		//console.log("TEST LEFT");
 	} else {
 		idle(player3);
 	}
@@ -699,9 +700,10 @@ function player2Controller() {
 
 	if(xDig2 > 0 && receiving2) {
 		moveRight(160, player2);
-		//console.log("TEST");
-	} else if (xDig2 < 0 && receiving) {
+		console.log("TEST RIGHT");
+	} else if (xDig2 < 0 && receiving2) {
 		moveLeft(160, player2);
+		console.log("TEST LEFT");
 	} else {
 		idle(player2);
 	}
