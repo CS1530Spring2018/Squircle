@@ -36,6 +36,7 @@ function listUsers() {
 }
 
 function setupChat() {
+	$("#faq").attr("hidden", "hidden");
 	$("#userslist").attr("hidden", "hidden");
 	$("#chatcontainer").removeAttr("hidden");
 }
