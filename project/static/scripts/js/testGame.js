@@ -379,13 +379,13 @@ function collectStar (player, star)
 	
 	if (player.name === 'player1') {
 		player1Score++;
-		player1ScoreText.setText('Player 1 Score: '+player1Score);
+		player1ScoreText.setText('Purple Player Score: '+player1Score);
 	} else if (player.name === 'player2') {
 		player2Score++;
-		player2ScoreText.setText('Player 2 Score: '+player2Score);
+		player2ScoreText.setText('Red Player Score: '+player2Score);
 	} else if (player.name === 'player3') {
 		player3Score++;
-		player3ScoreText.setText('Player 3 Score: '+player3Score);
+		player3ScoreText.setText('Green Player Score: '+player3Score);
 	}
 
 	if (stars1.countActive(true) === 0 && stars2.countActive(true) === 0)
@@ -474,9 +474,9 @@ function create() {
 
 	fire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
 
-	player1ScoreText = this.add.text(16, 16, 'Player 1 Score: 0', { fontSize: '16px', fill: '#000' });
-	player2ScoreText = this.add.text(16, 32, 'Player 2 Score: 0', { fontSize: '16px', fill: '#000' });
-	player3ScoreText = this.add.text(16, 48, 'Player 3 Score: 0', { fontSize: '16px', fill: '#000' });
+	player1ScoreText = this.add.text(16, 16, 'Purple Player Score: 0', { fontSize: '16px', fill: '#000' });
+	player2ScoreText = this.add.text(16, 32, 'Red Player Score: 0', { fontSize: '16px', fill: '#000' });
+	player3ScoreText = this.add.text(16, 48, 'Green Player Score: 0', { fontSize: '16px', fill: '#000' });
 }
 
 function hitBomb (player, bomb)
@@ -499,9 +499,9 @@ function hitBomb (player, bomb)
 				player1.data.score = player1Score;
 				player2.data.score = player2Score;
 				player3.data.score = player3Score;
-				player1.data.num = "Player 1";
-				player2.data.num = "Player 2";
-				player3.data.num = "Player 3";
+				player1.data.num = "Purple Player";
+				player2.data.num = "Red Player";
+				player3.data.num = "Green Player";
 				player1.data.win = false;
 				player2.data.win = false;
 				player3.data.win = false;
@@ -700,10 +700,8 @@ function player2Controller() {
 
 	if(xDig2 > 0 && receiving2) {
 		moveRight(160, player2);
-		console.log("TEST RIGHT");
 	} else if (xDig2 < 0 && receiving2) {
 		moveLeft(160, player2);
-		console.log("TEST LEFT");
 	} else {
 		idle(player2);
 	}
